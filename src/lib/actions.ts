@@ -25,7 +25,8 @@ export async function submitContactAction(formData: FormData) {
 
   try {
     // Calling the standalone MongoDB backend server
-    const response = await fetch("http://localhost:5000/api/leads", {
+    const API = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
+    const response = await fetch(`${API}/api/leads`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email, scope, message }),

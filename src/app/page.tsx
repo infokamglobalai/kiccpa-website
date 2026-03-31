@@ -342,7 +342,8 @@ function TestimonialsList() {
   const [testis, setTestis] = useState<any[]>([]);
   
   useEffect(() => {
-    fetch('http://localhost:5000/api/testimonials')
+    const API = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
+    fetch(`${API}/api/testimonials`)
       .then(res => res.json())
       .then(data => { if (Array.isArray(data)) setTestis(data); })
       .catch(e => console.error(e));

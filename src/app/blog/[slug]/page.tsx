@@ -12,7 +12,8 @@ export default function BlogPost() {
 
   useEffect(() => {
     if (!slug) return;
-    fetch(`http://localhost:5000/api/posts/${slug}`)
+    const API = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
+    fetch(`${API}/api/posts/${slug}`)
       .then(res => res.json())
       .then(data => {
         setPost(data);

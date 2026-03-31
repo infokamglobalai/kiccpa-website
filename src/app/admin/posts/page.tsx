@@ -9,6 +9,7 @@ export default function AdminDashboard() {
   const [testimonials, setTestimonials] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState("");
+  const API = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
 
   const [postForm, setPostForm] = useState({
     title: "", slug: "", category: "AI Automation", author: "KICCPA Team",
@@ -26,11 +27,11 @@ export default function AdminDashboard() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const pRes = await fetch('http://localhost:5000/api/posts');
+      const pRes = await fetch(`${API}/api/posts`);
       const pData = await pRes.json();
       setPosts(Array.isArray(pData) ? pData : []);
 
-      const tRes = await fetch('http://localhost:5000/api/testimonials');
+      const tRes = await fetch(`${API}/api/testimonials`);
       const tData = await tRes.json();
       setTestimonials(Array.isArray(tData) ? tData : []);
     } catch (e) { console.error(e); }
@@ -46,7 +47,7 @@ export default function AdminDashboard() {
     setStatus("Uploading...");
 
     try {
-      const res = await fetch('http://localhost:5000/api/upload', {
+      const res = await fetch(`${API}/api/upload`, {
         method: 'POST',
         body: formData
       });
@@ -63,7 +64,7 @@ export default function AdminDashboard() {
     e.preventDefault();
     setStatus("Saving...");
     try {
-      const res = await fetch('http://localhost:5000/api/posts', {
+      const res = await fetch(`${API}/api/posts`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(postForm)
@@ -80,7 +81,7 @@ export default function AdminDashboard() {
     e.preventDefault();
     setStatus("Saving...");
     try {
-      const res = await fetch('http://localhost:5000/api/testimonials', {
+      const res = await fetch(`${API}/api/testimonials`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(testiForm)
@@ -96,7 +97,7 @@ export default function AdminDashboard() {
   const handleDelete = async (type: 'posts' | 'testimonials', id: string) => {
     if (!confirm("Are you sure?")) return;
     try {
-      await fetch(`http://localhost:5000/api/${type}/${id}`, { method: 'DELETE' });
+      await fetch(`${API}/api/${type}/${id}`, { method: 'DELETE' });
       fetchData();
     } catch (e) { alert("Delete failed"); }
   };
