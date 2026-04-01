@@ -100,11 +100,11 @@ export default function ServicesPage() {
 
           <div className="process-grid">
             <div className="process-img-wrap">
-              <div className="process-glow"></div>
+              <div className="process-ring"></div>
               <img 
-                src="/images/ultra_services_tech_1774864472836.png" 
-                alt="Tech Stack" 
-                className="process-img"
+                src="/images/how_we_deliver_light.jpg" 
+                alt="How We Deliver Process" 
+                className="process-img-cinematic"
               />
             </div>
 
@@ -168,29 +168,36 @@ export default function ServicesPage() {
             position: relative;
             border-radius: 30px;
             margin-left: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
-          .process-glow {
+          .process-ring {
             position: absolute;
-            inset: -20px;
-            background: linear-gradient(45deg, var(--P), var(--OR));
-            filter: blur(40px);
-            opacity: 0.15;
-            transition: opacity 0.5s;
-            border-radius: 40px;
+            width: 140%;
+            height: 140%;
+            background: radial-gradient(circle, rgba(27,67,112,0.15), rgba(255,130,63,0.08) 50%, transparent 70%);
+            animation: breatheGlow 8s ease-in-out infinite;
             z-index: 0;
+            pointer-events: none;
+            border-radius: 50%;
           }
-          .process-img-wrap:hover .process-glow { opacity: 0.3; }
-          .process-img {
+          .process-img-wrap:hover .process-ring { opacity: 0.8; transform: scale(1.1); }
+          .process-img-cinematic {
             position: relative;
             z-index: 1;
             width: 100%;
             border-radius: 30px;
             box-shadow: 0 40px 80px rgba(27,67,112,0.15);
-            border: 1px solid rgba(255,255,255,0.8);
+            -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 45%, rgba(0,0,0,0.95) 65%, rgba(0,0,0,0) 85%);
+            mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 45%, rgba(0,0,0,0.95) 65%, rgba(0,0,0,0) 85%);
+            filter: contrast(1.05) saturate(1.15);
+            animation: floatYAndScale 10s ease-in-out infinite;
             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
           }
-          .process-img-wrap:hover .process-img {
-            transform: scale(1.03) translateY(-10px);
+          .process-img-wrap:hover .process-img-cinematic {
+            transform: scale(1.05);
+            filter: contrast(1.1) saturate(1.3);
           }
           
           .process-timeline {
