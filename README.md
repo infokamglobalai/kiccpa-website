@@ -1,17 +1,9 @@
+
 <div align="center">
 
 # 🌐 KICCPA — Where IT Meets AI
 
 ### Enterprise AI & Digital Solutions Platform
-
-[![Next.js](https://img.shields.io/badge/Next.js-16.2-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-19.2-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
-[![Node.js](https://img.shields.io/badge/Node.js-20-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
-[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/atlas)
-[![Express](https://img.shields.io/badge/Express-5.2-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![AWS](https://img.shields.io/badge/AWS-Amplify_+_EC2-FF9900?style=for-the-badge&logo=amazon-aws&logoColor=white)](https://aws.amazon.com/)
-[![License](https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge)](LICENSE)
 
 **KICCPA** is a production-grade enterprise platform delivering Custom Software, CRM, AI Automation, LMS, and Business Digitization services. Built with a bespoke **"Ultra" Navy & Orange** design identity, powered by a fully custom in-house CMS — zero external dependencies.
 

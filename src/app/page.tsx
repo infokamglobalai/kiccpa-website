@@ -68,9 +68,8 @@ export default function Home() {
           <div className="hero-ring"></div>
           <div className="hero-person">
             <img 
-              src="/images/ultra_hero_ai_1774864436013.png" 
+              src="/images/Digital & AI 1.jpeg" 
               alt="AI Innovation" 
-              style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
             />
           </div>
         </div>
@@ -107,9 +106,9 @@ export default function Home() {
       {/* ════════ BENEFITS ════════ */}
       <section className="benefits rv">
         <div className="mosaic">
-          <div className="mc mc1"><span>🌍</span><strong>Global Scope</strong><small>India & Kuwait HQ</small></div>
-          <div className="mc mc2"><span>⚙️</span><strong>Scalable Architecture</strong><small>Built to handle growth</small></div>
-          <div className="mc mc3"><span>🛡️</span><strong>Reliable Support</strong><small>24/7 Dedicated Teams</small></div>
+          <div className="mc mc1"><img src="/images/Globe Space 1.png" alt="Global Scope" /><strong>Global Scope</strong><small>India & Kuwait HQ</small></div>
+          <div className="mc mc2"><img src="/images/Scalable Architecture 1.png" alt="Scalable Architecture" /><strong>Scalable Architecture</strong><small>Built to handle growth</small></div>
+          <div className="mc mc3"><img src="/images/Reliable Support 1.png" alt="Reliable Support" /><strong>Reliable Support</strong><small>24/7 Dedicated Teams</small></div>
         </div>
         <div className="ben-list">
           <div className="sec-eyebrow">Why KICCPA</div>
@@ -139,32 +138,32 @@ export default function Home() {
         </div>
         <div className="cgrid">
           <div className="ccard d1">
-            <div className="cc-img ci1">💻<div className="cbadge cbp">Core</div><div className="crating">★ 5.0</div></div>
+            <div className="cc-img ci1"><img src="/images/Custom Enterprise Software Architecture 1.jpeg" alt="Software Architecture" /><div className="cbadge cbp">Core</div><div className="crating">★ 5.0</div></div>
             <div className="cc-body"><div className="cc-sub">Software Development</div><div className="cc-name">Custom Enterprise Software Architecture</div><div className="cc-inst">Tech Lead: <span>Ramesh P.</span> · India Dev Hub</div><div className="cc-stars">★★★★★</div><div className="cc-meta"><span>👥 40+ Deployments</span><span>⏱ Dedicated Agile Teams</span></div></div>
             <div className="cc-foot"><div className="cc-price">Scalable</div><button className="cc-btn">Learn More</button></div>
           </div>
           <div className="ccard d2">
-            <div className="cc-img ci2">🤝<div className="cbadge cbo">Popular</div><div className="crating">★ 4.9</div></div>
+            <div className="cc-img ci2"><img src="/images/Sales & Customer Relationship Platforms 1.jpeg" alt="CRM Solutions" /><div className="cbadge cbo">Popular</div><div className="crating">★ 4.9</div></div>
             <div className="cc-body"><div className="cc-sub">CRM Solutions</div><div className="cc-name">Sales &amp; Customer Relationship Platforms</div><div className="cc-inst">Product: <span>KICCPA CRM</span> · Global Standard</div><div className="cc-stars">★★★★★</div><div className="cc-meta"><span>👥 Thousands of Users</span><span>⏱ Cloud Hosted</span></div></div>
             <div className="cc-foot"><div className="cc-price">Integrated</div><button className="cc-btn">Learn More</button></div>
           </div>
           <div className="ccard d3">
-            <div className="cc-img ci3">🎓<div className="cbadge cbg">EdTech</div><div className="crating">★ 5.0</div></div>
+            <div className="cc-img ci3"><img src="/images/EduAiTutors Advanced Learning Ecosystem 1.jpeg" alt="LMS Platforms" /><div className="cbadge cbg">EdTech</div><div className="crating">★ 5.0</div></div>
             <div className="cc-body"><div className="cc-sub">LMS Platforms</div><div className="cc-name">EduAiTutors Advanced Learning Ecosystem</div><div className="cc-inst">Flagship: <span>EduAiTutors</span> · Education Sector</div><div className="cc-stars">★★★★★</div><div className="cc-meta"><span>👥 8,000+ Students</span><span>📖 Vast Content Libr...</span></div></div>
             <div className="cc-foot"><div className="cc-price">Enterprise</div><button className="cc-btn">Learn More</button></div>
           </div>
           <div className="ccard d1">
-            <div className="cc-img ci4">🤖<div className="cbadge cbp">Innovation</div><div className="crating">★ 4.8</div></div>
+            <div className="cc-img ci4"><img src="/images/AI Predictive Analytics & Smart Automation.png" alt="AI Analytics" /><div className="cbadge cbp">Innovation</div><div className="crating">★ 4.8</div></div>
             <div className="cc-body"><div className="cc-sub">Artificial Intelligence</div><div className="cc-name">AI Predictive Analytics &amp; Smart Automation</div><div className="cc-inst">Focus: <span>Data Mining</span> · Process Automation</div><div className="cc-stars">★★★★☆</div><div className="cc-meta"><span>👥 High Process Yield</span><span>⏱ ML Workloads</span></div></div>
             <div className="cc-foot"><div className="cc-price">Automate</div><button className="cc-btn">Learn More</button></div>
           </div>
           <div className="ccard d2">
-            <div className="cc-img ci5">📊<div className="cbadge cbo">Scalable</div><div className="crating">★ 4.9</div></div>
+            <div className="cc-img ci5"><img src="/images/End-to-End Operational Digitization 1.jpeg" alt="Operational Digitization" /><div className="cbadge cbo">Scalable</div><div className="crating">★ 4.9</div></div>
             <div className="cc-body"><div className="cc-sub">Business Digitization</div><div className="cc-name">End-to-End Operational Digitization</div><div className="cc-inst">Consulting: <span>Strategy</span> · Digital Transformation</div><div className="cc-stars">★★★★★</div><div className="cc-meta"><span>👥 Paperless Office</span><span>⏱ Rapid Transition</span></div></div>
             <div className="cc-foot"><div className="cc-price">Turnkey</div><button className="cc-btn">Learn More</button></div>
           </div>
           <div className="ccard d3">
-            <div className="cc-img ci6">⚙️<div className="cbadge cbg">Integration</div><div className="crating">★ 5.0</div></div>
+            <div className="cc-img ci6"><img src="/images/Robust Legacy System Integrations 1.jpeg" alt="System Integrations" /><div className="cbadge cbg">Integration</div><div className="crating">★ 5.0</div></div>
             <div className="cc-body"><div className="cc-sub">API &amp; ERP</div><div className="cc-name">Robust Legacy System Integrations</div><div className="cc-inst">Engineering: <span>Infrastructure</span> · Cloud Config</div><div className="cc-stars">★★★★★</div><div className="cc-meta"><span>👥 Zero Downtime</span><span>⏱ SLA Assured</span></div></div>
             <div className="cc-foot"><div className="cc-price">Seamless</div><button className="cc-btn">Learn More</button></div>
           </div>
@@ -270,14 +269,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ════════ TESTIMONIALS ════════ */}
-      <section className="testimonials-sec py-20 overflow-hidden">
-        <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
-          <div className="sec-eyebrow" style={{ justifyContent: 'center' }}>Success Stories</div>
-          <h2 className="sec-h2" style={{ textAlign: 'center', marginBottom: '60px' }}>Trusted by <em>Industry Leaders</em></h2>
-          <TestimonialsList />
-        </div>
-      </section>
 
       {/* ════════ CTA ════════ */}
       <section className="cta-section rv">
@@ -338,47 +329,3 @@ export default function Home() {
   );
 }
 
-function TestimonialsList() {
-  const [testis, setTestis] = useState<any[]>([]);
-  
-  useEffect(() => {
-    const API = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
-    fetch(`${API}/api/testimonials`)
-      .then(res => res.json())
-      .then(data => { if (Array.isArray(data)) setTestis(data); })
-      .catch(e => console.error(e));
-  }, []);
-
-  if (testis.length === 0) return (
-    <div style={{ textAlign: 'center', opacity: 0.5, padding: '40px' }}>
-      <p>Innovative partnerships driving global transformation.</p>
-    </div>
-  );
-
-  return (
-    <div className="t-row">
-      {testis.map((t, idx) => (
-        <div className="t-card rv" key={t._id || idx}>
-          <div className="t-content">"{t.content}"</div>
-          <div className="t-author">
-            {t.image && <img src={t.image} alt={t.name} className="t-avatar" />}
-            <div className="t-info">
-              <div className="t-name">{t.name}</div>
-              <div className="t-role">{t.role} {t.company && `@ ${t.company}`}</div>
-            </div>
-          </div>
-        </div>
-      ))}
-      <style jsx>{`
-        .t-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
-        .t-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; transition: all 0.3s; }
-        .t-card:hover { transform: translateY(-7px); box-shadow: 0 15px 40px rgba(27,67,112,0.1); border-color: var(--P); }
-        .t-content { font-size: 1.1rem; line-height: 1.7; color: #475569; margin-bottom: 30px; font-style: italic; }
-        .t-author { display: flex; align-items: center; gap: 15px; }
-        .t-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid #f1f5f9; }
-        .t-name { font-weight: 800; color: var(--P); font-size: 1rem; line-height: 1.2; }
-        .t-role { font-size: 0.75rem; color: #64748b; font-weight: 600; margin-top: 2px; }
-      `}</style>
-    </div>
-  );
-}

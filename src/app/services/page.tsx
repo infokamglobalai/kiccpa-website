@@ -40,7 +40,7 @@ export default function ServicesPage() {
       <div className="courses-wrap rv">
         <div className="cgrid">
           <Link href="/contact" className="ccard">
-            <div className="cc-img ci1">💻<div className="cbadge cbp">01</div></div>
+            <div className="cc-img ci1"><img src="/images/Custom Enterprise Software Architecture 1.jpeg" alt="Software Architecture" /><div className="cbadge cbp">01</div></div>
             <div className="cc-body">
               <div className="cc-name">Custom Software Development</div>
               <div className="cc-inst">Scalable, secure, and high-performance software tailored precisely to your goals.</div>
@@ -50,7 +50,7 @@ export default function ServicesPage() {
           </Link>
           
           <Link href="/contact" className="ccard">
-            <div className="cc-img ci2">🤝<div className="cbadge cbo">02</div></div>
+            <div className="cc-img ci2"><img src="/images/Sales & Customer Relationship Platforms 1.jpeg" alt="CRM Solutions" /><div className="cbadge cbo">02</div></div>
             <div className="cc-body">
               <div className="cc-name">CRM Solutions</div>
               <div className="cc-inst">Empower your sales and customer engagement with intelligent CRM platforms.</div>
@@ -60,7 +60,7 @@ export default function ServicesPage() {
           </Link>
 
           <Link href="/contact" className="ccard">
-            <div className="cc-img ci3">🎓<div className="cbadge cbg">03</div></div>
+            <div className="cc-img ci3"><img src="/images/EduAiTutors Advanced Learning Ecosystem 1.jpeg" alt="LMS Platforms" /><div className="cbadge cbg">03</div></div>
             <div className="cc-body">
               <div className="cc-name">Learning Management Systems</div>
               <div className="cc-inst">Build powerful digital learning ecosystems for institutions and enterprises.</div>
@@ -70,7 +70,7 @@ export default function ServicesPage() {
           </Link>
 
           <Link href="/contact" className="ccard">
-            <div className="cc-img ci4">🤖<div className="cbadge cbp">04</div></div>
+            <div className="cc-img ci4"><img src="/images/AI Predictive Analytics & Smart Automation.png" alt="AI Analytics" /><div className="cbadge cbp">04</div></div>
             <div className="cc-body">
               <div className="cc-name">AI &amp; Automation Solutions</div>
               <div className="cc-inst">Leverage Artificial Intelligence to unlock new levels of efficiency and insight.</div>
@@ -80,7 +80,7 @@ export default function ServicesPage() {
           </Link>
 
           <Link href="/contact" className="ccard">
-            <div className="cc-img ci5">⚡<div className="cbadge cbo">05</div></div>
+            <div className="cc-img ci5"><img src="/images/End-to-End Operational Digitization 1.jpeg" alt="Operational Digitization" /><div className="cbadge cbo">05</div></div>
             <div className="cc-body">
               <div className="cc-name">Business Digitization</div>
               <div className="cc-inst">Transform traditional operations into seamless, scalable digital workflows.</div>
