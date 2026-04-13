@@ -1,0 +1,238 @@
+.hero {
+  position: relative;
+  isolation: isolate;
+  min-height: min(76vh, 680px);
+  display: flex;
+  align-items: flex-end;
+  padding: calc(68px + 52px) 5% 80px;
+  overflow: hidden;
+  color: #fff;
+}
+
+.bgImage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bgMotion {
+  position: absolute;
+  inset: 0;
+}
+
+.cover {
+  object-fit: cover;
+  object-position: center;
+}
+
+.mesh {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 100%, #000 20%, transparent 75%);
+  opacity: 0.5;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    105deg,
+    rgba(10, 37, 64, 0.94) 0%,
+    rgba(10, 37, 64, 0.58) 42%,
+    rgba(10, 37, 64, 0.28) 100%
+  );
+}
+
+/* Eases the hard edge between full-bleed photo and the next section (logo-tinted targets). */
+.bottomBlend {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: min(36vw, 260px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.blendMint {
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 37, 64, 0) 0%,
+    rgba(10, 37, 64, 0.38) 28%,
+    rgba(236, 253, 245, 0.72) 76%,
+    #ecfdf5 100%
+  );
+}
+
+.blendSlate {
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 37, 64, 0) 0%,
+    rgba(10, 37, 64, 0.42) 30%,
+    rgba(238, 246, 255, 0.82) 78%,
+    #eef6ff 100%
+  );
+}
+
+.blendIvory {
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 37, 64, 0) 0%,
+    rgba(10, 37, 64, 0.48) 32%,
+    rgba(250, 250, 249, 0.88) 84%,
+    #fafaf9 100%
+  );
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+}
+
+.copy {
+  max-width: 720px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 18px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #20c997, #e5a544);
+  box-shadow: 0 0 16px rgba(32, 201, 151, 0.75);
+  flex-shrink: 0;
+  animation: dotPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.12);
+  }
+}
+
+.title {
+  font-family: var(--font-hero-display), Georgia, serif;
+  font-size: clamp(2.1rem, 4.5vw, 3.25rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  margin-bottom: 18px;
+}
+
+.titleLine {
+  display: inline;
+}
+
+.titleEmWrap {
+  display: inline;
+}
+
+.gradEm {
+  font-style: italic;
+  font-weight: 900;
+  background: linear-gradient(
+    105deg,
+    #fde68a 0%,
+    #e5a544 28%,
+    #fbbf24 55%,
+    #fcd34d 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 12px 40px rgba(229, 165, 68, 0.25);
+  animation: gradFlow 14s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gradEm {
+    animation: none;
+    background-size: 100% 100%;
+  }
+  .dot {
+    animation: none;
+  }
+}
+
+@keyframes gradFlow {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.desc {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: clamp(1rem, 1.35vw, 1.12rem);
+  line-height: 1.78;
+  color: rgba(255, 255, 255, 0.78);
+  max-width: 580px;
+}
+
+.shimmerWrap {
+  margin-top: 28px;
+}
+
+.shimmerBar {
+  height: 3px;
+  max-width: 200px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(32, 201, 151, 0.85) 35%,
+    rgba(229, 165, 68, 0.95) 65%,
+    transparent
+  );
+  transform-origin: left center;
+  opacity: 0.9;
+}
+
+@media (max-width: 640px) {
+  .hero {
+    min-height: auto;
+    padding-top: calc(68px + 40px);
+    padding-bottom: 56px;
+  }
+
+  .title {
+    font-size: clamp(1.75rem, 6vw, 2.4rem);
+  }
+}

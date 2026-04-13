@@ -1,0 +1,222 @@
+.page {
+  padding-top: 88px;
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--PL) 0%, var(--BG) 45%, #fff 100%);
+}
+
+.inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 32px clamp(16px, 4vw, 32px) 80px;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--P);
+  margin-bottom: 28px;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.back:hover {
+  color: var(--OR);
+  transform: translateX(-3px);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(28px, 5vw, 48px);
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--OR);
+  margin-bottom: 12px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255, 130, 63, 0.12);
+  border: 1px solid rgba(255, 130, 63, 0.2);
+}
+
+.title {
+  font-family: var(--font-hero-display), Georgia, serif;
+  font-size: clamp(1.75rem, 3.5vw, 2.35rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--TX);
+  margin: 0 0 16px;
+}
+
+.lead {
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: var(--MU);
+  margin: 0 0 28px;
+  max-width: 520px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 24px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--P), var(--PD));
+  color: #fff !important;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border: none;
+  box-shadow: 0 8px 24px rgba(27, 67, 112, 0.32);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.btnPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgba(27, 67, 112, 0.4);
+}
+
+.btnGhost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 24px;
+  border-radius: 12px;
+  border: 2px solid rgba(27, 67, 112, 0.2);
+  color: var(--P);
+  font-weight: 700;
+  font-size: 0.9rem;
+  background: rgba(255, 255, 255, 0.8);
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.btnGhost:hover {
+  border-color: var(--OR);
+  background: #fff;
+  transform: translateY(-2px);
+}
+
+.visual {
+  position: relative;
+  border-radius: 24px;
+  padding: 2px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.35), rgba(255, 130, 63, 0.4));
+  box-shadow: 0 24px 60px rgba(27, 67, 112, 0.12);
+}
+
+.visualInner {
+  border-radius: 22px;
+  background: linear-gradient(165deg, #fff 0%, var(--PL) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  padding: clamp(28px, 4vw, 40px);
+  text-align: center;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 1) inset;
+}
+
+.visualIcon {
+  font-size: 3rem;
+  line-height: 1;
+  margin-bottom: 16px;
+  filter: drop-shadow(0 8px 16px rgba(27, 67, 112, 0.15));
+}
+
+.visualTitle {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--P);
+  margin: 0 0 8px;
+}
+
+.visualText {
+  font-size: 0.88rem;
+  color: var(--MU);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.featuresSection {
+  margin-top: 64px;
+  padding-top: 48px;
+  border-top: 1px solid rgba(27, 67, 112, 0.08);
+}
+
+.featuresTitle {
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-align: center;
+  color: var(--TX);
+  margin: 0 0 36px;
+  letter-spacing: -0.02em;
+}
+
+.featuresTitle em {
+  font-style: normal;
+  color: var(--P);
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .featureGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.featureCard {
+  background: #fff;
+  border: 1px solid rgba(27, 67, 112, 0.1);
+  border-radius: 18px;
+  padding: 24px 22px;
+  box-shadow: 0 8px 28px rgba(27, 67, 112, 0.06);
+  transition:
+    transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.3s ease;
+}
+
+.featureCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 48px rgba(27, 67, 112, 0.1);
+}
+
+.featureCard h4 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--P);
+  margin: 0 0 10px;
+}
+
+.featureCard p {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--MU);
+  margin: 0;
+}

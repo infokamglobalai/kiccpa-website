@@ -1,0 +1,16 @@
+.root {
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+
+.inner {
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.2, 0.85, 0.25, 1);
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inner {
+    transition: none;
+  }
+}

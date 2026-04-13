@@ -1,0 +1,125 @@
+.scene {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+  perspective: 900px;
+}
+
+.plane {
+  position: absolute;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  backdrop-filter: blur(4px);
+  transform-style: preserve-3d;
+  animation: planeFloat 12s ease-in-out infinite;
+}
+
+.p1 {
+  width: 120px;
+  height: 160px;
+  top: 18%;
+  right: 8%;
+  transform: rotateX(12deg) rotateY(-18deg) rotateZ(6deg);
+  animation-delay: 0s;
+}
+
+.p2 {
+  width: 90px;
+  height: 90px;
+  bottom: 22%;
+  right: 18%;
+  transform: rotateX(-8deg) rotateY(22deg);
+  animation-delay: -3s;
+  opacity: 0.85;
+}
+
+.p3 {
+  width: 70px;
+  height: 110px;
+  top: 38%;
+  right: 22%;
+  transform: rotateX(6deg) rotateY(35deg);
+  animation-delay: -6s;
+  opacity: 0.65;
+}
+
+.ring {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  border: 1px solid rgba(32, 201, 151, 0.15);
+  top: 10%;
+  left: -6%;
+  animation: ringPulse 10s ease-in-out infinite;
+}
+
+@keyframes planeFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotateX(12deg) rotateY(-18deg) rotateZ(6deg);
+  }
+  50% {
+    transform: translateY(-14px) rotateX(16deg) rotateY(-12deg) rotateZ(4deg);
+  }
+}
+
+.p2 {
+  animation-name: planeFloat2;
+}
+
+@keyframes planeFloat2 {
+  0%,
+  100% {
+    transform: translateY(0) rotateX(-8deg) rotateY(22deg);
+  }
+  50% {
+    transform: translateY(12px) rotateX(-12deg) rotateY(18deg);
+  }
+}
+
+.p3 {
+  animation-name: planeFloat3;
+}
+
+@keyframes planeFloat3 {
+  0%,
+  100% {
+    transform: translateY(0) rotateX(6deg) rotateY(35deg);
+  }
+  50% {
+    transform: translateY(-10px) rotateX(10deg) rotateY(28deg);
+  }
+}
+
+@keyframes ringPulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(1.04);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plane,
+  .ring {
+    animation: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .scene {
+    opacity: 0.5;
+  }
+}

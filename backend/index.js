@@ -43,8 +43,28 @@ if (process.env.MONGODB_URI && !process.env.MONGODB_URI.includes('admin:PASS')) 
 
 // Models
 const Lead = require('./models/Lead');
+const DemoBooking = require('./models/DemoBooking');
 const Post = require('./models/Post');
 const Testimonial = require('./models/Testimonial');
+
+function generateDemoReference() {
+  const t = Date.now().toString(36).toUpperCase();
+  const r = Math.random().toString(36).slice(2, 6).toUpperCase();
+  return `DEMO-${t}-${r}`;
+}
+
+function smtpConfigured() {
+  return Boolean(process.env.SMTP_USER && process.env.SMTP_PASS);
+}
+
+function escapeHtml(s) {
+  if (!s) return '';
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
 
 // --- MEDIA UPLOAD ROUTE ---
 app.post('/api/upload', upload.single('file'), (req, res) => {
@@ -177,16 +197,196 @@ app.post('/api/leads', async (req, res) => {
       `,
     };
 
-    if (process.env.SMTP_USER && process.env.SMTP_PASS) {
+    if (smtpConfigured()) {
       transporter.sendMail(mailOptions, (err, info) => {
         if (err) console.error('❌ Mail Error:', err);
         else console.log('📧 Lead Alert Sent:', info.response);
+      });
+
+      const ackToUser = {
+        from: `"KICCPA" <${process.env.SMTP_USER}>`,
+        to: email,
+        subject: 'We received your message — KICCPA',
+        text: `Dear ${name},\n\nThank you for contacting KICCPA. We have received your inquiry regarding "${scope}" and will respond within 4 business hours during regional business days.\n\nIf your request is urgent, you may also reach us at info@kiccpa.com or call our offices listed on kiccpa.com.\n\nKind regards,\nKICCPA Team`,
+        html: `
+          <div style="font-family:Georgia,serif;line-height:1.6;color:#0f2942;max-width:560px">
+            <p>Dear ${escapeHtml(name)},</p>
+            <p>Thank you for contacting <strong>KICCPA</strong>. We have received your inquiry regarding <strong>${escapeHtml(scope)}</strong>.</p>
+            <p>Our team will respond within <strong>4 business hours</strong> during regional business days.</p>
+            <p>If your request is urgent, you may also email <a href="mailto:info@kiccpa.com">info@kiccpa.com</a> or use the phone numbers on our website.</p>
+            <p style="margin-top:24px">Kind regards,<br/><strong>KICCPA Team</strong></p>
+          </div>`,
+      };
+      transporter.sendMail(ackToUser, (err) => {
+        if (err) console.error('❌ Lead ack to user failed:', err);
       });
     }
 
     res.status(201).json({ success: true, message: 'Inquiry received and team notified!' });
   } catch (error) {
     console.error('Back-end error:', error);
+    res.status(500).json({ success: false, error: 'Internal Server Error' });
+  }
+});
+
+const DEMO_TIME_LABEL = {
+  morning: 'Morning (approx. 9:00–12:00 local)',
+  afternoon: 'Afternoon (approx. 12:00–17:00 local)',
+  evening: 'Evening (approx. 17:00–20:00 local)',
+  flexible: 'Flexible — we will propose slots',
+};
+
+app.post('/api/demo-bookings', async (req, res) => {
+  try {
+    const honeypot = req.body.company_website || req.body.website;
+    if (honeypot) {
+      return res.status(201).json({
+        success: true,
+        message: 'Thank you.',
+        referenceId: generateDemoReference(),
+      });
+    }
+
+    const {
+      fullName,
+      workEmail,
+      organization,
+      jobTitle,
+      phone,
+      countryRegion,
+      productInterest,
+      preferredDate,
+      timePreference,
+      timezone,
+      goals,
+    } = req.body;
+
+    const allowedTimes = ['morning', 'afternoon', 'evening', 'flexible'];
+    if (!fullName || String(fullName).trim().length < 2) {
+      return res.status(400).json({ success: false, error: 'Please enter your full name.' });
+    }
+    if (!workEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(workEmail).trim())) {
+      return res.status(400).json({ success: false, error: 'Please enter a valid work email.' });
+    }
+    if (!organization || String(organization).trim().length < 2) {
+      return res.status(400).json({ success: false, error: 'Please enter your organization name.' });
+    }
+    if (!countryRegion || String(countryRegion).trim().length < 1) {
+      return res.status(400).json({ success: false, error: 'Please select or enter your country / region.' });
+    }
+    if (!productInterest || String(productInterest).trim().length < 1) {
+      return res.status(400).json({ success: false, error: 'Please choose a product interest.' });
+    }
+    if (!goals || String(goals).trim().length < 10) {
+      return res.status(400).json({ success: false, error: 'Please describe what you would like to see (at least 10 characters).' });
+    }
+    if (!allowedTimes.includes(timePreference)) {
+      return res.status(400).json({ success: false, error: 'Please choose a time preference.' });
+    }
+
+    const pd = new Date(preferredDate);
+    if (Number.isNaN(pd.getTime())) {
+      return res.status(400).json({ success: false, error: 'Please choose a valid preferred date.' });
+    }
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const slot = new Date(pd);
+    slot.setHours(0, 0, 0, 0);
+    if (slot < today) {
+      return res.status(400).json({ success: false, error: 'Preferred date must be today or a future date.' });
+    }
+
+    const referenceId = generateDemoReference();
+
+    const payload = {
+      referenceId,
+      fullName: String(fullName).trim(),
+      workEmail: String(workEmail).trim().toLowerCase(),
+      organization: String(organization).trim(),
+      jobTitle: jobTitle ? String(jobTitle).trim() : '',
+      phone: phone ? String(phone).trim() : '',
+      countryRegion: String(countryRegion).trim(),
+      productInterest: String(productInterest).trim(),
+      preferredDate: pd,
+      timePreference,
+      timezone: timezone ? String(timezone).trim().slice(0, 120) : '',
+      goals: String(goals).trim(),
+      source: 'demo-page',
+    };
+
+    if (mongoose.connection.readyState === 1) {
+      const doc = new DemoBooking(payload);
+      await doc.save();
+    } else {
+      console.warn('💾 DB Offline: Demo booking logged:', referenceId, payload.workEmail);
+    }
+
+    const dateStr = pd.toISOString().slice(0, 10);
+    const timeLabel = DEMO_TIME_LABEL[timePreference] || timePreference;
+
+    if (smtpConfigured()) {
+      const internalTo = process.env.LEADS_NOTIFY_TO || 'info@kiccpa.com, info@kamglobalai.com';
+      const internalHtml = `
+        <h2 style="font-family:Georgia,serif;color:#0f2942">New demo booking</h2>
+        <p><strong>Reference:</strong> ${escapeHtml(referenceId)}</p>
+        <p><strong>Name:</strong> ${escapeHtml(payload.fullName)}<br/>
+        <strong>Work email:</strong> ${escapeHtml(payload.workEmail)}<br/>
+        <strong>Organization:</strong> ${escapeHtml(payload.organization)}<br/>
+        <strong>Job title:</strong> ${escapeHtml(payload.jobTitle || '—')}<br/>
+        <strong>Phone:</strong> ${escapeHtml(payload.phone || '—')}<br/>
+        <strong>Country / region:</strong> ${escapeHtml(payload.countryRegion)}<br/>
+        <strong>Product interest:</strong> ${escapeHtml(payload.productInterest)}</p>
+        <p><strong>Preferred date:</strong> ${escapeHtml(dateStr)}<br/>
+        <strong>Time preference:</strong> ${escapeHtml(timeLabel)}<br/>
+        <strong>Timezone / notes:</strong> ${escapeHtml(payload.timezone || '—')}</p>
+        <p><strong>Goals / focus:</strong></p>
+        <p style="white-space:pre-wrap">${escapeHtml(payload.goals)}</p>
+      `;
+
+      transporter.sendMail({
+        from: `"KICCPA Demos" <${process.env.SMTP_USER}>`,
+        to: internalTo,
+        subject: `[DEMO] ${referenceId} · ${payload.organization} · ${payload.productInterest}`,
+        text: `New demo request ${referenceId}\n${JSON.stringify(payload, null, 2)}`,
+        html: internalHtml,
+      }, (err) => {
+        if (err) console.error('❌ Demo internal mail error:', err);
+        else console.log('📧 Demo alert sent for', referenceId);
+      });
+
+      transporter.sendMail({
+        from: `"KICCPA" <${process.env.SMTP_USER}>`,
+        to: payload.workEmail,
+        subject: `Demo request received — ${referenceId} · KICCPA`,
+        text: `Dear ${payload.fullName},\n\nThank you for registering for a product demo with KICCPA.\n\nYour reference: ${referenceId}\nPreferred date: ${dateStr}\nTime preference: ${timeLabel}\n\nOur team will confirm your session or propose alternative times within 2 business days. If you need to reach us sooner, reply to this email or contact info@kiccpa.com.\n\nKind regards,\nKICCPA Team`,
+        html: `
+          <div style="font-family:Georgia,serif;line-height:1.65;color:#0f2942;max-width:580px">
+            <p>Dear ${escapeHtml(payload.fullName)},</p>
+            <p>Thank you for registering for a <strong>product demo</strong> with KICCPA. This message confirms that we have received your request.</p>
+            <p style="background:#f0f7ff;border:1px solid rgba(27,67,112,0.15);border-radius:12px;padding:16px 18px">
+              <strong>Your reference ID:</strong> ${escapeHtml(referenceId)}<br/>
+              <strong>Organization:</strong> ${escapeHtml(payload.organization)}<br/>
+              <strong>Preferred date:</strong> ${escapeHtml(dateStr)}<br/>
+              <strong>Time preference:</strong> ${escapeHtml(timeLabel)}
+            </p>
+            <p>Our team will <strong>confirm your session or suggest alternative times</strong> within <strong>2 business days</strong>. Please add <a href="mailto:info@kiccpa.com">info@kiccpa.com</a> to your safe-senders list so you do not miss our reply.</p>
+            <p style="margin-top:24px">Kind regards,<br/><strong>KICCPA Team</strong></p>
+          </div>`,
+      }, (err) => {
+        if (err) console.error('❌ Demo confirmation to user failed:', err);
+      });
+    }
+
+    res.status(201).json({
+      success: true,
+      message: 'Your demo request has been recorded. Check your email for confirmation.',
+      referenceId,
+    });
+  } catch (error) {
+    console.error('Demo booking error:', error);
+    if (error.code === 11000) {
+      return res.status(409).json({ success: false, error: 'Duplicate request — please try again.' });
+    }
     res.status(500).json({ success: false, error: 'Internal Server Error' });
   }
 });
