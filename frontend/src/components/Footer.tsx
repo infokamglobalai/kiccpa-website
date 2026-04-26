@@ -149,13 +149,13 @@ export default function Footer() {
               Contact
             </h3>
             <div className={styles.contactCards}>
-              <a href="mailto:info@kiccpa.com" className={styles.contactCard}>
+              <a href="mailto:marketing.gcc@kiccpa.com" className={styles.contactCard}>
                 <span className={styles.contactIcon} aria-hidden>
                   <Mail size={18} strokeWidth={2.25} />
                 </span>
                 <span className={styles.contactBody}>
                   <span className={styles.contactLabel}>General inquiries</span>
-                  <span className={styles.contactValue}>info@kiccpa.com</span>
+                  <span className={styles.contactValue}>marketing.gcc@kiccpa.com</span>
                 </span>
               </a>
               <a href="mailto:itsupport@eduaitutors.com" className={styles.contactCard}>

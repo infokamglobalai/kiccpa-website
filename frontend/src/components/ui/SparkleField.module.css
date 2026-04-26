@@ -1,0 +1,114 @@
+.wrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sparkle {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  opacity: 0.9;
+  filter: drop-shadow(0 10px 22px rgba(255, 130, 63, 0.18));
+  transform-origin: center;
+  animation: floatTwinkle 7.5s ease-in-out infinite;
+}
+
+.s1 {
+  left: 8%;
+  top: 22%;
+  animation-delay: -1.2s;
+}
+
+.s2 {
+  left: 18%;
+  top: 62%;
+  width: 14px;
+  height: 14px;
+  opacity: 0.7;
+  animation-delay: -4.1s;
+}
+
+.s3 {
+  right: 18%;
+  top: 18%;
+  width: 16px;
+  height: 16px;
+  opacity: 0.75;
+  filter: drop-shadow(0 10px 22px rgba(27, 67, 112, 0.16));
+  animation-duration: 9.25s;
+  animation-delay: -2.8s;
+}
+
+.s4 {
+  right: 10%;
+  top: 58%;
+  width: 20px;
+  height: 20px;
+  opacity: 0.85;
+  animation-delay: -5.6s;
+}
+
+.orb {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(27, 67, 112, 0.14) 0%, transparent 68%);
+  filter: blur(2px);
+  opacity: 0.75;
+  animation: orbDrift 16s ease-in-out infinite;
+}
+
+.o1 {
+  left: -70px;
+  top: 40%;
+  animation-delay: -3s;
+}
+
+.o2 {
+  right: -90px;
+  top: 18%;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(255, 130, 63, 0.14) 0%, transparent 70%);
+  animation-duration: 19s;
+  animation-delay: -9s;
+}
+
+@keyframes floatTwinkle {
+  0%,
+  100% {
+    transform: translateY(0) scale(1) rotate(0deg);
+    opacity: 0.85;
+  }
+  40% {
+    transform: translateY(-10px) scale(1.06) rotate(2deg);
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(6px) scale(0.98) rotate(-1deg);
+    opacity: 0.78;
+  }
+}
+
+@keyframes orbDrift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translate(16px, -14px) scale(1.06);
+    opacity: 0.9;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sparkle,
+  .orb {
+    animation: none;
+  }
+}
+

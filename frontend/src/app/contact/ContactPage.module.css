@@ -1,0 +1,400 @@
+.pageWrapper {
+  background-color: #ffffff;
+  color: var(--TX);
+  min-height: 100vh;
+}
+
+.contactSection {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 80px 5%;
+  display: flex;
+  gap: 80px;
+  align-items: flex-start;
+}
+
+/* Scroll reveal defaults */
+.rv {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.rv.vis {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.leftSide {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.infoCard {
+  background: #fff;
+  border: 1px solid #edf2f7;
+  border-radius: 20px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.infoCard:hover {
+  border-color: var(--PM);
+  box-shadow: 0 20px 40px rgba(27,67,112,0.08);
+  transform: translateY(-4px);
+}
+
+.iconBox {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--PL);
+  color: var(--P);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardContent h4 {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--MU);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.cardContent p, .cardContent a {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--TX);
+  line-height: 1.5;
+  text-decoration: none;
+}
+
+.cardContent a:hover {
+  color: var(--P);
+}
+
+.phoneGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.phoneRegion {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.phoneRegion span {
+  font-size: 0.6rem;
+  font-weight: 900;
+  color: var(--MU);
+  letter-spacing: 0.5px;
+}
+
+.regionalStrip {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 24px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.regionalStrip:hover {
+  background: #f1f5f9;
+  border-color: var(--BR);
+}
+
+.stripLeft {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.stripIcon {
+  color: var(--P);
+}
+
+.stripText h4 {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--MU);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.stripText p {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--TX);
+}
+
+.stripArrow {
+  color: var(--MU);
+}
+
+.expectationsCard {
+  background: #fff;
+  border: 1px solid #edf2f7;
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.expectHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.expectHeader h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--TX);
+}
+
+.checkIcon {
+  color: #10b981;
+}
+
+.expectList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.expectList li {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.bulletPoint {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--P);
+  margin-top: 10px;
+  flex-shrink: 0;
+}
+
+.expectList p {
+  font-size: 1rem;
+  color: var(--MU);
+  line-height: 1.6;
+}
+
+.benefitGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.benefitCard {
+  padding: 24px;
+  border-radius: 16px;
+  border: 1px solid #f1f5f9;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: #fdfdfd;
+}
+
+.benefitCard svg {
+  color: var(--P);
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+.benefitCard h5 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.benefitCard p {
+  font-size: 0.8rem;
+  color: var(--MU);
+  line-height: 1.4;
+}
+
+/* Form Styles */
+.formSide {
+  flex: 1.2;
+}
+
+.formContainer {
+  background: #fff;
+  border: 1px solid #edf2f7;
+  border-radius: 32px;
+  padding: 60px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.04);
+}
+
+.formHeader {
+  margin-bottom: 48px;
+}
+
+.formHeader h2 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  margin-bottom: 12px;
+  color: var(--TX);
+}
+
+.formHeader p {
+  font-size: 1.1rem;
+  color: var(--MU);
+  line-height: 1.6;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.inputRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inputGroup label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--MU);
+  letter-spacing: 0.5px;
+}
+
+.inputGroup input, .inputGroup textarea {
+  padding: 16px 20px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.inputGroup input:focus, .inputGroup textarea:focus {
+  border-color: var(--P);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(27, 67, 112, 0.05);
+}
+
+.formFooter {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.submitBtn {
+  flex: 1;
+  padding: 18px;
+  border-radius: 14px;
+  background: var(--P);
+  color: #fff;
+  border: none;
+  font-size: 1.05rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.submitBtn:hover {
+  background: var(--PD);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(27,67,112,0.2);
+}
+
+.formMailBox {
+  width: 60px;
+  height: 60px;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--TX);
+}
+
+.finePrint {
+  font-size: 0.75rem;
+  color: var(--MU);
+  margin-top: 16px;
+  line-height: 1.4;
+}
+
+.successState {
+  padding: 60px 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.successState svg {
+  color: #10b981;
+  margin-bottom: 12px;
+}
+
+.successState h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.successState p {
+  color: var(--MU);
+  line-height: 1.6;
+}
+
+@media (max-width: 1100px) {
+  .contactSection {
+    flex-direction: column;
+    gap: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .inputRow, .benefitGrid {
+    grid-template-columns: 1fr;
+  }
+  .formContainer {
+    padding: 40px 24px;
+  }
+}

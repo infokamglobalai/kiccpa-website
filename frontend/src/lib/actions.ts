@@ -40,7 +40,7 @@ export async function submitContactAction(formData: FormData) {
     return { success: true, message: data.message || "Message sent successfully!" };
   } catch (err) {
     console.error("Backend Error:", err);
-    return { error: "We're experiencing a connection issue. Please try again or contact us directly at info@kiccpa.com." };
+    return { error: "We're experiencing a connection issue. Please try again or contact us directly at marketing.gcc@kiccpa.com." };
   }
 }
 
@@ -149,7 +149,7 @@ export async function submitDemoBookingAction(formData: FormData): Promise<DemoB
     console.error("Demo booking error:", err);
     return {
       error:
-        "We're experiencing a connection issue. Please try again or email info@kiccpa.com with your preferred times.",
+        "We're experiencing a connection issue. Please try again or email marketing.gcc@kiccpa.com with your preferred times.",
     };
   }
 }

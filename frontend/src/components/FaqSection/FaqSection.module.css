@@ -1,0 +1,138 @@
+.faqSection {
+  padding: 100px 5%;
+  background-color: var(--WH);
+  background-image: 
+    radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.05) 1px, transparent 0);
+  background-size: 40px 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  max-width: 800px;
+  width: 100%;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: #fff;
+  border: 1px solid var(--BR);
+  border-radius: 100px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #4338ca;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+.dot {
+  width: 4px;
+  height: 4px;
+  background: #4338ca;
+  border-radius: 50%;
+}
+
+.title {
+  font-family: var(--font-h);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--TX);
+  letter-spacing: -0.03em;
+}
+
+.faqGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.faqItem {
+  background: var(--WH);
+  border: 1px solid var(--BR);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faqItem:hover {
+  border-color: var(--PM);
+  box-shadow: 0 10px 30px rgba(27, 67, 112, 0.05);
+}
+
+.faqItem[open] {
+  border-color: var(--P);
+  box-shadow: 0 15px 40px rgba(27, 67, 112, 0.08);
+}
+
+.question {
+  padding: 24px 32px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--TX);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  user-select: none;
+}
+
+.question::-webkit-details-marker {
+  display: none;
+}
+
+.icon {
+  transition: transform 0.3s ease;
+  color: var(--MU);
+}
+
+.faqItem[open] .icon {
+  transform: rotate(180deg);
+  color: var(--P);
+}
+
+.answer {
+  padding: 0 32px 24px;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--MU);
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 1.8rem;
+  }
+  
+  .question {
+    padding: 20px;
+    font-size: 0.95rem;
+  }
+  
+  .answer {
+    padding: 0 20px 20px;
+  }
+}

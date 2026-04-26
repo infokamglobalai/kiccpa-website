@@ -65,7 +65,7 @@ export default function Navbar() {
 
   return (
     <header className={styles.shell}>
-      <div className={`${styles.bar} ${raised ? styles.barRaised : ""}`}>
+      <div className={styles.row}>
         <Link href="/" className={styles.brand} aria-label="KICCPA home">
           <span className={styles.brandAccent} aria-hidden />
           <Image
@@ -79,8 +79,9 @@ export default function Navbar() {
           />
         </Link>
 
-        <nav ref={navDeskRef} className={styles.navDesktop} aria-label="Primary">
-          <ul className={styles.linkRail}>
+        <div className={`${styles.navPill} ${raised ? styles.navPillRaised : ""}`}>
+          <nav ref={navDeskRef} className={styles.navDesktop} aria-label="Primary">
+            <ul className={styles.linkRail}>
             <li className={styles.linkItem}>
               <Link href="/" className={`${styles.link} ${pathname === "/" ? styles.linkActive : ""}`}>
                 Home
@@ -215,8 +216,9 @@ export default function Navbar() {
                 Contact
               </Link>
             </li>
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        </div>
 
         <div className={styles.actions}>
           <Link href="/demo" className={styles.cta}>

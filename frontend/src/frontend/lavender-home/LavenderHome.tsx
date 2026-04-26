@@ -1,6 +1,6 @@
 "use client";
 
-import { HeroParallax, MotionReveal, StaggerTitle } from "@/components/ui";
+import { HeroParallax, MotionReveal, SparkleField, StaggerTitle } from "@/components/ui";
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -29,6 +29,7 @@ export default function LavenderHome({ onOpenVideo }: LavenderHomeProps) {
       {/* 1 — Hero (full-width cinematic) */}
       <section className={styles.heroUltra} aria-label="KICCPA EdTech hero">
         <div className={styles.heroUltraBg} aria-hidden />
+        <SparkleField />
         <div className={styles.heroUltraGrid}>
           <div className={styles.heroUltraCopy}>
             <motion.p

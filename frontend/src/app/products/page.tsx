@@ -1,6 +1,7 @@
 "use client";
 
 import SubPageHero from "@/components/SubPageHero/SubPageHero";
+import { QuoteStrip } from "@/components/ui";
 import { homePackageTeaser } from "@/frontend/lavender-home/homeContent";
 import ProductsBrochureSection from "./ProductsBrochureSection";
 import Link from "next/link";
@@ -35,6 +36,16 @@ export default function ProductsPage() {
         Three tiers for schools — from digital learning foundations to full operations on one stack. We size scope to
         your institution on a short call.
       </SubPageHero>
+
+      <QuoteStrip
+        quotes={[
+          "Premium UX, built for school adoption.",
+          "One login. One stack. Total visibility.",
+          "Launch fast — then iterate with confidence.",
+          "English + Arabic RTL, done right.",
+          "Operational workflows, not just lessons.",
+        ]}
+      />
 
       <section id="packages" className="pkg-section rv" style={{ paddingTop: "28px" }}>
         <div className="pkg-head">
