@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, LifeBuoy, Mail, MapPin, Sparkles } from "lucide-react";
+import { ArrowUpRight, LifeBuoy, Mail, MapPin, Phone, Sparkles } from "lucide-react";
 import styles from "./Footer.module.css";
 
 const currentYear = new Date().getFullYear();
@@ -149,24 +149,42 @@ export default function Footer() {
               Contact
             </h3>
             <div className={styles.contactCards}>
-              <a href="mailto:marketing.gcc@kiccpa.com" className={styles.contactCard}>
+              <div className={styles.contactCard} style={{ cursor: 'default' }}>
                 <span className={styles.contactIcon} aria-hidden>
                   <Mail size={18} strokeWidth={2.25} />
                 </span>
                 <span className={styles.contactBody}>
-                  <span className={styles.contactLabel}>General inquiries</span>
-                  <span className={styles.contactValue}>marketing.gcc@kiccpa.com</span>
+                  <span className={styles.contactLabel}>GCC Region</span>
+                  <a href="mailto:marketing.gcc@kiccpa.com" className={styles.contactValue}>marketing.gcc@kiccpa.com</a>
+                  <a href="mailto:sales1.gcc@kiccpa.com" className={styles.contactValue}>sales1.gcc@kiccpa.com</a>
                 </span>
-              </a>
-              <a href="mailto:itsupport@eduaitutors.com" className={styles.contactCard}>
+              </div>
+              <div className={styles.contactCard} style={{ cursor: 'default' }}>
                 <span className={styles.contactIcon} aria-hidden>
-                  <LifeBuoy size={18} strokeWidth={2.25} />
+                  <Mail size={18} strokeWidth={2.25} />
                 </span>
                 <span className={styles.contactBody}>
-                  <span className={styles.contactLabel}>IT support</span>
-                  <span className={styles.contactValue}>itsupport@eduaitutors.com</span>
+                  <span className={styles.contactLabel}>Africa Region</span>
+                  <a href="mailto:marketing.africa@kiccpa.com" className={styles.contactValue}>marketing.africa@kiccpa.com</a>
+                  <a href="mailto:sales1.africa@kiccpa.com" className={styles.contactValue}>sales1.africa@kiccpa.com</a>
                 </span>
-              </a>
+              </div>
+              <div className={styles.contactCard} style={{ cursor: 'default' }}>
+                <span className={styles.contactIcon} aria-hidden>
+                  <Phone size={18} strokeWidth={2.25} />
+                </span>
+                <span className={styles.contactBody}>
+                  <span className={styles.contactLabel}>Call Us</span>
+                  <div style={{ display: 'flex', gap: '8px', fontSize: '0.82rem', fontWeight: 700, color: '#f1f5f9' }}>
+                    <span style={{ opacity: 0.6 }}>KU:</span>
+                    <a href="tel:+96560919345" style={{ color: 'inherit', textDecoration: 'none' }}>+965 6091 9345</a>
+                  </div>
+                  <div style={{ display: 'flex', gap: '8px', fontSize: '0.82rem', fontWeight: 700, color: '#f1f5f9' }}>
+                    <span style={{ opacity: 0.6 }}>US:</span>
+                    <a href="tel:+12524108568" style={{ color: 'inherit', textDecoration: 'none' }}>+1 252 410 8568</a>
+                  </div>
+                </span>
+              </div>
             </div>
 
             <p id="footer-social-label" className={styles.socialLabel}>

@@ -5,11 +5,13 @@ import Link from "next/link";
 
 type PostRecord = { _id: string; title: string; category?: string; slug?: string };
 type TestimonialRecord = { _id: string; name: string; role?: string; company?: string };
+type ResourceRecord = { _id: string; title: string; category: string; fileUrl: string; fileType: string };
 
 export default function AdminDashboard() {
-  const [activeTab, setActiveTab] = useState<"posts" | "testimonials">("posts");
+  const [activeTab, setActiveTab] = useState<"posts" | "testimonials" | "resources">("posts");
   const [posts, setPosts] = useState<PostRecord[]>([]);
   const [testimonials, setTestimonials] = useState<TestimonialRecord[]>([]);
+  const [resources, setResources] = useState<ResourceRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState("");
   const API = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
@@ -33,6 +35,15 @@ export default function AdminDashboard() {
     image: "",
   });
 
+  const [resourceForm, setResourceForm] = useState({
+    title: "",
+    description: "",
+    category: "Brochure",
+    fileUrl: "",
+    thumbnailUrl: "",
+    fileType: "pdf",
+  });
+
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
@@ -43,6 +54,10 @@ export default function AdminDashboard() {
       const tRes = await fetch(`${API}/api/testimonials`);
       const tData = await tRes.json();
       setTestimonials(Array.isArray(tData) ? tData : []);
+
+      const rRes = await fetch(`${API}/api/resources`);
+      const rData = await rRes.json();
+      setResources(Array.isArray(rData) ? rData : []);
     } catch (e) {
       console.error(e);
     }
@@ -56,7 +71,7 @@ export default function AdminDashboard() {
     return () => window.clearTimeout(t);
   }, [activeTab, fetchData]);
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, type: 'post' | 'testi', field: string) => {
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, type: 'post' | 'testi' | 'resource', field: string) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -72,7 +87,8 @@ export default function AdminDashboard() {
       const data = await res.json();
       if (data.url) {
         if (type === 'post') setPostForm({ ...postForm, [field]: data.url });
-        else setTestiForm({ ...testiForm, image: data.url });
+        else if (type === 'testi') setTestiForm({ ...testiForm, image: data.url });
+        else setResourceForm({ ...resourceForm, [field]: data.url, fileType: file.name.split('.').pop() || 'pdf' });
         setStatus("Upload successful!");
       }
     } catch {
@@ -118,7 +134,26 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleDelete = async (type: "posts" | "testimonials", id: string) => {
+  const handleResourceSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("Saving...");
+    try {
+      const res = await fetch(`${API}/api/resources`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(resourceForm)
+      });
+      if (res.ok) {
+        setStatus("Resource added!");
+        setResourceForm({ title: "", description: "", category: "Brochure", fileUrl: "", thumbnailUrl: "", fileType: "pdf" });
+        fetchData();
+      }
+    } catch {
+      setStatus("Error.");
+    }
+  };
+
+  const handleDelete = async (type: "posts" | "testimonials" | "resources", id: string) => {
     if (!confirm("Are you sure?")) return;
     try {
       await fetch(`${API}/api/${type}/${id}`, { method: 'DELETE' });
@@ -137,6 +172,7 @@ export default function AdminDashboard() {
             <div className="admin-tabs">
               <button className={activeTab === 'posts' ? 'active' : ''} onClick={() => setActiveTab('posts')}>Posts</button>
               <button className={activeTab === 'testimonials' ? 'active' : ''} onClick={() => setActiveTab('testimonials')}>Testimonials</button>
+              <button className={activeTab === 'resources' ? 'active' : ''} onClick={() => setActiveTab('resources')}>Resources</button>
             </div>
           </div>
           <Link href="/" className="admin-back-btn">← Back to Site</Link>
@@ -146,7 +182,11 @@ export default function AdminDashboard() {
           {/* Editor Section */}
           <section className="admin-card editor-card">
             <div className="ac-head">
-              <h2>{activeTab === 'posts' ? 'New Article' : 'New Testimonial'}</h2>
+              <h2>
+                {activeTab === 'posts' ? 'New Article' : 
+                 activeTab === 'testimonials' ? 'New Testimonial' : 
+                 'New Resource'}
+              </h2>
               {status && <span className="status-tag">{status}</span>}
             </div>
 
@@ -196,7 +236,7 @@ export default function AdminDashboard() {
                 </div>
                 <button type="submit" className="admin-submit-btn">Publish Post</button>
               </form>
-            ) : (
+            ) : activeTab === 'testimonials' ? (
               <form onSubmit={handleTestiSubmit} className="admin-form">
                 <div className="form-group">
                   <label>Full Name</label>
@@ -226,14 +266,65 @@ export default function AdminDashboard() {
                 </div>
                 <button type="submit" className="admin-submit-btn">Add Testimonial</button>
               </form>
+            ) : (
+              <form onSubmit={handleResourceSubmit} className="admin-form">
+                <div className="form-group">
+                  <label>Resource Title</label>
+                  <input type="text" value={resourceForm.title} onChange={e => setResourceForm({...resourceForm, title: e.target.value})} required placeholder="e.g. KICCPA LMS Brochure 2024" />
+                </div>
+                <div className="form-row">
+                  <div className="form-group">
+                    <label>Category</label>
+                    <select value={resourceForm.category} onChange={e => setResourceForm({...resourceForm, category: e.target.value})}>
+                      <option>Brochure</option>
+                      <option>Product Guide</option>
+                      <option>Case Study</option>
+                      <option>Whitepaper</option>
+                      <option>Technical Document</option>
+                      <option>Investor Document</option>
+                      <option>Institutional Document</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                  <div className="form-group">
+                    <label>File Upload (PDF/Image)</label>
+                    <div className="upload-box">
+                      <input type="text" value={resourceForm.fileUrl} readOnly placeholder="Upload file..." />
+                      <input type="file" id="res-up" hidden onChange={e => handleFileUpload(e, 'resource', 'fileUrl')} />
+                      <label htmlFor="res-up" className="up-btn">Upload</label>
+                    </div>
+                  </div>
+                </div>
+                <div className="form-group">
+                  <label>Thumbnail (Optional)</label>
+                  <div className="upload-box">
+                    <input type="text" value={resourceForm.thumbnailUrl} readOnly placeholder="Upload thumbnail..." />
+                    <input type="file" id="thumb-up" hidden onChange={e => handleFileUpload(e, 'resource', 'thumbnailUrl')} />
+                    <label htmlFor="thumb-up" className="up-btn">Upload</label>
+                  </div>
+                </div>
+                <div className="form-group">
+                  <label>Short Description</label>
+                  <textarea value={resourceForm.description} onChange={e => setResourceForm({...resourceForm, description: e.target.value})} rows={3} placeholder="Briefly describe what this document contains." />
+                </div>
+                <button type="submit" className="admin-submit-btn">Add Resource</button>
+              </form>
             )}
           </section>
 
           {/* List Section */}
           <section className="admin-card list-card">
             <div className="ac-head">
-              <h2>Recent {activeTab === 'posts' ? 'Posts' : 'Testimonials'}</h2>
-              <span className="count-tag">{activeTab === 'posts' ? posts.length : testimonials.length}</span>
+              <h2>
+                Recent {activeTab === 'posts' ? 'Posts' : 
+                        activeTab === 'testimonials' ? 'Testimonials' : 
+                        'Resources'}
+              </h2>
+              <span className="count-tag">
+                {activeTab === 'posts' ? posts.length : 
+                 activeTab === 'testimonials' ? testimonials.length : 
+                 resources.length}
+              </span>
             </div>
             <div className="admin-post-list">
               {loading ? (
@@ -246,12 +337,12 @@ export default function AdminDashboard() {
                     <div className="api-meta"><span>{p.category}</span></div>
                   </div>
                   <div className="api-actions">
-                    <span className="api-slug" title="Stored slug (public blog removed)">{p.slug}</span>
+                    <span className="api-slug">{p.slug}</span>
                     <button onClick={() => handleDelete('posts', p._id)} className="api-del">Delete</button>
                   </div>
                 </div>
                 ))
-              ) : (
+              ) : activeTab === "testimonials" ? (
                 testimonials.map((t) => (
                   <div key={t._id} className="admin-post-item">
                     <div className="api-info">
@@ -265,6 +356,25 @@ export default function AdminDashboard() {
                     <button onClick={() => handleDelete("testimonials", t._id)} className="api-del">
                       Delete
                     </button>
+                  </div>
+                ))
+              ) : (
+                resources.map((r) => (
+                  <div key={r._id} className="admin-post-item">
+                    <div className="api-info">
+                      <h3>{r.title}</h3>
+                      <div className="api-meta">
+                        <span>{r.category}</span>
+                        <div className="dot" />
+                        <span>{r.fileType.toUpperCase()}</span>
+                      </div>
+                    </div>
+                    <div className="api-actions">
+                      <a href={r.fileUrl} target="_blank" rel="noreferrer" className="api-slug">View File</a>
+                      <button onClick={() => handleDelete("resources", r._id)} className="api-del">
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 ))
               )}

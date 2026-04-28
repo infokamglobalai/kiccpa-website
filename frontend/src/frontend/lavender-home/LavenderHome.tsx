@@ -10,9 +10,13 @@ import PremiumPackageSection from "./PremiumPackageSection";
 import SchoolManagementSection from "./SchoolManagementSection";
 import { homeImages, homePackageTeaser, statsHome } from "./homeContent";
 import styles from "./LavenderHome.module.css";
+import WhoWeAreSection from "./WhoWeAreSection";
+import TransformationWorkflow from "./TransformationWorkflow";
+// import IntelligenceMap from "./IntelligenceMap";
+import IndustryTeaser from "./IndustryTeaser"; // Moved to About page
 
 const heroDescLines = [
-  "Unify curriculum delivery, predictive analytics, and parent engagement in one intelligent platform — built for schools in India and Kuwait with full English and Arabic support.",
+  "From ERP to AI-driven platforms, KICCPA delivers scalable, secure, and future-ready technology solutions across industries—helping organizations streamline operations, improve efficiency, and accelerate growth.",
 ];
 
 const heroEase = [0.2, 0.8, 0.2, 1] as const;
@@ -27,7 +31,7 @@ export default function LavenderHome({ onOpenVideo }: LavenderHomeProps) {
   return (
     <div className={styles.page}>
       {/* 1 — Hero (full-width cinematic) */}
-      <section className={styles.heroUltra} aria-label="KICCPA EdTech hero">
+      <section className={styles.heroUltra} aria-label="KICCPA Digital Solutions hero">
         <div className={styles.heroUltraBg} aria-hidden />
         <SparkleField />
         <div className={styles.heroUltraGrid}>
@@ -38,14 +42,14 @@ export default function LavenderHome({ onOpenVideo }: LavenderHomeProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, ease: heroEase }}
             >
-              KICCPA · EdTech &amp; AI
+              KICCPA · Digital Solutions &amp; AI
             </motion.p>
             <div className={styles.heroTitleSlot}>
               <StaggerTitle
                 as="h1"
                 className={styles.heroTitleUltra}
-                text="Transform education with AI-powered learning solutions"
-                highlightFromWord={3}
+                text="Powering Businesses with Intelligent Digital Solutions"
+                highlightFromWord={2}
                 highlightClassName={styles.heroTitleAccentUltra}
               />
             </div>
@@ -167,6 +171,11 @@ export default function LavenderHome({ onOpenVideo }: LavenderHomeProps) {
           </MotionReveal>
         ))}
       </div>
+
+      <WhoWeAreSection />
+      <TransformationWorkflow />
+      <IndustryTeaser />
+      {/* <IntelligenceMap /> */}
 
       <section className={styles.packageTeaser} aria-labelledby="package-teaser-title">
         <div className={styles.packageTeaserInner}>

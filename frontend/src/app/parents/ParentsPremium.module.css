@@ -1,0 +1,251 @@
+.page {
+  background: #fff;
+  color: var(--lv-text);
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 5%;
+}
+
+/* Hero */
+.hero {
+  padding: 160px 0 100px;
+  background: linear-gradient(135deg, #1b4370 0%, #0f172a 100%); /* Navy Brand Color */
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+}
+
+.eyebrow {
+  display: inline-block;
+  padding: 6px 14px;
+  background: rgba(255, 130, 63, 0.15); /* Orange Brand Accent */
+  color: #ff823f;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  margin-bottom: 32px;
+}
+
+.title em {
+  font-style: normal;
+  color: #ff823f; /* Orange Brand Accent */
+}
+
+.desc {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  opacity: 0.9;
+  margin-bottom: 48px;
+}
+
+/* Timeline Section */
+.timelineSection {
+  padding: 120px 0;
+  background: #f8fafc;
+}
+
+.timeline {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgba(27, 67, 112, 0.1);
+  transform: translateX(-50%);
+}
+
+.timelineItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 80px;
+  width: 100%;
+}
+
+.timelineItem:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.timelineContent {
+  width: 42%;
+  background: #fff;
+  padding: 32px;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(27, 67, 112, 0.05);
+  border: 1px solid rgba(27, 67, 112, 0.08);
+}
+
+.time {
+  font-size: 0.8rem;
+  font-weight: 900;
+  color: #ff823f;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.itemTitle {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.itemDesc {
+  font-size: 0.95rem;
+  color: var(--lv-muted);
+  line-height: 1.5;
+}
+
+.timelineDot {
+  width: 16px;
+  height: 16px;
+  background: #ff823f;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  box-shadow: 0 0 15px rgba(255, 130, 63, 0.5);
+}
+
+/* App Showcase */
+.appShowcase {
+  padding: 120px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.phoneWrap {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.phoneFrame {
+  width: 100%;
+  aspect-ratio: 9/19;
+  background: #000;
+  border-radius: 40px;
+  padding: 12px;
+  box-shadow: 0 50px 100px rgba(0,0,0,0.15);
+  position: relative;
+  border: 4px solid #333;
+}
+
+.phoneScreen {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: 32px;
+  overflow: hidden;
+  position: relative;
+}
+
+.notification {
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  right: 10%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  border-left: 4px solid #ff823f;
+  z-index: 10;
+}
+
+.notifTitle {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #0d9488;
+  margin-bottom: 4px;
+}
+
+.notifText {
+  font-size: 0.75rem;
+  color: #333;
+}
+
+/* Feature Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 80px;
+}
+
+.card {
+  padding: 40px;
+  background: #fff;
+  border-radius: 32px;
+  border: 1px solid rgba(13, 148, 136, 0.1);
+  transition: all 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  border-color: #0d9488;
+  box-shadow: 0 20px 50px rgba(13, 148, 136, 0.1);
+}
+
+.icon {
+  width: 56px;
+  height: 56px;
+  background: #f0fdfa;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0d9488;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 1024px) {
+  .appShowcase {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .timeline::before, .timelineDot {
+    left: 20px;
+  }
+  .timelineContent {
+    width: 85%;
+    margin-left: 50px;
+  }
+  .timelineItem {
+    flex-direction: row !important;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,216 @@
+.page {
+  background: #fff;
+  color: var(--lv-text);
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 5%;
+}
+
+/* Hero */
+.hero {
+  padding: 180px 0 120px;
+  background: linear-gradient(135deg, #1b4370 0%, #0f172a 100%); /* Deep Navy */
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  top: -10%;
+  right: -10%;
+  width: 50%;
+  height: 50%;
+  background: radial-gradient(circle, rgba(255, 130, 63, 0.1) 0%, transparent 70%);
+  filter: blur(100px);
+  z-index: 1;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  max-width: 850px;
+}
+
+.eyebrow {
+  display: inline-block;
+  padding: 6px 16px;
+  background: rgba(255, 130, 63, 0.1);
+  color: #ff823f;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 130, 63, 0.2);
+}
+
+.title {
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  margin-bottom: 32px;
+  letter-spacing: -0.02em;
+}
+
+.title em {
+  font-style: normal;
+  color: #ff823f;
+}
+
+.desc {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  opacity: 0.8;
+  margin-bottom: 48px;
+}
+
+/* Metrics Section */
+.metricsSection {
+  padding: 100px 0;
+  background: #f8fafc;
+  border-bottom: 1px solid rgba(27, 67, 112, 0.05);
+}
+
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+.metricCard {
+  background: #fff;
+  padding: 40px;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+  border: 1px solid rgba(27, 67, 112, 0.08);
+  text-align: center;
+}
+
+.metricVal {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #1b4370;
+  margin-bottom: 8px;
+}
+
+.metricLabel {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--lv-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Strategic Pillars */
+.pillars {
+  padding: 120px 0;
+}
+
+.pillarGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-top: 60px;
+}
+
+.pillarCard {
+  padding: 48px;
+  background: #fff;
+  border-radius: 32px;
+  border: 1px solid rgba(27, 67, 112, 0.08);
+  transition: all 0.4s ease;
+}
+
+.pillarCard:hover {
+  transform: translateY(-10px);
+  border-color: #ff823f;
+  box-shadow: 0 20px 50px rgba(255, 130, 63, 0.1);
+}
+
+.icon {
+  width: 64px;
+  height: 64px;
+  background: rgba(27, 67, 112, 0.05);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1b4370;
+  margin-bottom: 32px;
+}
+
+.pillarCard h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 16px;
+  color: #1b4370;
+}
+
+.pillarCard p {
+  color: var(--lv-muted);
+  line-height: 1.6;
+}
+
+/* Investor Resources */
+.resources {
+  padding: 100px 0;
+  background: #0f172a;
+  color: #fff;
+}
+
+.resGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-top: 60px;
+}
+
+.resCard {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 32px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.3s;
+}
+
+.resCard:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.resInfo h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.resInfo p {
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
+
+.downloadBtn {
+  width: 48px;
+  height: 48px;
+  background: #ff823f;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+@media (max-width: 1024px) {
+  .metricsGrid { grid-template-columns: repeat(2, 1fr); }
+  .pillarGrid { grid-template-columns: 1fr; }
+  .resGrid { grid-template-columns: 1fr; }
+}

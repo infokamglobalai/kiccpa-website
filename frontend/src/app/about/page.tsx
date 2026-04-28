@@ -4,6 +4,9 @@ import SubPageHero from "@/components/SubPageHero/SubPageHero";
 import { useEffect } from "react";
 import Link from "next/link";
 
+import IntelligenceMap from "@/components/IntelligenceMap/IntelligenceMap";
+import InstitutionalDocuments from "@/components/InstitutionalDocuments";
+
 export default function AboutPage() {
   useEffect(() => {
     const io = new IntersectionObserver(entries => {
@@ -69,6 +72,8 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+      
+      <IntelligenceMap />
 
       {/* Industries */}
       <div className="search-section rv">
@@ -84,6 +89,8 @@ export default function AboutPage() {
           <button className="stag">🏠 Real Estate</button>
         </div>
       </div>
+
+      <InstitutionalDocuments />
 
       <section className="cta-section rv" style={{ background: "#fff", borderTop: "none" }}>
         <h2>

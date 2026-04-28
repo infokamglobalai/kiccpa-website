@@ -1,0 +1,81 @@
+.root {
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid rgba(27, 67, 112, 0.06);
+  height: 48px;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1100;
+}
+
+.container {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+}
+
+.announcement {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--MU);
+  background: #f8fafc;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(27, 67, 112, 0.05);
+}
+
+.sparkle {
+  color: var(--OR);
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(27, 67, 112, 0.1);
+}
+
+.utilityNav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.utilityNav a {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--MU);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.utilityNav a:hover {
+  color: var(--P);
+}
+
+@media (max-width: 1024px) {
+  .root {
+    display: none; /* Hide on mobile to keep navbar clean */
+  }
+}

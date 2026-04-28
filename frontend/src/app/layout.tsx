@@ -29,6 +29,7 @@ export const metadata: Metadata = {
 };
 
 import Navbar from "@/components/Navbar";
+import TopBar from "@/components/TopBar";
 import Footer from "@/components/Footer";
 
 export default function RootLayout({
@@ -39,6 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${playfairDisplay.variable} ${dmSans.variable}`}>
+        <TopBar />
         <Navbar />
         {children}
         <Footer />

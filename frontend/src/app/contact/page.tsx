@@ -59,7 +59,18 @@ export default function ContactPage() {
               </div>
               <div className={styles.cardContent}>
                 <h4>EMAIL US</h4>
-                <a href="mailto:marketing.gcc@kiccpa.com">marketing.gcc@kiccpa.com</a>
+                <div className={styles.phoneGroup}>
+                  <div className={styles.phoneRegion}>
+                    <span>GCC REGION</span>
+                    <a href="mailto:marketing.gcc@kiccpa.com">marketing.gcc@kiccpa.com</a>
+                    <a href="mailto:sales1.gcc@kiccpa.com">sales1.gcc@kiccpa.com</a>
+                  </div>
+                  <div className={styles.phoneRegion}>
+                    <span>AFRICA REGION</span>
+                    <a href="mailto:marketing.africa@kiccpa.com">marketing.africa@kiccpa.com</a>
+                    <a href="mailto:sales1.africa@kiccpa.com">sales1.africa@kiccpa.com</a>
+                  </div>
+                </div>
               </div>
             </div>
             

@@ -1,0 +1,208 @@
+.section {
+  padding: 140px 0;
+  background: #0f172a; /* Deep Navy for contrast */
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 5%;
+  position: relative;
+  z-index: 2;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 100px;
+}
+
+.title {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 900;
+  margin-bottom: 20px;
+}
+
+.title em {
+  font-style: normal;
+  color: var(--OR);
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  opacity: 0.7;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Map Container */
+.mapContainer {
+  position: relative;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Central Hub */
+.centralHub {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.hubCore {
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, var(--P) 0%, #3b82f6 100%);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 40px rgba(59, 130, 246, 0.5);
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 2;
+}
+
+.hubIcon {
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.hubLabel {
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  opacity: 0.9;
+}
+
+.hubPulse {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(59, 130, 246, 0.2);
+  border-radius: 50%;
+  animation: pulse 3s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+/* Nodes */
+.node {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  max-width: 320px;
+  cursor: pointer;
+  z-index: 5;
+  transition: all 0.3s ease;
+}
+
+.nodeIcon {
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--OR);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.nodeTitle {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.nodeDesc {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #94a3b8;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.nodeActive .nodeIcon {
+  background: var(--OR);
+  color: #fff;
+  transform: scale(1.1);
+  box-shadow: 0 0 30px rgba(255, 130, 63, 0.4);
+}
+
+.nodeActive .nodeDesc {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nodeActive .nodeTitle {
+  color: var(--OR);
+}
+
+/* Positioning helpers for lines */
+.node[style*="left"] { flex-direction: row-reverse; text-align: right; }
+
+/* Connection Lines (Visual static representation) */
+.connectorLine {
+  position: absolute;
+  top: 50%;
+  width: 100px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.3), transparent);
+  z-index: -1;
+}
+
+.node[style*="left"] .connectorLine { right: -100px; transform: scaleX(-1); }
+.node[style*="right"] .connectorLine { left: -100px; }
+
+/* Particles */
+.particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--OR);
+  border-radius: 50%;
+  filter: blur(2px);
+}
+
+@media (max-width: 900px) {
+  .mapContainer {
+    height: auto;
+    flex-direction: column;
+    gap: 40px;
+    padding: 60px 0;
+  }
+  .node {
+    position: static !important;
+    max-width: 100%;
+    flex-direction: row !important;
+    text-align: left !important;
+  }
+  .nodeDesc { opacity: 1; transform: none; }
+  .connectorLine { display: none; }
+  .centralHub { order: -1; }
+}

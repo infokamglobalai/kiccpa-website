@@ -46,6 +46,7 @@ const Lead = require('./models/Lead');
 const DemoBooking = require('./models/DemoBooking');
 const Post = require('./models/Post');
 const Testimonial = require('./models/Testimonial');
+const Resource = require('./models/Resource');
 
 function generateDemoReference() {
   const t = Date.now().toString(36).toUpperCase();
@@ -92,6 +93,29 @@ app.post('/api/testimonials', async (req, res) => {
 app.delete('/api/testimonials/:id', async (req, res) => {
   try {
     await Testimonial.findByIdAndDelete(req.params.id);
+    res.json({ success: true });
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+// --- RESOURCE ROUTES ---
+app.get('/api/resources', async (req, res) => {
+  try {
+    const resources = await Resource.find().sort({ createdAt: -1 });
+    res.json(resources);
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.post('/api/resources', async (req, res) => {
+  try {
+    const resource = new Resource(req.body);
+    await resource.save();
+    res.status(201).json(resource);
+  } catch (err) { res.status(400).json({ error: err.message }); }
+});
+
+app.delete('/api/resources/:id', async (req, res) => {
+  try {
+    await Resource.findByIdAndDelete(req.params.id);
     res.json({ success: true });
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
