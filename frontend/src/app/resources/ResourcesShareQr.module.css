@@ -1,0 +1,122 @@
+.shareSection {
+  padding: 40px 5% 56px;
+  background: linear-gradient(180deg, rgba(232, 240, 248, 0.5) 0%, var(--BG) 100%);
+  border-top: 1px solid rgba(27, 67, 112, 0.08);
+}
+
+.shareInner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .shareInner {
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+  }
+}
+
+.shareEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--P);
+  margin-bottom: 10px;
+}
+
+.shareTitle {
+  font-family: var(--font-h);
+  font-size: clamp(1.35rem, 2.5vw, 1.65rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--TX);
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+
+.shareTitle em {
+  font-style: normal;
+  color: var(--P);
+}
+
+.shareDesc {
+  font-size: 0.94rem;
+  line-height: 1.65;
+  color: var(--MU);
+  margin-bottom: 18px;
+  max-width: 520px;
+}
+
+.urlRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.urlCode {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.78rem;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid rgba(27, 67, 112, 0.12);
+  word-break: break-all;
+  color: var(--TX);
+}
+
+.copyBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: none;
+  background: var(--P);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.copyBtn:hover {
+  background: var(--PD);
+}
+
+.shareHint {
+  font-size: 0.78rem;
+  color: var(--MU);
+  line-height: 1.5;
+}
+
+.shareHint code {
+  font-size: 0.74rem;
+  background: var(--PL);
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+.qrBox {
+  display: flex;
+  justify-content: center;
+}
+
+.qrFrame {
+  padding: 16px;
+  background: #fff;
+  border-radius: 20px;
+  border: 1px solid rgba(27, 67, 112, 0.12);
+  box-shadow: 0 16px 40px rgba(27, 67, 112, 0.1);
+  max-width: 232px;
+}

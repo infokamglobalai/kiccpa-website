@@ -18,9 +18,15 @@ const multer = require('multer');
 const path = require('path');
 
 // Multer Storage Configuration
+const fs = require('fs');
+const uploadDir = path.join(__dirname, '../frontend/public/uploads/');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, '../public/uploads/'));
+    cb(null, uploadDir);
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname));
@@ -32,11 +38,20 @@ const upload = multer({
   limits: { fileSize: 100 * 1024 * 1024 } // 100MB limit
 });
 
-// MongoDB Connection
+// MongoDB Connection — listen for runtime errors so Node does not exit on unhandled 'error'
+mongoose.connection.on('error', (err) => {
+  console.error('❌ MongoDB runtime error:', err.message);
+});
+
+const mongoConnectOptions = {
+  serverSelectionTimeoutMS: 15_000,
+};
+
 if (process.env.MONGODB_URI && !process.env.MONGODB_URI.includes('admin:PASS')) {
-  mongoose.connect(process.env.MONGODB_URI)
+  mongoose
+    .connect(process.env.MONGODB_URI, mongoConnectOptions)
     .then(() => console.log('✅ Connected to MongoDB'))
-    .catch(err => console.error('❌ MongoDB Connection Error:', err));
+    .catch((err) => console.error('❌ MongoDB Connection Error:', err));
 } else {
   console.warn('⚠️ No valid MONGODB_URI found. Running in mock/offline mode.');
 }
@@ -47,11 +62,18 @@ const DemoBooking = require('./models/DemoBooking');
 const Post = require('./models/Post');
 const Testimonial = require('./models/Testimonial');
 const Resource = require('./models/Resource');
+const SchoolSurvey = require('./models/SchoolSurvey');
 
 function generateDemoReference() {
   const t = Date.now().toString(36).toUpperCase();
   const r = Math.random().toString(36).slice(2, 6).toUpperCase();
   return `DEMO-${t}-${r}`;
+}
+
+function generateSurveyReference() {
+  const t = Date.now().toString(36).toUpperCase();
+  const r = Math.random().toString(36).slice(2, 6).toUpperCase();
+  return `EDU-${t}-${r}`;
 }
 
 function smtpConfigured() {
@@ -107,10 +129,17 @@ app.get('/api/resources', async (req, res) => {
 
 app.post('/api/resources', async (req, res) => {
   try {
+    if (mongoose.connection.readyState !== 1) {
+      return res.status(503).json({
+        error: 'Database unavailable — fix MONGODB_URI or start MongoDB, then try again.',
+      });
+    }
     const resource = new Resource(req.body);
     await resource.save();
     res.status(201).json(resource);
-  } catch (err) { res.status(400).json({ error: err.message }); }
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 });
 
 app.delete('/api/resources/:id', async (req, res) => {
@@ -412,6 +441,169 @@ app.post('/api/demo-bookings', async (req, res) => {
       return res.status(409).json({ success: false, error: 'Duplicate request — please try again.' });
     }
     res.status(500).json({ success: false, error: 'Internal Server Error' });
+  }
+});
+
+app.post('/api/school-surveys', async (req, res) => {
+  try {
+    const honeypot = req.body.company_website || req.body.website;
+    if (honeypot) {
+      return res.status(201).json({
+        success: true,
+        message: 'Thank you.',
+        referenceId: generateSurveyReference(),
+      });
+    }
+
+    const {
+      schoolName,
+      curriculum,
+      curriculumOther,
+      contactName,
+      designation,
+      mobile,
+      email,
+      challenges,
+      challengesOther,
+      goals,
+      goalsOther,
+      usingSystems,
+      currentSystemName,
+      demoSolutions,
+      demoMode,
+      preferredDateTime,
+    } = req.body;
+
+    if (!schoolName || String(schoolName).trim().length < 2) {
+      return res.status(400).json({ success: false, error: 'Please enter your school name.' });
+    }
+    if (!contactName || String(contactName).trim().length < 2) {
+      return res.status(400).json({ success: false, error: 'Please enter the contact person name.' });
+    }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email).trim())) {
+      return res.status(400).json({ success: false, error: 'Please enter a valid email address.' });
+    }
+
+    const allowedSystems = ['yes', 'no', 'unsure', ''];
+    const sys = usingSystems != null ? String(usingSystems) : '';
+    const usingSystemsNorm = allowedSystems.includes(sys) ? sys : '';
+
+    const allowedDemoModes = ['online', 'onsite', 'hybrid', ''];
+    const dm = demoMode != null ? String(demoMode) : '';
+    const demoModeNorm = allowedDemoModes.includes(dm) ? dm : '';
+
+    const referenceId = generateSurveyReference();
+
+    const payload = {
+      referenceId,
+      schoolName: String(schoolName).trim(),
+      curriculum: Array.isArray(curriculum) ? curriculum.map(String) : [],
+      curriculumOther: curriculumOther ? String(curriculumOther).trim().slice(0, 200) : '',
+      contactName: String(contactName).trim(),
+      designation: designation ? String(designation).trim().slice(0, 120) : '',
+      mobile: mobile ? String(mobile).trim().slice(0, 40) : '',
+      email: String(email).trim().toLowerCase(),
+      challenges: Array.isArray(challenges) ? challenges.map(String) : [],
+      challengesOther: challengesOther ? String(challengesOther).trim().slice(0, 500) : '',
+      goals: Array.isArray(goals) ? goals.map(String) : [],
+      goalsOther: goalsOther ? String(goalsOther).trim().slice(0, 500) : '',
+      usingSystems: usingSystemsNorm,
+      currentSystemName: currentSystemName ? String(currentSystemName).trim().slice(0, 200) : '',
+      demoSolutions: Array.isArray(demoSolutions) ? demoSolutions.map(String) : [],
+      demoMode: demoModeNorm,
+      preferredDateTime: preferredDateTime ? String(preferredDateTime).trim().slice(0, 300) : '',
+      source: 'resources-page',
+    };
+
+    if (mongoose.connection.readyState === 1) {
+      const doc = new SchoolSurvey(payload);
+      await doc.save();
+    } else {
+      console.warn('💾 DB Offline: School survey logged:', referenceId, payload.email);
+    }
+
+    const listHtml = (label, arr) =>
+      `<p><strong>${escapeHtml(label)}:</strong><br/>${arr.length ? escapeHtml(arr.join(', ')) : '—'}</p>`;
+
+    if (smtpConfigured()) {
+      const internalTo = process.env.LEADS_NOTIFY_TO || 'info@kiccpa.com, info@kamglobalai.com';
+      const internalHtml = `
+        <h2 style="font-family:Georgia,serif;color:#0f2942">School Digital Transformation Survey</h2>
+        <p><strong>Reference:</strong> ${escapeHtml(referenceId)}</p>
+        <p><strong>School:</strong> ${escapeHtml(payload.schoolName)}</p>
+        ${listHtml('Curriculum', payload.curriculum)}
+        <p><strong>Curriculum (other):</strong> ${escapeHtml(payload.curriculumOther || '—')}</p>
+        <p><strong>Contact:</strong> ${escapeHtml(payload.contactName)} · ${escapeHtml(payload.designation || '—')}<br/>
+        <strong>Mobile:</strong> ${escapeHtml(payload.mobile || '—')}<br/>
+        <strong>Email:</strong> ${escapeHtml(payload.email)}</p>
+        ${listHtml('Current challenges', payload.challenges)}
+        <p><strong>Challenges (other):</strong> ${escapeHtml(payload.challengesOther || '—')}</p>
+        ${listHtml('Long-term goals', payload.goals)}
+        <p><strong>Goals (other):</strong> ${escapeHtml(payload.goalsOther || '—')}</p>
+        <p><strong>Using LMS/SMS/HRMS:</strong> ${escapeHtml(payload.usingSystems || '—')}<br/>
+        <strong>Current system:</strong> ${escapeHtml(payload.currentSystemName || '—')}</p>
+        ${listHtml('Demo interests', payload.demoSolutions)}
+        <p><strong>Preferred demo mode:</strong> ${escapeHtml(payload.demoMode || '—')}<br/>
+        <strong>Preferred date &amp; time:</strong> ${escapeHtml(payload.preferredDateTime || '—')}</p>
+      `;
+
+      transporter.sendMail(
+        {
+          from: `"KICCPA Resources" <${process.env.SMTP_USER}>`,
+          to: internalTo,
+          subject: `[EDU SURVEY] ${referenceId} · ${payload.schoolName}`,
+          text: `School survey ${referenceId}\n${JSON.stringify(payload, null, 2)}`,
+          html: internalHtml,
+        },
+        (err) => {
+          if (err) console.error('❌ School survey internal mail error:', err);
+          else console.log('📧 School survey alert sent for', referenceId);
+        }
+      );
+
+      transporter.sendMail(
+        {
+          from: `"KICCPA" <${process.env.SMTP_USER}>`,
+          to: payload.email,
+          subject: `We received your survey — ${referenceId} · KICCPA`,
+          text: `Dear ${payload.contactName},\n\nThank you for completing the KICCPA School Digital Transformation Survey.\n\nReference: ${referenceId}\n\nOur team will review your responses and contact you to arrange a demo tailored to your institution.\n\nKind regards,\nKICCPA Team`,
+          html: `
+          <div style="font-family:Georgia,serif;line-height:1.65;color:#0f2942;max-width:580px">
+            <p>Dear ${escapeHtml(payload.contactName)},</p>
+            <p>Thank you for completing the <strong>KICCPA School Digital Transformation Survey</strong>. We have received your responses.</p>
+            <p style="background:#f0f7ff;border:1px solid rgba(27,67,112,0.15);border-radius:12px;padding:16px 18px">
+              <strong>Reference ID:</strong> ${escapeHtml(referenceId)}<br/>
+              <strong>School:</strong> ${escapeHtml(payload.schoolName)}
+            </p>
+            <p>Our team will review your priorities and contact you to arrange a <strong>free demo session</strong> aligned with your goals.</p>
+            <p style="margin-top:24px">Kind regards,<br/><strong>KICCPA Team</strong><br/>
+            <span style="font-size:0.85rem;color:#64748b">Kuwait International Company for Computer Programming Activities — Digital Transformation | AI Solutions</span></p>
+          </div>`,
+        },
+        (err) => {
+          if (err) console.error('❌ School survey confirmation to user failed:', err);
+        }
+      );
+    }
+
+    res.status(201).json({
+      success: true,
+      message:
+        'Thank you. Your survey has been submitted. We will contact you to arrange a tailored demo.',
+      referenceId,
+    });
+  } catch (error) {
+    console.error('School survey error:', error);
+    if (error.code === 11000) {
+      return res.status(409).json({ success: false, error: 'Duplicate submission — please try again.' });
+    }
+    const msg =
+      error?.name === 'ValidationError' && error.errors
+        ? Object.values(error.errors)
+            .map((e) => e.message)
+            .join(' ')
+        : 'Internal Server Error';
+    res.status(500).json({ success: false, error: typeof msg === 'string' ? msg.slice(0, 400) : 'Internal Server Error' });
   }
 });
 

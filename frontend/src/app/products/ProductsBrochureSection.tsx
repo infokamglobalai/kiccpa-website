@@ -1,10 +1,42 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import styles from "./ProductsBrochureSection.module.css";
 
-/** Add your PDF at `public/brochures/kiccpa-lms-packages.pdf` — same URL for view & download. */
+/** Default fallback PDF */
 export const LMS_PACKAGES_BROCHURE_HREF = "/brochures/kiccpa-lms-packages.pdf";
 
 export default function ProductsBrochureSection() {
-  const href = LMS_PACKAGES_BROCHURE_HREF;
+  const [href, setHref] = useState(LMS_PACKAGES_BROCHURE_HREF);
+  const [docTitle, setDocTitle] = useState("Package brochure");
+  const [docDesc, setDocDesc] = useState(
+    "A concise overview of LMS tiers, capabilities, and how we scope rollout — ideal to share with leadership, finance, and IT before a discovery call."
+  );
+
+  useEffect(() => {
+    async function fetchLatestBrochure() {
+      try {
+        const res = await fetch("/api/resources", { cache: "no-store" });
+        const data = await res.json();
+        if (Array.isArray(data)) {
+          // Find the most recent Brochure or Product Guide
+          const latestBrochure = data.find(
+            (r: any) => r.category === "Brochure" || r.category === "Product Guide"
+          );
+          if (latestBrochure && latestBrochure.fileUrl) {
+            setHref(latestBrochure.fileUrl);
+            setDocTitle(latestBrochure.title || "Package brochure");
+            if (latestBrochure.description) {
+              setDocDesc(latestBrochure.description);
+            }
+          }
+        }
+      } catch (err) {
+        console.error("Failed to fetch dynamic brochure:", err);
+      }
+    }
+    fetchLatestBrochure();
+  }, []);
 
   return (
     <div className={`${styles.wrap} rv`} id="brochure">
@@ -25,12 +57,11 @@ export default function ProductsBrochureSection() {
         <div className={styles.copy}>
           <p className={styles.eyebrow}>Download</p>
           <h3 className={styles.title}>
-            Package <em>brochure</em>
+            {docTitle.split(' ').map((word, i, arr) => 
+              i === arr.length - 1 ? <em key={i}>{word}</em> : `${word} `
+            )}
           </h3>
-          <p className={styles.desc}>
-            A concise overview of LMS tiers, capabilities, and how we scope rollout — ideal to share with leadership,
-            finance, and IT before a discovery call.
-          </p>
+          <p className={styles.desc}>{docDesc}</p>
           <div className={styles.actions}>
             <a
               className={styles.btnView}
@@ -49,7 +80,7 @@ export default function ProductsBrochureSection() {
             <a
               className={styles.btnDownload}
               href={href}
-              download="KICCPA-LMS-packages-brochure.pdf"
+              download="KICCPA-LMS-brochure.pdf"
             >
               <svg className={styles.icon} width="18" height="18" viewBox="0 0 24 24" aria-hidden>
                 <path

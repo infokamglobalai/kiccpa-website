@@ -13,7 +13,7 @@ const resourceSchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
-    enum: ['Brochure', 'Product Guide', 'Case Study', 'Whitepaper', 'Technical Document', 'Investor Document', 'Institutional Document', 'Other'],
+    enum: ['Brochure', 'Product Guide', 'Case Study', 'Whitepaper', 'Technical Document', 'Investor Document', 'Institutional Document', 'Video', 'Other'],
     default: 'Brochure'
   },
   fileUrl: {

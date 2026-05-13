@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import { signOut } from "next-auth/react";
 
 type PostRecord = { _id: string; title: string; category?: string; slug?: string };
 type TestimonialRecord = { _id: string; name: string; role?: string; company?: string };
@@ -14,8 +15,6 @@ export default function AdminDashboard() {
   const [resources, setResources] = useState<ResourceRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState("");
-  const API = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
-
   const [postForm, setPostForm] = useState({
     title: "",
     slug: "",
@@ -47,22 +46,22 @@ export default function AdminDashboard() {
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      const pRes = await fetch(`${API}/api/posts`);
+      const pRes = await fetch("/api/posts");
       const pData = await pRes.json();
       setPosts(Array.isArray(pData) ? pData : []);
 
-      const tRes = await fetch(`${API}/api/testimonials`);
+      const tRes = await fetch("/api/testimonials");
       const tData = await tRes.json();
       setTestimonials(Array.isArray(tData) ? tData : []);
 
-      const rRes = await fetch(`${API}/api/resources`);
+      const rRes = await fetch("/api/resources");
       const rData = await rRes.json();
       setResources(Array.isArray(rData) ? rData : []);
     } catch (e) {
       console.error(e);
     }
     setLoading(false);
-  }, [API]);
+  }, []);
 
   useEffect(() => {
     const t = window.setTimeout(() => {
@@ -80,7 +79,7 @@ export default function AdminDashboard() {
     setStatus("Uploading...");
 
     try {
-      const res = await fetch(`${API}/api/upload`, {
+      const res = await fetch("/api/upload", {
         method: 'POST',
         body: formData
       });
@@ -96,11 +95,23 @@ export default function AdminDashboard() {
     }
   };
 
+  async function readSaveError(res: Response): Promise<string> {
+    let detail = `Request failed (${res.status}).`;
+    try {
+      const errBody = await res.json();
+      if (typeof errBody?.error === "string") detail = errBody.error;
+      else if (typeof errBody?.message === "string") detail = errBody.message;
+    } catch {
+      /* ignore */
+    }
+    return detail;
+  }
+
   const handlePostSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("Saving...");
     try {
-      const res = await fetch(`${API}/api/posts`, {
+      const res = await fetch("/api/posts", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(postForm)
@@ -109,9 +120,11 @@ export default function AdminDashboard() {
         setStatus("Post published!");
         setPostForm({ title: "", slug: "", category: "AI Automation", author: "KICCPA Team", excerpt: "", content: "", imageUrl: "", videoUrl: "" });
         fetchData();
+      } else {
+        setStatus(await readSaveError(res));
       }
     } catch {
-      setStatus("Error.");
+      setStatus("Network error — check that the backend is running.");
     }
   };
 
@@ -119,7 +132,7 @@ export default function AdminDashboard() {
     e.preventDefault();
     setStatus("Saving...");
     try {
-      const res = await fetch(`${API}/api/testimonials`, {
+      const res = await fetch("/api/testimonials", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(testiForm)
@@ -128,9 +141,11 @@ export default function AdminDashboard() {
         setStatus("Testimonial added!");
         setTestiForm({ name: "", role: "", company: "", content: "", image: "" });
         fetchData();
+      } else {
+        setStatus(await readSaveError(res));
       }
     } catch {
-      setStatus("Error.");
+      setStatus("Network error — check that the backend is running.");
     }
   };
 
@@ -138,25 +153,34 @@ export default function AdminDashboard() {
     e.preventDefault();
     setStatus("Saving...");
     try {
-      const res = await fetch(`${API}/api/resources`, {
+      const url = resourceForm.fileUrl || "";
+      const isYoutube = /youtu\.?be|youtube\.com/i.test(url);
+      const payload = {
+        ...resourceForm,
+        fileType: isYoutube ? "video" : resourceForm.fileType,
+        category: isYoutube ? "Video" : resourceForm.category,
+      };
+      const res = await fetch("/api/resources", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(resourceForm)
+        body: JSON.stringify(payload)
       });
       if (res.ok) {
         setStatus("Resource added!");
         setResourceForm({ title: "", description: "", category: "Brochure", fileUrl: "", thumbnailUrl: "", fileType: "pdf" });
         fetchData();
+      } else {
+        setStatus(await readSaveError(res));
       }
     } catch {
-      setStatus("Error.");
+      setStatus("Network error — check that the backend is running.");
     }
   };
 
   const handleDelete = async (type: "posts" | "testimonials" | "resources", id: string) => {
     if (!confirm("Are you sure?")) return;
     try {
-      await fetch(`${API}/api/${type}/${id}`, { method: 'DELETE' });
+      await fetch(`/api/${type}/${id}`, { method: 'DELETE' });
       fetchData();
     } catch {
       alert("Delete failed");
@@ -175,7 +199,19 @@ export default function AdminDashboard() {
               <button className={activeTab === 'resources' ? 'active' : ''} onClick={() => setActiveTab('resources')}>Resources</button>
             </div>
           </div>
-          <Link href="/" className="admin-back-btn">← Back to Site</Link>
+          <div style={{ display: "flex", gap: 12, alignItems: "flex-end" }}>
+            <button
+              type="button"
+              className="admin-back-btn"
+              onClick={() => signOut({ callbackUrl: "/" })}
+              style={{ border: "none", font: "inherit", cursor: "pointer" }}
+            >
+              Sign out
+            </button>
+            <Link href="/" className="admin-back-btn">
+              ← Back to Site
+            </Link>
+          </div>
         </header>
 
         <div className="admin-grid">
@@ -283,30 +319,36 @@ export default function AdminDashboard() {
                       <option>Technical Document</option>
                       <option>Investor Document</option>
                       <option>Institutional Document</option>
+                      <option>Video</option>
                       <option>Other</option>
                     </select>
                   </div>
                   <div className="form-group">
-                    <label>File Upload (PDF/Image)</label>
+                    <label>File URL (upload or paste — YouTube watch URL for Video)</label>
                     <div className="upload-box">
-                      <input type="text" value={resourceForm.fileUrl} readOnly placeholder="Upload file..." />
-                      <input type="file" id="res-up" hidden onChange={e => handleFileUpload(e, 'resource', 'fileUrl')} />
-                      <label htmlFor="res-up" className="up-btn">Upload</label>
+                      <input
+                        type="text"
+                        value={resourceForm.fileUrl}
+                        onChange={(e) => setResourceForm({ ...resourceForm, fileUrl: e.target.value })}
+                        placeholder="/uploads/... or https://www.youtube.com/watch?v=..."
+                      />
+                      <input type="file" id="res-up" hidden onChange={(e) => handleFileUpload(e, "resource", "fileUrl")} />
+                      <label htmlFor="res-up" className="up-btn">
+                        Upload
+                      </label>
                     </div>
                   </div>
                 </div>
                 <div className="form-group">
-                  <label>Thumbnail (Optional)</label>
-                  <div className="upload-box">
-                    <input type="text" value={resourceForm.thumbnailUrl} readOnly placeholder="Upload thumbnail..." />
-                    <input type="file" id="thumb-up" hidden onChange={e => handleFileUpload(e, 'resource', 'thumbnailUrl')} />
-                    <label htmlFor="thumb-up" className="up-btn">Upload</label>
-                  </div>
+                  <label>Description (optional — cards &amp; video notes)</label>
+                  <textarea
+                    value={resourceForm.description}
+                    onChange={(e) => setResourceForm({ ...resourceForm, description: e.target.value })}
+                    rows={3}
+                    placeholder="Short summary shown under the title on the Resource Center."
+                  />
                 </div>
-                <div className="form-group">
-                  <label>Short Description</label>
-                  <textarea value={resourceForm.description} onChange={e => setResourceForm({...resourceForm, description: e.target.value})} rows={3} placeholder="Briefly describe what this document contains." />
-                </div>
+
                 <button type="submit" className="admin-submit-btn">Add Resource</button>
               </form>
             )}
