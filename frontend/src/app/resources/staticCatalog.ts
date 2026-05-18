@@ -38,14 +38,19 @@ export const STATIC_DOCUMENT_RESOURCES: CatalogResource[] = [
   },
 ];
 
-/** Videos — YouTube or MP4 under `public/` */
+/**
+ * Videos — use ONE of:
+ * - YouTube: `fileUrl` = https://www.youtube.com/watch?v=VIDEO_ID (works in prod, no S3)
+ * - Local dev: MP4 in `frontend/public/` (gitignored; not deployed unless hosted elsewhere)
+ * - CMS: Admin → Resources → category Video → paste YouTube URL
+ */
 export const STATIC_VIDEO_RESOURCES: CatalogResource[] = [
   {
     _id: "static-video-learnx-sms-final",
     title: "LearnX SMS — final video",
     description: "School Management System walkthrough.",
     category: "Video",
-    fileUrl: "/LearnX sms video final 1.mp4",
+    fileUrl: "/LearnX sms video final 2.mp4",
     thumbnailUrl: "/images/hero-human-education.png",
     fileType: "mp4",
     date: "2026-05-12T12:00:00.000Z",
@@ -55,7 +60,7 @@ export const STATIC_VIDEO_RESOURCES: CatalogResource[] = [
     title: "LMS only — video presentation",
     description: "LMS-focused presentation video.",
     category: "Video",
-    fileUrl: "/LMS only Video Presentation.mp4",
+    fileUrl: "/LMS only Video Presentation 1.mp4",
     thumbnailUrl: "/images/home-edtech-hero-reference.png",
     fileType: "mp4",
     date: "2026-05-12T12:00:00.000Z",
