@@ -47,6 +47,7 @@ function isVideoResource(r: Resource): boolean {
 }
 
 function isPlayableVideoFile(url: string): boolean {
+  if (url.startsWith("/api/s3-video/")) return true;
   const path = url.split("?")[0]?.toLowerCase() ?? "";
   return /\.(mp4|webm|ogg)$/i.test(path);
 }

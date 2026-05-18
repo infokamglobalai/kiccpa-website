@@ -1,7 +1,9 @@
 /**
  * Curated resources shipped with the app (no CMS required).
- * Files live under `frontend/public/` — URLs are root-relative (e.g. `/brochures/...`).
+ * Videos: local `public/` in dev; production streams from S3 via `/api/s3-video/*`.
  */
+
+import { getVideoFileUrl } from "@/lib/s3Videos";
 
 export type CatalogResource = {
   _id: string;
@@ -38,19 +40,14 @@ export const STATIC_DOCUMENT_RESOURCES: CatalogResource[] = [
   },
 ];
 
-/**
- * Videos — use ONE of:
- * - YouTube: `fileUrl` = https://www.youtube.com/watch?v=VIDEO_ID (works in prod, no S3)
- * - Local dev: MP4 in `frontend/public/` (gitignored; not deployed unless hosted elsewhere)
- * - CMS: Admin → Resources → category Video → paste YouTube URL
- */
+/** Videos — S3 in production (`/api/s3-video/*`), local MP4 in dev. */
 export const STATIC_VIDEO_RESOURCES: CatalogResource[] = [
   {
     _id: "static-video-learnx-sms-final",
     title: "LearnX SMS — final video",
     description: "School Management System walkthrough.",
     category: "Video",
-    fileUrl: "/LearnX sms video final 2.mp4",
+    fileUrl: getVideoFileUrl("learnx", "/LearnX sms video final 2.mp4"),
     thumbnailUrl: "/images/hero-human-education.png",
     fileType: "mp4",
     date: "2026-05-12T12:00:00.000Z",
@@ -60,7 +57,7 @@ export const STATIC_VIDEO_RESOURCES: CatalogResource[] = [
     title: "LMS only — video presentation",
     description: "LMS-focused presentation video.",
     category: "Video",
-    fileUrl: "/LMS only Video Presentation 1.mp4",
+    fileUrl: getVideoFileUrl("lms", "/LMS only Video Presentation 1.mp4"),
     thumbnailUrl: "/images/home-edtech-hero-reference.png",
     fileType: "mp4",
     date: "2026-05-12T12:00:00.000Z",
