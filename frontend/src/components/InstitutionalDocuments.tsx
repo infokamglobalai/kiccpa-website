@@ -20,7 +20,7 @@ export default function InstitutionalDocuments() {
   useEffect(() => {
     async function fetchDocs() {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/resources`);
+        const res = await fetch("/api/resources", { cache: "no-store" });
         const data = await res.json();
         // Filter for Institutional Documents
         const institutional = Array.isArray(data) 

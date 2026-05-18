@@ -31,6 +31,7 @@ export const metadata: Metadata = {
 import Navbar from "@/components/Navbar";
 import TopBar from "@/components/TopBar";
 import Footer from "@/components/Footer";
+import Providers from "@/components/Providers";
 
 export default function RootLayout({
   children,
@@ -38,12 +39,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth">
       <body className={`${inter.variable} ${playfairDisplay.variable} ${dmSans.variable}`}>
-        <TopBar />
-        <Navbar />
-        {children}
-        <Footer />
+        <Providers>
+          <TopBar />
+          <Navbar />
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

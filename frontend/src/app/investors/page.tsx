@@ -47,7 +47,7 @@ export default function InvestorsPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/resources`)
+    fetch("/api/resources", { cache: "no-store" })
       .then(res => res.json())
       .then(data => {
         // Filter for Investor Documents only
