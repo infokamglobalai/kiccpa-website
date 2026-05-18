@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
+import path from "path";
 
 const nextConfig: NextConfig = {
+  turbopack: {
+    root: path.join(__dirname, ".."),
+  },
   /**
    * Do not rewrite `/api/*` to Express. That would steal `/api/auth/*` from NextAuth and break admin login.
    * Express is reached only via Route Handlers: `app/api/[...path]` and `app/uploads/[...path]`.
