@@ -50,8 +50,12 @@ async function proxyToExpress(req: NextRequest, pathSegments: string[]) {
     upstream = await fetch(target, init);
   } catch (e) {
     console.error("[api proxy] fetch failed:", target, e);
+    const hint =
+      process.env.NODE_ENV === "production"
+        ? "Set BACKEND_PROXY_URL in Amplify to your live API (e.g. https://your-ec2-host)."
+        : "Start Express: cd backend && npm run dev (port 5000).";
     return NextResponse.json(
-      { error: "Backend unreachable. Is Express running on port 5000?" },
+      { error: `Backend unreachable at ${target}. ${hint}` },
       { status: 502 }
     );
   }

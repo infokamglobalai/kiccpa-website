@@ -9,6 +9,27 @@ const nextConfig: NextConfig = {
     return [
       { source: "/blog", destination: "/", permanent: false },
       { source: "/blog/:path*", destination: "/", permanent: false },
+      // Legacy direct MP4 paths (not in Git) → S3 stream API
+      {
+        source: "/LearnX sms video final 1.mp4",
+        destination: "/api/s3-video/learnx",
+        permanent: false,
+      },
+      {
+        source: "/LearnX sms video final 2.mp4",
+        destination: "/api/s3-video/learnx",
+        permanent: false,
+      },
+      {
+        source: "/LMS only Video Presentation.mp4",
+        destination: "/api/s3-video/lms",
+        permanent: false,
+      },
+      {
+        source: "/LMS only Video Presentation 1.mp4",
+        destination: "/api/s3-video/lms",
+        permanent: false,
+      },
     ];
   },
   images: {

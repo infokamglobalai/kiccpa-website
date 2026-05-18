@@ -12,11 +12,13 @@ export const S3_RESOURCES_BUCKET =
 export const S3_RESOURCES_REGION =
   process.env.AWS_REGION || process.env.S3_RESOURCES_REGION || "ap-south-1";
 
-/** Local `public/` path in dev; same-origin S3 proxy in production. */
+/**
+ * Default: same-origin S3 stream (`/api/s3-video/*`) for production.
+ * Local MP4 only when `NEXT_PUBLIC_USE_LOCAL_VIDEOS=true` in `.env.local`.
+ */
 export function getVideoFileUrl(slug: S3VideoSlug, localPublicPath: string): string {
-  const useLocal =
-    process.env.NEXT_PUBLIC_USE_LOCAL_VIDEOS === "true" ||
-    process.env.NODE_ENV === "development";
-  if (useLocal) return localPublicPath;
+  if (process.env.NEXT_PUBLIC_USE_LOCAL_VIDEOS === "true") {
+    return localPublicPath;
+  }
   return `/api/s3-video/${slug}`;
 }
