@@ -1,0 +1,500 @@
+/* Executive / institutional founder portrait — navy + gold */
+
+.section {
+  position: relative;
+  padding: clamp(80px, 11vw, 128px) 7%;
+  background: linear-gradient(165deg, #060e1a 0%, #0f2942 38%, #1b4370 72%, #0c1929 100%);
+  overflow: hidden;
+  border-top: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.sectionFull {
+  border-top: none;
+}
+
+.ambient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 55% 45% at 12% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 35% at 88% 20%, rgba(255, 130, 63, 0.06) 0%, transparent 50%),
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.9;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(320px, 460px) 1fr;
+  gap: clamp(36px, 5vw, 56px);
+  align-items: stretch;
+}
+
+/* ── Portrait column ── */
+.portraitColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.portraitStage {
+  width: 100%;
+  max-width: 460px;
+}
+
+.frameOuter {
+  position: relative;
+  padding: 3px;
+  background: linear-gradient(
+    145deg,
+    #e8d5a3 0%,
+    #c9a227 18%,
+    #8b6914 42%,
+    #d4af37 68%,
+    #f0e6c8 88%,
+    #c9a227 100%
+  );
+  box-shadow:
+    0 32px 64px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+}
+
+.frameInner {
+  padding: 10px;
+  background: linear-gradient(180deg, #0a1628 0%, #0f2942 100%);
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.35);
+}
+
+.portraitMat {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f5f0e8 0%, #ebe4d6 100%);
+}
+
+.portrait {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  object-position: center;
+  vertical-align: middle;
+}
+
+.portraitPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: rgba(212, 175, 55, 0.35);
+  letter-spacing: 0.08em;
+}
+
+/* Corner flourishes */
+.corner {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  z-index: 2;
+  pointer-events: none;
+  border-color: rgba(240, 230, 200, 0.85);
+  border-style: solid;
+}
+
+.corner[data-pos="tl"] {
+  top: 10px;
+  left: 10px;
+  border-width: 2px 0 0 2px;
+}
+
+.corner[data-pos="tr"] {
+  top: 10px;
+  right: 10px;
+  border-width: 2px 2px 0 0;
+}
+
+.corner[data-pos="bl"] {
+  bottom: 10px;
+  left: 10px;
+  border-width: 0 0 2px 2px;
+}
+
+.corner[data-pos="br"] {
+  bottom: 10px;
+  right: 10px;
+  border-width: 0 2px 2px 0;
+}
+
+/* Name plaque — below portrait, not on image */
+.namePlaque {
+  margin-top: 0;
+  padding: 28px 24px 32px;
+  text-align: center;
+  background: linear-gradient(180deg, #0a1628 0%, #060e1a 100%);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-top: none;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+}
+
+.plaqueCrest {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.crestLine {
+  flex: 1;
+  max-width: 72px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.7), transparent);
+}
+
+.crestDiamond {
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(135deg, #f0e6c8, #c9a227);
+  transform: rotate(45deg);
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.5);
+}
+
+.plaqueEyebrow {
+  margin: 0 0 10px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #d4af37;
+}
+
+.plaqueName {
+  margin: 0 0 8px;
+  font-family: var(--font-h);
+  font-size: clamp(1.2rem, 2.2vw, 1.45rem);
+  font-weight: 800;
+  line-height: 1.25;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+
+.plaqueRole {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 500;
+}
+
+.imageNote {
+  margin-top: 14px;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.45);
+  text-align: center;
+  line-height: 1.45;
+}
+
+.imageNote code {
+  font-size: 0.7rem;
+  color: rgba(212, 175, 55, 0.8);
+}
+
+/* ── Message panel (cream editorial card) ── */
+.messageColumn {
+  display: flex;
+  align-items: stretch;
+}
+
+.messagePanel {
+  position: relative;
+  flex: 1;
+  padding: clamp(36px, 5vw, 52px) clamp(32px, 4vw, 48px);
+  background: linear-gradient(180deg, #fdfcfa 0%, #f8f6f1 100%);
+  border-radius: 2px;
+  box-shadow:
+    0 40px 80px rgba(0, 0, 0, 0.28),
+    0 0 0 1px rgba(212, 175, 55, 0.25);
+}
+
+.messagePanel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #8b6914, #d4af37, #f0e6c8, #d4af37, #8b6914);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8b6914;
+  margin-bottom: 14px;
+}
+
+.eyebrow::before,
+.eyebrow::after {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #c9a227);
+}
+
+.eyebrow::after {
+  background: linear-gradient(90deg, #c9a227, transparent);
+}
+
+.title {
+  font-family: var(--font-h);
+  font-size: clamp(1.65rem, 2.8vw, 2.15rem);
+  font-weight: 800;
+  line-height: 1.18;
+  color: var(--P);
+  margin: 0 0 8px;
+  letter-spacing: -0.03em;
+  position: relative;
+  z-index: 1;
+}
+
+.title em {
+  font-style: normal;
+  color: #9a7b1a;
+}
+
+.quoteMark {
+  position: absolute;
+  top: 28px;
+  right: 32px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(5rem, 12vw, 7rem);
+  line-height: 1;
+  color: rgba(27, 67, 112, 0.06);
+  pointer-events: none;
+  user-select: none;
+}
+
+.body {
+  position: relative;
+  z-index: 1;
+}
+
+.body p {
+  font-size: 1.05rem;
+  line-height: 1.82;
+  color: #3d4f5f;
+  margin: 0 0 1.25em;
+}
+
+.body p:first-of-type::first-letter {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 3.2em;
+  float: left;
+  line-height: 0.85;
+  padding-right: 10px;
+  padding-top: 4px;
+  font-weight: 700;
+  color: var(--P);
+}
+
+.body p:last-child {
+  margin-bottom: 0;
+}
+
+/* Journey steps (full variant) */
+.journey {
+  margin-top: 32px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(27, 67, 112, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.journeyStep {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.journeyNum {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #c9a227;
+  padding-top: 4px;
+}
+
+.journeyText {
+  font-size: 0.98rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--P);
+}
+
+/* Signature quote block */
+.signatureQuote {
+  margin: 36px 0 0;
+  padding: 0;
+  border: none;
+  position: relative;
+  z-index: 1;
+}
+
+.signatureLine {
+  display: block;
+  width: 64px;
+  height: 2px;
+  background: linear-gradient(90deg, #c9a227, transparent);
+  margin-bottom: 20px;
+}
+
+.signatureQuote p {
+  margin: 0 0 24px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.1rem, 1.6vw, 1.28rem);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.65;
+  color: var(--P);
+}
+
+.signatureFooter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+}
+
+.signatureName {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--P);
+  letter-spacing: 0.02em;
+}
+
+.signatureDivider {
+  width: 32px;
+  height: 1px;
+  background: rgba(201, 162, 39, 0.6);
+}
+
+.signatureOrg {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8b6914;
+}
+
+.actions {
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(27, 67, 112, 0.08);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 2px;
+  font-weight: 800;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fdfcfa;
+  background: linear-gradient(135deg, #1b4370 0%, #0f2942 100%);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 8px 28px rgba(15, 41, 66, 0.25);
+}
+
+.btnPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(15, 41, 66, 0.35);
+}
+
+.btnGhost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 2px;
+  font-weight: 800;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--P);
+  background: transparent;
+  border: 1px solid rgba(27, 67, 112, 0.2);
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.btnGhost:hover {
+  border-color: #c9a227;
+  color: #8b6914;
+}
+
+@media (max-width: 960px) {
+  .inner {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .portraitColumn {
+    width: 100%;
+  }
+
+  .portraitStage {
+    max-width: 340px;
+    margin: 0 auto;
+  }
+
+  .quoteMark {
+    top: 20px;
+    right: 20px;
+    font-size: 4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .body p:first-of-type::first-letter {
+    font-size: 2.6em;
+  }
+
+  .signatureFooter {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .signatureDivider {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btnPrimary:hover {
+    transform: none;
+  }
+}

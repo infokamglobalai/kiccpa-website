@@ -97,6 +97,14 @@ export default function Navbar() {
             </li>
             <li className={styles.linkItem}>
               <Link
+                href="/learnx"
+                className={`${styles.link} ${pathname === "/learnx" ? styles.linkActive : ""}`}
+              >
+                LearnX
+              </Link>
+            </li>
+            <li className={styles.linkItem}>
+              <Link
                 href="/features"
                 className={`${styles.link} ${pathname === "/features" ? styles.linkActive : ""}`}
               >
@@ -271,6 +279,12 @@ export default function Navbar() {
                 className={`${styles.mLink} ${pathname === "/about" ? styles.mLinkActive : ""}`}
               >
                 About
+              </Link>
+              <Link
+                href="/learnx"
+                className={`${styles.mLink} ${pathname === "/learnx" ? styles.mLinkActive : ""}`}
+              >
+                LearnX
               </Link>
               <Link
                 href="/features"

@@ -1,0 +1,7 @@
+Founder portrait for About & LearnX pages
+============================================
+Active file:
+
+  founder-dr-abdulwahab-al-atwan.png
+
+Replace this file to update the founder image on /about and /learnx.

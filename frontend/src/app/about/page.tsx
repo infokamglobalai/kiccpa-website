@@ -6,6 +6,7 @@ import Link from "next/link";
 
 import IntelligenceMap from "@/components/IntelligenceMap/IntelligenceMap";
 import InstitutionalDocuments from "@/components/InstitutionalDocuments";
+import FounderMessage from "@/components/FounderMessage/FounderMessage";
 
 export default function AboutPage() {
   useEffect(() => {
@@ -39,7 +40,11 @@ export default function AboutPage() {
         <div className="inst-left">
           <div className="sec-eyebrow">Our Story</div>
           <h2>Where We <em>Came From</em></h2>
-          <p>Founded with a vision to drive digital transformation, KICCPA helps organizations modernize operations through customized technology solutions. Our collaboration with KAM Global enables world-class delivery.</p>
+          <p>
+            Founded with a vision to drive digital transformation, KICCPA helps organizations modernize operations
+            through customized technology solutions. Our collaboration with KAM Global enables world-class delivery —
+            including <Link href="/learnx">LearnX</Link>, our AI-powered education ecosystem for Kuwait and the GCC.
+          </p>
           
           <h3 style={{ marginTop: "32px" }}>Our Core Delivery Principles</h3>
           <div className="perks">
@@ -72,7 +77,9 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-      
+
+      <FounderMessage variant="about" />
+
       <IntelligenceMap />
 
       {/* Industries */}

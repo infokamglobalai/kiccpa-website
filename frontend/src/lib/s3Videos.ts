@@ -7,7 +7,9 @@ export const S3_VIDEO_KEYS = {
 export type S3VideoSlug = keyof typeof S3_VIDEO_KEYS;
 
 export const S3_RESOURCES_BUCKET =
-  process.env.S3_RESOURCES_BUCKET || "kiccpa-resources";
+  process.env.S3_RESOURCES_BUCKET ||
+  process.env.AWS_S3_BUCKET_NAME ||
+  "kiccpa-resources";
 
 export const S3_RESOURCES_REGION =
   process.env.AWS_REGION || process.env.S3_RESOURCES_REGION || "ap-south-1";

@@ -229,6 +229,26 @@ export default function SchoolsPage() {
         </div>
       </section>
 
+      <section className={styles.visionBand} aria-labelledby="schools-vision-heading">
+        <div className={styles.container}>
+          <div className={styles.visionBandInner}>
+            <div className={styles.visionBandText}>
+              <p className={styles.visionBandEyebrow}>LearnX · Kuwait &amp; GCC</p>
+              <h2 className={styles.visionBandTitle} id="schools-vision-heading">
+                Aligned with Kuwait Vision 2035 &amp; regional digital transformation
+              </h2>
+              <p className={styles.visionBandDesc}>
+                Smart campuses, AI-powered learning, and unified LMS, SMS, and HRMS — built to modernize how your
+                institution teaches, operates, and grows.
+              </p>
+            </div>
+            <Link href="/learnx" className={styles.visionBandLink}>
+              Read our vision →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* 2. Bento Feature Grid */}
       <section className={styles.bentoSection}>
         <div className={styles.container}>
