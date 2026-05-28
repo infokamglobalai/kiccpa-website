@@ -25,7 +25,7 @@
   max-width: 1360px;
   margin: 0 auto;
   min-height: 68px;
-  padding: 0;
+  padding: 0 6px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -36,7 +36,7 @@
   position: relative;
   flex: 1;
   min-width: 0;
-  max-width: 860px;
+  max-width: 980px;
   min-height: 62px;
   display: flex;
   align-items: center;
@@ -173,10 +173,10 @@
 .linkRail {
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 0px;
   list-style: none;
   margin: 0;
-  padding: 5px 8px;
+  padding: 6px 12px;
   border-radius: 999px;
   background: rgba(27, 67, 112, 0.04);
   border: 1px solid rgba(27, 67, 112, 0.06);
@@ -195,12 +195,14 @@
 .linkTrigger {
   border: none;
   background: none;
-  padding: 9px 14px;
+  padding: 0 12px;
   margin: 0;
   font: inherit;
   font-family: inherit;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+  line-height: 1;
+  height: 38px;
 }
 
 .linkTrigger:focus-visible {
@@ -222,17 +224,32 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 9px 14px;
+  padding: 0 12px;
   border-radius: 999px;
   font-size: 0.84rem;
   font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--T2);
+  line-height: 1;
+  height: 38px;
   transition:
     color 0.2s ease,
     background 0.2s ease,
     box-shadow 0.2s ease;
   white-space: nowrap;
+}
+
+/* Keep the nav rail tidy on slightly smaller desktops */
+@media (max-width: 1240px) {
+  .navPill {
+    max-width: 940px;
+  }
+  .link,
+  .linkTrigger {
+    padding: 0 10px;
+    font-size: 0.82rem;
+    height: 36px;
+  }
 }
 
 .link:hover {
@@ -325,6 +342,46 @@
   font-weight: 600;
   color: var(--T2);
   transition: background 0.18s ease, color 0.18s ease;
+}
+
+.dropText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.dropTitleRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.dropTitle {
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+.dropHost {
+  font-weight: 700;
+  font-size: 0.72rem;
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+.dropDesc {
+  font-weight: 700;
+  font-size: 0.78rem;
+  color: var(--T2);
+  opacity: 0.9;
+}
+
+.dropSub {
+  font-weight: 600;
+  font-size: 0.74rem;
+  color: var(--MU);
+  line-height: 1.25;
 }
 
 .dropLink:hover {
@@ -431,15 +488,15 @@
 }
 
 .ctaLabel {
-  padding: 10px 4px 10px 16px;
+  padding: 8px 2px 8px 12px;
 }
 
 .ctaArrow {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 34px;
-  min-height: 38px;
+  min-width: 30px;
+  min-height: 34px;
   margin-right: 4px;
   border-radius: 11px;
   font-size: 1rem;

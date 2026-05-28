@@ -6,7 +6,74 @@ import { usePathname } from "next/navigation";
 import { startTransition, useEffect, useRef, useState } from "react";
 import styles from "./Navbar.module.css";
 
-type DeskMenuKey = "packages" | "stakeholders" | "services";
+type DeskMenuKey = "packages" | "offerings" | "stakeholders" | "services";
+
+const OFFERINGS = [
+  {
+    n: "01",
+    label: "LMS — Demo",
+    title: "Learning Management System",
+    desc: "Course delivery, student progress tracking, and AI-assisted learning paths in one place.",
+    href: "https://demo.eduaitutors.com",
+    host: "demo.eduaitutors.com",
+  },
+  {
+    n: "02",
+    label: "SMS",
+    title: "School Management System",
+    desc: "Admissions, attendance, fees, and staff management — all streamlined in one dashboard.",
+    href: "https://sms.eduaitutors.com",
+    host: "sms.eduaitutors.com",
+  },
+  {
+    n: "03",
+    label: "Assessment",
+    title: "Assessment Platform",
+    desc: "Smart quizzes, online exams, and instant auto-graded results with detailed analytics.",
+    href: "https://assessment.eduaitutors.com",
+    host: "assessment.eduaitutors.com",
+  },
+  {
+    n: "04",
+    label: "AI Counsellor",
+    title: "Career Counsellor AI",
+    desc: "Personalized AI-driven career guidance, aptitude analysis, and path recommendations for students.",
+    href: "https://challa.space-z.ai",
+    host: "challa.space-z.ai",
+  },
+  {
+    n: "05",
+    label: "AI Calendar",
+    title: "AI School Calendar",
+    desc: "Intelligent scheduling, substitution planning, and timetable management powered by AI.",
+    href: "https://aisubstitution.space-z.ai",
+    host: "aisubstitution.space-z.ai",
+  },
+  {
+    n: "06",
+    label: "Kids Assessment",
+    title: "Kids Assessment",
+    desc: "Fun and interactive assessments designed for young learners with age-appropriate evaluation tools.",
+    href: "https://kids-assessment.eduaitutors.com",
+    host: "kids-assessment.eduaitutors.com",
+  },
+  {
+    n: "07",
+    label: "Analyzer",
+    title: "Handwritten Answer sheet Analyzer",
+    desc: "AI-driven analysis and grading of handwritten answer sheets with detailed feedback.",
+    href: "https://eval-ai-xrp7.onrender.com",
+    host: "eval-ai-xrp7.onrender.com",
+  },
+  {
+    n: "08",
+    label: "Question Bank",
+    title: "AI-Powered CBSE Question Bank",
+    desc: "Comprehensive AI-generated CBSE question bank for all subjects and grades.",
+    href: "https://questionai.space-z.ai",
+    host: "questionai.space-z.ai",
+  },
+] as const;
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -110,6 +177,48 @@ export default function Navbar() {
               >
                 Features
               </Link>
+            </li>
+
+            <li
+              className={`${styles.linkItem} ${styles.linkItemMenu} ${deskMenu === "offerings" ? styles.linkItemOpen : ""}`}
+            >
+              <button
+                type="button"
+                className={`${styles.link} ${styles.linkTrigger}`}
+                aria-expanded={deskMenu === "offerings"}
+                aria-haspopup="true"
+                aria-controls="nav-menu-offerings"
+                id="nav-trigger-offerings"
+                onClick={() => toggleDesk("offerings")}
+              >
+                Our Offerings <span className={styles.caret}>▾</span>
+              </button>
+              <span className={styles.menuBridge} aria-hidden />
+              <div id="nav-menu-offerings" className={styles.dropdown} role="menu" aria-labelledby="nav-trigger-offerings">
+                {OFFERINGS.map((o) => (
+                  <a
+                    key={o.n}
+                    href={o.href}
+                    className={styles.dropLink}
+                    role="menuitem"
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`${o.label} — ${o.title} (${o.host})`}
+                  >
+                    <span className={styles.dropIcon} aria-hidden>
+                      {o.n}
+                    </span>
+                    <span className={styles.dropText}>
+                      <span className={styles.dropTitleRow}>
+                        <span className={styles.dropTitle}>{o.label}</span>
+                        <span className={styles.dropHost}>{o.host}</span>
+                      </span>
+                      <span className={styles.dropDesc}>{o.title}</span>
+                      <span className={styles.dropSub}>{o.desc}</span>
+                    </span>
+                  </a>
+                ))}
+              </div>
             </li>
 
             {/* Top-level = button so click opens menu; hover bridge reaches panel (WAI pattern). */}
@@ -292,6 +401,25 @@ export default function Navbar() {
               >
                 Features
               </Link>
+
+              <div className={styles.mGroup}>
+                <div className={styles.mGroupLabel}>Our Offerings</div>
+                {OFFERINGS.map((o) => (
+                  <a
+                    key={o.n}
+                    href={o.href}
+                    className={styles.mSub}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`${o.label} — ${o.title} (${o.host})`}
+                  >
+                    <span className={styles.mSubIcon} aria-hidden>
+                      {o.n}
+                    </span>{" "}
+                    {o.label}
+                  </a>
+                ))}
+              </div>
 
               <div className={styles.mGroup}>
                 <div className={styles.mGroupLabel}>Packages</div>
