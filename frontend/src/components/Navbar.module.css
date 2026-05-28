@@ -308,9 +308,7 @@
   transform: translateX(-50%) rotate(45deg);
 }
 
-/* Hover / keyboard / programmatic open — bridge fills gap above panel */
-.linkItemMenu:hover .dropdown,
-.linkItemMenu:focus-within .dropdown,
+/* Open only when toggled/hovered via JS (linkItemOpen) — avoids staying open after a link click */
 .linkItemMenu.linkItemOpen .dropdown {
   display: block;
 }

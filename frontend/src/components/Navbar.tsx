@@ -66,6 +66,14 @@ export default function Navbar() {
     setDeskMenu((m) => (m === key ? null : key));
   };
 
+  const closeDesk = () => setDeskMenu(null);
+
+  const openDeskOnHover = (key: DeskMenuKey) => setDeskMenu(key);
+
+  const closeDeskOnLeave = (key: DeskMenuKey) => {
+    setDeskMenu((m) => (m === key ? null : m));
+  };
+
   return (
     <header className={styles.shell}>
       <div className={styles.row}>
@@ -117,6 +125,8 @@ export default function Navbar() {
 
             <li
               className={`${styles.linkItem} ${styles.linkItemMenu} ${deskMenu === "offerings" ? styles.linkItemOpen : ""}`}
+              onMouseEnter={() => openDeskOnHover("offerings")}
+              onMouseLeave={() => closeDeskOnLeave("offerings")}
             >
               <button
                 type="button"
@@ -138,7 +148,7 @@ export default function Navbar() {
                     className={styles.dropLink}
                     role="menuitem"
                     aria-label={o.label}
-                    onClick={() => setDeskMenu(null)}
+                    onClick={closeDesk}
                   >
                     <span className={styles.dropIcon} aria-hidden>
                       {o.n}
@@ -151,6 +161,8 @@ export default function Navbar() {
 
             <li
               className={`${styles.linkItem} ${styles.linkItemMenu} ${deskMenu === "stakeholders" ? styles.linkItemOpen : ""}`}
+              onMouseEnter={() => openDeskOnHover("stakeholders")}
+              onMouseLeave={() => closeDeskOnLeave("stakeholders")}
             >
               <button
                 type="button"
@@ -170,13 +182,13 @@ export default function Navbar() {
                 role="menu"
                 aria-labelledby="nav-trigger-stakeholders"
               >
-                <Link href="/schools" className={styles.dropLink} role="menuitem">
+                <Link href="/schools" className={styles.dropLink} role="menuitem" onClick={closeDesk}>
                   <span className={styles.dropIcon}>🏫</span> For schools
                 </Link>
-                <Link href="/parents" className={styles.dropLink} role="menuitem">
+                <Link href="/parents" className={styles.dropLink} role="menuitem" onClick={closeDesk}>
                   <span className={styles.dropIcon}>👨‍👩‍👧</span> For parents
                 </Link>
-                <Link href="/investors" className={styles.dropLink} role="menuitem">
+                <Link href="/investors" className={styles.dropLink} role="menuitem" onClick={closeDesk}>
                   <span className={styles.dropIcon}>📈</span> For investors
                 </Link>
               </div>
@@ -184,6 +196,8 @@ export default function Navbar() {
 
             <li
               className={`${styles.linkItem} ${styles.linkItemMenu} ${deskMenu === "services" ? styles.linkItemOpen : ""}`}
+              onMouseEnter={() => openDeskOnHover("services")}
+              onMouseLeave={() => closeDeskOnLeave("services")}
             >
               <button
                 type="button"
@@ -198,20 +212,20 @@ export default function Navbar() {
               </button>
               <span className={styles.menuBridge} aria-hidden />
               <div id="nav-menu-services" className={styles.dropdown} role="menu" aria-labelledby="nav-trigger-services">
-                <Link href="/services" className={styles.dropLink} role="menuitem">
+                <Link href="/services" className={styles.dropLink} role="menuitem" onClick={closeDesk}>
                   <span className={styles.dropIcon}>✨</span> All services
                 </Link>
-                <Link href="/services" className={styles.dropLink} role="menuitem">
+                <Link href="/services" className={styles.dropLink} role="menuitem" onClick={closeDesk}>
                   <span className={styles.dropIcon}>💻</span> Custom Software
                 </Link>
-                <Link href="/services" className={styles.dropLink} role="menuitem">
+                <Link href="/services" className={styles.dropLink} role="menuitem" onClick={closeDesk}>
                   <span className={styles.dropIcon}>🤝</span> CRM Solutions
                 </Link>
-                <Link href="/services" className={styles.dropLink} role="menuitem">
+                <Link href="/services" className={styles.dropLink} role="menuitem" onClick={closeDesk}>
                   <span className={styles.dropIcon}>🎓</span> LMS Platforms
                 </Link>
                 <hr className={styles.dropRule} />
-                <Link href="/services" className={styles.dropLink} role="menuitem">
+                <Link href="/services" className={styles.dropLink} role="menuitem" onClick={closeDesk}>
                   <span className={styles.dropIcon}>🤖</span> AI Solutions
                 </Link>
               </div>
@@ -314,29 +328,29 @@ export default function Navbar() {
 
               <div className={styles.mGroup}>
                 <div className={styles.mGroupLabel}>Stakeholders</div>
-                <Link href="/schools" className={styles.mSub}>
+                <Link href="/schools" className={styles.mSub} onClick={() => setMobileOpen(false)}>
                   <span className={styles.mSubIcon}>🏫</span> For schools
                 </Link>
-                <Link href="/parents" className={styles.mSub}>
+                <Link href="/parents" className={styles.mSub} onClick={() => setMobileOpen(false)}>
                   <span className={styles.mSubIcon}>👨‍👩‍👧</span> For parents
                 </Link>
-                <Link href="/investors" className={styles.mSub}>
+                <Link href="/investors" className={styles.mSub} onClick={() => setMobileOpen(false)}>
                   <span className={styles.mSubIcon}>📈</span> For investors
                 </Link>
               </div>
 
               <div className={styles.mGroup}>
                 <div className={styles.mGroupLabel}>Services</div>
-                <Link href="/services" className={styles.mSub}>
+                <Link href="/services" className={styles.mSub} onClick={() => setMobileOpen(false)}>
                   <span className={styles.mSubIcon}>✨</span> All services
                 </Link>
-                <Link href="/services" className={styles.mSub}>
+                <Link href="/services" className={styles.mSub} onClick={() => setMobileOpen(false)}>
                   <span className={styles.mSubIcon}>💻</span> Custom Software &amp; CRM
                 </Link>
-                <Link href="/services" className={styles.mSub}>
+                <Link href="/services" className={styles.mSub} onClick={() => setMobileOpen(false)}>
                   <span className={styles.mSubIcon}>🎓</span> LMS Platforms
                 </Link>
-                <Link href="/services" className={styles.mSub}>
+                <Link href="/services" className={styles.mSub} onClick={() => setMobileOpen(false)}>
                   <span className={styles.mSubIcon}>🤖</span> AI Solutions
                 </Link>
               </div>
