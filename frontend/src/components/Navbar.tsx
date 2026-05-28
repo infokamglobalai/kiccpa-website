@@ -4,52 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { startTransition, useEffect, useRef, useState } from "react";
+import { OFFERING_LINKS } from "@/lib/solutionsContent";
 import styles from "./Navbar.module.css";
 
-type DeskMenuKey = "packages" | "offerings" | "stakeholders" | "services";
+type DeskMenuKey = "offerings" | "stakeholders" | "services";
 
-const OFFERINGS = [
-  {
-    n: "01",
-    label: "LMS — Demo",
-    href: "https://demo.eduaitutors.com",
-  },
-  {
-    n: "02",
-    label: "SMS",
-    href: "https://sms.eduaitutors.com",
-  },
-  {
-    n: "03",
-    label: "Assessment",
-    href: "https://assessment.eduaitutors.com",
-  },
-  {
-    n: "04",
-    label: "AI Counsellor",
-    href: "https://challa.space-z.ai",
-  },
-  {
-    n: "05",
-    label: "AI Calendar",
-    href: "https://aisubstitution.space-z.ai",
-  },
-  {
-    n: "06",
-    label: "Kids Assessment",
-    href: "https://kids-assessment.eduaitutors.com",
-  },
-  {
-    n: "07",
-    label: "Analyzer",
-    href: "https://eval-ai-xrp7.onrender.com",
-  },
-  {
-    n: "08",
-    label: "Question Bank",
-    href: "https://questionai.space-z.ai",
-  },
-] as const;
+const OFFERINGS = OFFERING_LINKS;
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -160,7 +120,7 @@ export default function Navbar() {
             >
               <button
                 type="button"
-                className={`${styles.link} ${styles.linkTrigger}`}
+                className={`${styles.link} ${styles.linkTrigger} ${pathname.startsWith("/solutions") ? styles.linkActive : ""}`}
                 aria-expanded={deskMenu === "offerings"}
                 aria-haspopup="true"
                 aria-controls="nav-menu-offerings"
@@ -172,57 +132,20 @@ export default function Navbar() {
               <span className={styles.menuBridge} aria-hidden />
               <div id="nav-menu-offerings" className={styles.dropdown} role="menu" aria-labelledby="nav-trigger-offerings">
                 {OFFERINGS.map((o) => (
-                  <a
+                  <Link
                     key={o.n}
                     href={o.href}
                     className={styles.dropLink}
                     role="menuitem"
-                    target="_blank"
-                    rel="noreferrer"
                     aria-label={o.label}
+                    onClick={() => setDeskMenu(null)}
                   >
                     <span className={styles.dropIcon} aria-hidden>
                       {o.n}
                     </span>
                     {o.label}
-                  </a>
+                  </Link>
                 ))}
-              </div>
-            </li>
-
-            {/* Top-level = button so click opens menu; hover bridge reaches panel (WAI pattern). */}
-            <li
-              className={`${styles.linkItem} ${styles.linkItemMenu} ${deskMenu === "packages" ? styles.linkItemOpen : ""}`}
-            >
-              <button
-                type="button"
-                className={`${styles.link} ${styles.linkTrigger} ${pathname.startsWith("/products") ? styles.linkActive : ""}`}
-                aria-expanded={deskMenu === "packages"}
-                aria-haspopup="true"
-                aria-controls="nav-menu-packages"
-                id="nav-trigger-packages"
-                onClick={() => toggleDesk("packages")}
-              >
-                Packages <span className={styles.caret}>▾</span>
-              </button>
-              <span className={styles.menuBridge} aria-hidden />
-              <div id="nav-menu-packages" className={styles.dropdown} role="menu" aria-labelledby="nav-trigger-packages">
-                <Link href="/products" className={styles.dropLink} role="menuitem">
-                  <span className={styles.dropIcon}>📦</span> All packages
-                </Link>
-                <Link href="/products#lms-standard" className={styles.dropLink} role="menuitem">
-                  <span className={styles.dropIcon}>📘</span> LMS Standard
-                </Link>
-                <Link href="/products#lms-premium" className={styles.dropLink} role="menuitem">
-                  <span className={styles.dropIcon}>⭐</span> LMS Premium
-                </Link>
-                <Link href="/products#lms-enterprise" className={styles.dropLink} role="menuitem">
-                  <span className={styles.dropIcon}>🏢</span> LMS Enterprise
-                </Link>
-                <hr className={styles.dropRule} />
-                <Link href="/products#packages" className={styles.dropLink} role="menuitem">
-                  <span className={styles.dropIcon}>📋</span> Compare &amp; pricing
-                </Link>
               </div>
             </li>
 
@@ -374,39 +297,19 @@ export default function Navbar() {
               <div className={styles.mGroup}>
                 <div className={styles.mGroupLabel}>Our Offerings</div>
                 {OFFERINGS.map((o) => (
-                  <a
+                  <Link
                     key={o.n}
                     href={o.href}
                     className={styles.mSub}
-                    target="_blank"
-                    rel="noreferrer"
                     aria-label={o.label}
+                    onClick={() => setMobileOpen(false)}
                   >
                     <span className={styles.mSubIcon} aria-hidden>
                       {o.n}
                     </span>{" "}
                     {o.label}
-                  </a>
+                  </Link>
                 ))}
-              </div>
-
-              <div className={styles.mGroup}>
-                <div className={styles.mGroupLabel}>Packages</div>
-                <Link href="/products" className={styles.mSub}>
-                  <span className={styles.mSubIcon}>📦</span> All packages
-                </Link>
-                <Link href="/products#lms-standard" className={styles.mSub}>
-                  <span className={styles.mSubIcon}>📘</span> LMS Standard
-                </Link>
-                <Link href="/products#lms-premium" className={styles.mSub}>
-                  <span className={styles.mSubIcon}>⭐</span> LMS Premium
-                </Link>
-                <Link href="/products#lms-enterprise" className={styles.mSub}>
-                  <span className={styles.mSubIcon}>🏢</span> LMS Enterprise
-                </Link>
-                <Link href="/products#packages" className={styles.mSub}>
-                  <span className={styles.mSubIcon}>📋</span> Compare &amp; pricing
-                </Link>
               </div>
 
               <div className={styles.mGroup}>

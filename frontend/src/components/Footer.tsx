@@ -91,8 +91,7 @@ export default function Footer() {
             </h3>
             <nav className={styles.nav} aria-labelledby="footer-nav-platform">
               <Link href="/features">Features</Link>
-              <Link href="/products">Products</Link>
-              <Link href="/products#packages">Packages</Link>
+              <Link href="/services">Solutions</Link>
               <Link href="/demo">Book a demo</Link>
             </nav>
           </div>
