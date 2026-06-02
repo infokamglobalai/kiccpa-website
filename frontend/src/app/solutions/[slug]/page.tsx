@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import InteractiveProductVisual from "@/components/InteractiveProductVisual/InteractiveProductVisual";
 import { useParams, notFound } from "next/navigation";
 import SubPageHero from "@/components/SubPageHero/SubPageHero";
 import { MotionReveal } from "@/components/ui";
@@ -36,10 +37,11 @@ export default function SolutionPage() {
   }
 
   const otherOfferings = OFFERING_LINKS.filter((o) => !o.href.endsWith(slug));
+  const productImages = solution.galleryImages ?? [];
 
   return (
     <div className={styles.page}>
-      <SubPageHero variant="services" eyebrow={solution.eyebrow} title={<>{solution.title}</>}>
+      <SubPageHero variant="solution" eyebrow={solution.eyebrow} title={solution.title} titleAccentFromWord={2}>
         {solution.summary}
       </SubPageHero>
 
@@ -48,6 +50,37 @@ export default function SolutionPage() {
           <Link href="/" className={styles.backLink}>
             ← All offerings
           </Link>
+        </div>
+
+        {productImages.length > 0 && (
+          <section className={styles.productVisualBand} aria-label={`${solution.navLabel} overview`}>
+            <div className={styles.productVisualAmbient} aria-hidden />
+            {productImages.map((src, idx) => (
+              <MotionReveal key={`${src}-${idx}`} variant="soft" y={20} delay={idx * 0.04}>
+                <InteractiveProductVisual
+                  imageSrc={src}
+                  alt={`${solution.title} — platform overview`}
+                  hotspots={idx === 0 ? solution.interactiveHotspots : undefined}
+                  scrollScreens={idx === 0 ? solution.scrollPreviewScreens : undefined}
+                  scrollPreviewLabel={`${solution.navLabel} — scroll preview`}
+                />
+              </MotionReveal>
+            ))}
+          </section>
+        )}
+
+        <div className={styles.container}>
+          {solution.detailedOverview && (
+            <section className={styles.featuresSection} aria-labelledby="overview-heading">
+              <p className={styles.sectionEyebrow}>Detailed overview</p>
+              <h2 id="overview-heading" className={styles.sectionTitle}>
+                How this product works in real institutions
+              </h2>
+              <div className={styles.block}>
+                <p className={styles.overviewText}>{solution.detailedOverview}</p>
+              </div>
+            </section>
+          )}
 
           {solution.keyFeatures && solution.keyFeatures.length > 0 && (
             <section className={styles.featuresSection} aria-labelledby="features-heading">
@@ -59,6 +92,22 @@ export default function SolutionPage() {
                 {solution.keyFeatures.map((feat) => (
                   <li key={feat} className={styles.featureItem}>
                     {feat}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {solution.modules && solution.modules.length > 0 && (
+            <section className={styles.featuresSection} aria-labelledby="modules-heading">
+              <p className={styles.sectionEyebrow}>Product modules</p>
+              <h2 id="modules-heading" className={styles.sectionTitle}>
+                Core modules
+              </h2>
+              <ul className={styles.featureGrid}>
+                {solution.modules.map((item) => (
+                  <li key={item} className={styles.featureItem}>
+                    {item}
                   </li>
                 ))}
               </ul>
@@ -101,6 +150,22 @@ export default function SolutionPage() {
                   ))}
                 </ul>
               </div>
+            </MotionReveal>
+          )}
+
+          {solution.implementationPhases && solution.implementationPhases.length > 0 && (
+            <MotionReveal variant="soft" y={16} delay={0.08}>
+              <section className={styles.featuresSection} aria-labelledby="implementation-heading">
+                <p className={styles.sectionEyebrow}>Implementation</p>
+                <h2 id="implementation-heading" className={styles.sectionTitle}>
+                  Suggested rollout phases
+                </h2>
+                <ol className={styles.phaseList}>
+                  {solution.implementationPhases.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ol>
+              </section>
             </MotionReveal>
           )}
 

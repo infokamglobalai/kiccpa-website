@@ -13,6 +13,45 @@
   padding: 0 5%;
 }
 
+/* Full-bleed product infographic — no card frame */
+.productVisualBand {
+  position: relative;
+  width: 100vw;
+  max-width: 100vw;
+  margin: clamp(8px, 2vw, 20px) calc(50% - 50vw) clamp(36px, 5vw, 56px);
+  padding: clamp(20px, 3vw, 36px) clamp(12px, 2.5vw, 28px);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.productVisualAmbient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 90% 70% at 20% 20%, rgba(59, 130, 246, 0.07), transparent 55%),
+    radial-gradient(ellipse 80% 60% at 85% 75%, rgba(255, 130, 63, 0.06), transparent 50%),
+    linear-gradient(180deg, rgba(248, 250, 252, 0) 0%, rgba(232, 240, 248, 0.35) 50%, rgba(248, 250, 252, 0) 100%);
+}
+
+@media (max-width: 900px) {
+  .productVisualBand {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.overviewText {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.72;
+  color: #334155;
+}
+
 .grid2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -126,6 +165,20 @@
   font-weight: 600;
 }
 
+.phaseList {
+  margin: 0;
+  padding-left: 24px;
+  display: grid;
+  gap: 12px;
+}
+
+.phaseList li {
+  color: #334155;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  font-weight: 600;
+}
+
 .suiteBand {
   margin-top: 56px;
   padding: 36px 32px;
@@ -215,6 +268,20 @@
 }
 
 @media (max-width: 900px) {
+  .imageMosaic {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .galleryFrame {
+    grid-column: span 3;
+    min-height: 180px;
+  }
+
+  .galleryFrameHero {
+    grid-column: span 6;
+    min-height: 240px;
+  }
+
   .grid2 {
     grid-template-columns: 1fr;
   }
@@ -225,6 +292,10 @@
 }
 
 @media (max-width: 560px) {
+  .galleryFrame {
+    min-height: 180px;
+  }
+
   .featureGrid {
     grid-template-columns: 1fr;
   }

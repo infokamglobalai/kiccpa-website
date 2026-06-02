@@ -259,6 +259,99 @@
   background: radial-gradient(ellipse, rgba(56, 189, 248, 0.15) 0%, transparent 65%);
 }
 
+/* ── Solution pages: light hero aligned with homepage ── */
+.solution {
+  --hero-accent: var(--OR);
+  --hero-em1: var(--P);
+  --hero-em2: var(--PM);
+  --hero-em3: var(--OR);
+  min-height: clamp(380px, 48vh, 480px);
+  padding: calc(88px + 24px) 6% clamp(72px, 8vw, 96px);
+  color: var(--TX);
+  background:
+    radial-gradient(ellipse 120% 80% at 15% -10%, rgba(59, 130, 246, 0.16), transparent 52%),
+    radial-gradient(ellipse 90% 70% at 92% 15%, rgba(255, 130, 63, 0.12), transparent 55%),
+    linear-gradient(180deg, #f5f9ff 0%, var(--PL) 42%, var(--BG) 100%);
+}
+
+.solution .mesh {
+  opacity: 0.45;
+  background-image:
+    linear-gradient(rgba(27, 67, 112, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(27, 67, 112, 0.04) 1px, transparent 1px);
+}
+
+.solution .fadeBottom {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 62%,
+    rgba(248, 250, 252, 0.65) 88%,
+    var(--BG) 100%
+  );
+}
+
+.solution .eyebrow {
+  color: var(--OR);
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(27, 67, 112, 0.1);
+  box-shadow: 0 4px 20px rgba(27, 67, 112, 0.06);
+  letter-spacing: 0.16em;
+}
+
+.solution .eyebrow::before {
+  background: var(--OR);
+  box-shadow: 0 0 12px rgba(255, 130, 63, 0.55);
+}
+
+.solution .title {
+  font-family: var(--font-hero-display), var(--font-h), Georgia, serif;
+  font-size: clamp(2rem, 3.6vw, 3rem);
+  color: var(--TX);
+  letter-spacing: -0.04em;
+}
+
+.solution .title em {
+  font-style: normal;
+  background: linear-gradient(
+    105deg,
+    var(--P) 0%,
+    var(--PM) 28%,
+    var(--OR) 58%,
+    var(--OR2) 100%
+  );
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: emShift 9s ease-in-out infinite;
+}
+
+.solution .lead {
+  color: var(--MU);
+  font-size: clamp(1rem, 1.2vw, 1.12rem);
+  line-height: 1.72;
+  max-width: 680px;
+}
+
+.solutionOrbA {
+  top: -12%;
+  right: -6%;
+  width: min(52vw, 440px);
+  height: min(52vw, 440px);
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.14) 0%, transparent 68%);
+  filter: blur(6px);
+}
+
+.solutionOrbB {
+  bottom: -18%;
+  left: -10%;
+  width: min(58vw, 480px);
+  height: min(45vw, 360px);
+  background: radial-gradient(circle, rgba(255, 130, 63, 0.12) 0%, transparent 70%);
+  filter: blur(8px);
+}
+
 /* ── Services: diagonal energy ── */
 .services {
   --hero-accent: #fb923c;

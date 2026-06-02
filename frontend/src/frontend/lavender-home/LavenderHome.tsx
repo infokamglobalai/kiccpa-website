@@ -4,6 +4,7 @@ import { HeroParallax, MotionReveal, SparkleField, StaggerTitle } from "@/compon
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useMemo, useRef, useState } from "react";
 import EnterpriseHomeSection from "./EnterpriseHomeSection";
 import LmsIntelligenceSections from "./LmsIntelligenceSections";
 import PremiumPackageSection from "./PremiumPackageSection";
@@ -14,6 +15,81 @@ import WhoWeAreSection from "./WhoWeAreSection";
 import TransformationWorkflow from "./TransformationWorkflow";
 // import IntelligenceMap from "./IntelligenceMap";
 import IndustryTeaser from "./IndustryTeaser"; // Moved to About page
+
+const productShowcase = [
+  {
+    name: "LMS",
+    title: "Learning Management System",
+    quick: "Courses, digital classrooms, assessments, and progress analytics.",
+    details:
+      "AI-assisted learning paths, assignment workflows, multilingual access, and dashboards for students, teachers, and parents.",
+    image: "/images/solutions/lms.png",
+    href: "/solutions/lms",
+  },
+  {
+    name: "SMS",
+    title: "School Management System",
+    quick: "Admissions, attendance, fees, transport, and school operations in one platform.",
+    details:
+      "End-to-end ERP for institutions with parent communication, payroll, reports, and centralized administration controls.",
+    image: "/images/solutions/sms.png",
+    href: "/solutions/sms",
+  },
+  {
+    name: "AI Proctor",
+    title: "AI Online Proctoring",
+    quick: "Secure exams with real-time monitoring, alerts, and anti-cheating controls.",
+    details:
+      "Camera and behavior-based proctoring, suspicious activity alerts, and audit-ready exam security for remote assessments.",
+    image: "/images/solutions/assessment.png",
+    href: "/solutions/assessment",
+  },
+  {
+    name: "AI PaperGen",
+    title: "AI Paper Generation",
+    quick: "Generate curriculum-aligned question papers by subject and difficulty.",
+    details:
+      "Supports multiple boards, Bloom's Taxonomy mapping, smart regeneration, and printable/online exam publishing.",
+    image: "/images/solutions/question-paper.png",
+    href: "/solutions/question-paper",
+  },
+  {
+    name: "AI Calendar",
+    title: "AI Academic Calendar",
+    quick: "Plan class schedules, substitutions, events, and syllabus tracking intelligently.",
+    details:
+      "Automated timetable handling with leave management, conflict reduction, and complete academic planning visibility.",
+    image: "/images/solutions/calendar-management.png",
+    href: "/solutions/calendar-management",
+  },
+  {
+    name: "AI Counsellor",
+    title: "AI Student Counsellor",
+    quick: "Personalized student guidance for wellbeing, learning confidence, and interventions.",
+    details:
+      "Early signals for engagement and support pathways to help educators and counselors improve student outcomes.",
+    image: "/images/solutions/ai-counselor.png",
+    href: "/solutions/ai-counselor",
+  },
+  {
+    name: "AI Career Counsellor",
+    title: "Career & Higher-Ed Guidance",
+    quick: "Career pathway suggestions, university fit, and skill-interest mapping.",
+    details:
+      "AI guidance with country-wise opportunities, education planning, and actionable recommendations for students and parents.",
+    image: "/images/solutions/career-counseling.png",
+    href: "/solutions/career-counseling",
+  },
+  {
+    name: "Webcast",
+    title: "Webcast & Virtual Events",
+    quick: "Live broadcasts, webinars, and virtual classes integrated with your LMS.",
+    details:
+      "Stream large audiences, run interactive sessions, and start video classes instantly — without separate scheduling tools or third-party links.",
+    image: "/images/solutions/webcast.png",
+    href: "/solutions/webcast",
+  },
+] as const;
 
 const heroDescLines = [
   "From ERP to AI-driven platforms, KICCPA delivers scalable, secure, and future-ready technology solutions across industries—helping organizations streamline operations, improve efficiency, and accelerate growth.",
@@ -27,6 +103,36 @@ type LavenderHomeProps = {
 
 export default function LavenderHome({ onOpenVideo }: LavenderHomeProps) {
   const reduce = useReducedMotion();
+  const [openProduct, setOpenProduct] = useState<string | null>(null);
+  const [sliderPaused, setSliderPaused] = useState(false);
+  const sliderRef = useRef<HTMLDivElement | null>(null);
+  const flowingProducts = useMemo(() => [...productShowcase, ...productShowcase], []);
+
+  useEffect(() => {
+    if (reduce || sliderPaused) return;
+    let rafId = 0;
+    let lastTs = performance.now();
+    const pxPerMs = 0.045;
+
+    const tick = (ts: number) => {
+      const el = sliderRef.current;
+      if (!el) {
+        rafId = window.requestAnimationFrame(tick);
+        return;
+      }
+      const dt = ts - lastTs;
+      lastTs = ts;
+      el.scrollLeft += dt * pxPerMs;
+      const loopPoint = el.scrollWidth / 2;
+      if (el.scrollLeft >= loopPoint) {
+        el.scrollLeft -= loopPoint;
+      }
+      rafId = window.requestAnimationFrame(tick);
+    };
+
+    rafId = window.requestAnimationFrame(tick);
+    return () => window.cancelAnimationFrame(rafId);
+  }, [reduce, sliderPaused]);
 
   return (
     <div className={styles.page}>
@@ -171,6 +277,74 @@ export default function LavenderHome({ onOpenVideo }: LavenderHomeProps) {
           </MotionReveal>
         ))}
       </div>
+
+      <section className={styles.productsShowcaseSection} aria-labelledby="products-showcase-title">
+        <div className={styles.productsShowcaseHead}>
+          <MotionReveal variant="soft" y={14}>
+            <p className={styles.productsShowcaseEyebrow}>Products we built</p>
+            <h2 id="products-showcase-title" className={styles.productsShowcaseTitle}>
+              Unified digital stack for modern institutions
+            </h2>
+            <p className={styles.productsShowcaseLead}>
+              Products scroll edge to edge across your screen. Hover to pause, tap the arrow on a card for details,
+              or open the full product page.
+            </p>
+          </MotionReveal>
+        </div>
+        <div
+          className={styles.productsSliderOuter}
+          onMouseEnter={() => setSliderPaused(true)}
+          onMouseLeave={() => setSliderPaused(false)}
+          onTouchStart={() => setSliderPaused(true)}
+          onTouchEnd={() => setSliderPaused(false)}
+          onFocusCapture={() => setSliderPaused(true)}
+          onBlurCapture={() => setSliderPaused(false)}
+        >
+          <div className={styles.productsShowcaseGrid} ref={sliderRef}>
+            {flowingProducts.map((item, idx) => {
+              const cardId = `${item.name}-${idx}`;
+              const expanded = openProduct === cardId;
+              return (
+                <article key={cardId} className={styles.productSlideItem}>
+                  <header className={styles.productCardHeader}>
+                    <h3 className={styles.productCardLabel}>{item.name}</h3>
+                    <p className={styles.productCardSubtitle}>{item.title}</p>
+                  </header>
+                  <div
+                    className={`${styles.productShowcaseCard} ${expanded ? styles.productCardOpen : ""}`}
+                  >
+                    <div className={styles.productShowcaseImageWrap}>
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        fill
+                        sizes="(max-width: 900px) 85vw, 360px"
+                        className={styles.productShowcaseImage}
+                      />
+                      <button
+                        type="button"
+                        className={styles.productShowcaseToggle}
+                        onClick={() => setOpenProduct(expanded ? null : cardId)}
+                        aria-expanded={expanded}
+                        aria-label={expanded ? `Hide ${item.name} info` : `Show ${item.name} info`}
+                      >
+                        {expanded ? "▲" : "▼"}
+                      </button>
+                      <div className={styles.productShowcaseOverlay}>
+                        <p className={styles.productShowcaseQuick}>{item.quick}</p>
+                        <p className={styles.productShowcaseDetails}>{item.details}</p>
+                        <Link href={item.href} className={styles.productShowcaseLink}>
+                          Learn more →
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
       <WhoWeAreSection />
       <TransformationWorkflow />
