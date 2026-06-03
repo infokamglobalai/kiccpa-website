@@ -89,6 +89,45 @@ export const experienceFeatures: readonly FeatureBlock[] = [
     quote:
       "Your students can learn anytime, anywhere—whether they’re at home, commuting, or in class.",
   },
+  {
+    id: "bilingual",
+    title: "Bilingual & RTL support",
+    summary:
+      "Full English and Arabic interfaces with right-to-left layouts for Gulf institutions—content, notifications, and reports in the language your community uses.",
+    keyFeatures: [
+      "RTL-native UI and navigation",
+      "Arabic and English content delivery",
+      "Bilingual parent communications",
+      "Regional compliance-ready reporting",
+      "Locale-aware dates and calendars",
+    ],
+    businessImpact: [
+      "Higher adoption in Kuwait and GCC",
+      "Inclusive access for diverse families",
+      "Alignment with national education standards",
+    ],
+    quote:
+      "Your platform speaks the language of your community—not just in translation, but in experience.",
+  },
+  {
+    id: "stakeholders",
+    title: "Parent & stakeholder engagement",
+    summary:
+      "Keep families and leadership informed with portals, alerts, and dashboards—so communication is proactive, not reactive.",
+    keyFeatures: [
+      "Parent mobile summaries and alerts",
+      "Teacher–parent messaging workflows",
+      "Leadership and board reporting views",
+      "Attendance and performance notifications",
+      "Role-based access for every stakeholder",
+    ],
+    businessImpact: [
+      "Stronger trust with families",
+      "Fewer manual update requests",
+      "Faster intervention when issues arise",
+    ],
+    quote: "",
+  },
 ] as const;
 
 export const aiFeatures: readonly FeatureBlock[] = [
@@ -154,5 +193,25 @@ export const aiFeatures: readonly FeatureBlock[] = [
     ],
     quote:
       "Instead of reacting to problems, you can predict and prevent them before they happen.",
+  },
+  {
+    id: "ai-counselor",
+    title: "AI counsellor & support",
+    summary:
+      "Intelligent guidance for academic and wellbeing questions—scaling student support without adding headcount.",
+    keyFeatures: [
+      "24/7 AI-assisted student queries",
+      "Escalation paths to human counsellors",
+      "Topic and sentiment-aware responses",
+      "Integration with LMS progress data",
+      "Privacy-aware conversation logging",
+    ],
+    businessImpact: [
+      "Earlier support for at-risk students",
+      "Reduced counsellor workload on routine queries",
+      "More consistent student experience",
+    ],
+    quote:
+      "Every student gets a first line of support—intelligent, immediate, and always available.",
   },
 ] as const;

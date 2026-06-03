@@ -1,7 +1,6 @@
 "use client";
 
 import styles from "./TopBar.module.css";
-import RegionLanguageSelector from "./RegionLanguageSelector";
 import Link from "next/link";
 import { Sparkles } from "lucide-react";
 
@@ -12,16 +11,14 @@ export default function TopBar() {
         <div className={styles.left}>
           <div className={styles.announcement}>
             <Sparkles size={12} className={styles.sparkle} />
-            <span>KICCPA Enterprise solutions — Now live in GCC & India</span>
+            <span>KICCPA Enterprise solutions — Now live in GCC &amp; India</span>
           </div>
         </div>
         <div className={styles.right}>
-          <RegionLanguageSelector />
-          <div className={styles.divider} />
-          <nav className={styles.utilityNav}>
-            <Link href="/about">Heritage</Link>
-            <Link href="/investors">Investors</Link>
-            <Link href="/resources">Resource Center</Link>
+          <nav className={styles.utilityNav} aria-label="Utility">
+            <Link href="/resources">Resources</Link>
+            <Link href="/resources">Blog</Link>
+            <Link href="/contact">Careers</Link>
           </nav>
         </div>
       </div>

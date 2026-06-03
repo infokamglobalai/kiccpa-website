@@ -113,28 +113,6 @@ export default function SchoolManagementSection() {
                       />
                     </motion.div>
                   </div>
-
-                  {/* Inside tilt: moves with main image — avoids misaligned overlap */}
-                  <div className={styles.insetCluster}>
-                    <div className={styles.insetRingPulse} aria-hidden />
-                    <motion.div
-                      className={styles.insetFloater}
-                      animate={reduce ? undefined : { y: [0, -6, 0] }}
-                      transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-                    >
-                      <div className={styles.visualInset}>
-                        <div className={styles.insetGlass} aria-hidden />
-                        <Image
-                          src={encodeURI("/images/Globe Space 1.png")}
-                          alt="Connected operations across campuses"
-                          fill
-                          sizes="(max-width: 960px) 32vw, 200px"
-                          className={styles.visualInsetImg}
-                        />
-                        <span className={styles.insetLabel}>Global reach</span>
-                      </div>
-                    </motion.div>
-                  </div>
                 </div>
               </Tilt3D>
             </MotionReveal>

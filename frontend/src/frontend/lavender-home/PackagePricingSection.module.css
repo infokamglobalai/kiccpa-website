@@ -1,0 +1,291 @@
+.section {
+  position: relative;
+  padding: clamp(16px, 2.5vw, 28px) 0 clamp(64px, 8vw, 88px);
+  overflow: hidden;
+}
+
+.bgMesh {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(27, 67, 112, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(27, 67, 112, 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 85% 70% at 50% 40%, #000 15%, transparent 72%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bgGlow {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  width: min(900px, 95vw);
+  height: min(460px, 55vh);
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(74, 127, 185, 0.1) 0%,
+    rgba(255, 130, 63, 0.05) 42%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wrap {
+  position: relative;
+  z-index: 1;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--content-gutter);
+  box-sizing: border-box;
+}
+
+.header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto clamp(32px, 4vw, 44px);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 14px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--OR);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--OR), rgba(255, 130, 63, 0.35));
+}
+
+.title {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: clamp(1.85rem, 3vw, 2.65rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  color: var(--TX);
+  margin: 0 0 14px;
+}
+
+.titleAccent {
+  background: linear-gradient(135deg, var(--P) 0%, var(--OR) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: clamp(0.98rem, 1.05vw, 1.08rem);
+  line-height: 1.65;
+  color: var(--MU);
+}
+
+.grid {
+  list-style: none;
+  margin: 0 0 clamp(28px, 4vw, 36px);
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 2vw, 20px);
+  align-items: stretch;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(22px, 3vw, 28px) clamp(20px, 2.5vw, 24px);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--BR);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 12px 32px rgba(27, 67, 112, 0.08);
+  transition:
+    transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.28s ease,
+    border-color 0.28s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(27, 67, 112, 0.18);
+  box-shadow: 0 20px 44px rgba(27, 67, 112, 0.12);
+}
+
+.cardFeatured {
+  border-color: rgba(255, 130, 63, 0.45);
+  background: linear-gradient(165deg, #ffffff 0%, rgba(255, 248, 242, 0.95) 100%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 1) inset,
+    0 16px 40px rgba(255, 130, 63, 0.12),
+    0 0 0 1px rgba(255, 130, 63, 0.15);
+}
+
+.cardFeatured:hover {
+  border-color: rgba(255, 130, 63, 0.55);
+  box-shadow: 0 24px 48px rgba(255, 130, 63, 0.18);
+}
+
+.popularBadge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(135deg, var(--OR), var(--OR2));
+}
+
+.tag {
+  display: inline-flex;
+  align-self: flex-start;
+  margin-bottom: 12px;
+  padding: 5px 11px;
+  border-radius: 8px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--P);
+  background: var(--PL);
+  border: 1px solid rgba(27, 67, 112, 0.1);
+}
+
+.cardFeatured .tag {
+  color: var(--OR2);
+  background: rgba(255, 130, 63, 0.12);
+  border-color: rgba(255, 130, 63, 0.2);
+}
+
+.cardTitle {
+  margin: 0 0 10px;
+  font-size: clamp(1.15rem, 1.3vw, 1.3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--TX);
+  line-height: 1.2;
+}
+
+.cardBlurb {
+  margin: 0 0 16px;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--MU);
+}
+
+.highlights {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.highlights li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--T2);
+  line-height: 1.35;
+}
+
+.highlights li svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--OR);
+}
+
+.cardFeatured .highlights li svg {
+  color: var(--OR);
+}
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px 16px;
+}
+
+.ctaPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 11px;
+  background: var(--P);
+  color: #fff !important;
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 8px 22px rgba(27, 67, 112, 0.22);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.ctaPrimary:hover {
+  background: var(--PD);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(27, 67, 112, 0.28);
+}
+
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 20px;
+  border-radius: 11px;
+  border: 1.5px solid rgba(27, 67, 112, 0.18);
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--P) !important;
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.ctaSecondary:hover {
+  background: #fff;
+  border-color: var(--P);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+    max-width: 440px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cardFeatured {
+    order: -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card:hover,
+  .ctaPrimary:hover,
+  .ctaSecondary:hover {
+    transform: none;
+  }
+}

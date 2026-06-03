@@ -1,7 +1,8 @@
 .page {
-  padding-top: 72px;
+  padding-top: var(--site-header-offset, 80px);
   min-height: 100vh;
-  background: linear-gradient(180deg, var(--PL) 0%, var(--BG) 35%, #fff 100%);
+  background: var(--site-bg-gradient);
+  background-attachment: fixed;
   overflow-x: hidden;
 }
 

@@ -16,10 +16,9 @@ export default function Home() {
           onClick={() => setShowVideo(false)}
           style={{
             position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
+            inset: 0,
+            width: "100%",
+            height: "100%",
             background: "rgba(9, 11, 26, 0.96)",
             zIndex: 99999,
             display: "flex",

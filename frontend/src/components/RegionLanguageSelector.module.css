@@ -39,6 +39,77 @@
   color: var(--OR);
 }
 
+.wrapperLangOnly .triggerContent {
+  gap: 6px;
+}
+
+.langGlobe {
+  color: var(--OR);
+  flex-shrink: 0;
+}
+
+.langCompact {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.wrapperDark .trigger:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.wrapperDark .triggerActive {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.wrapperDark .eyebrow,
+.wrapperDark .value,
+.wrapperDark .chevron,
+.wrapperDark .langCompact {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.wrapperDark .langGlobe {
+  color: #ff7a30;
+}
+
+.dropdownLang {
+  width: 200px;
+  right: 0;
+  left: auto;
+}
+
+.wrapperCompact .trigger {
+  padding: 2px 4px;
+}
+
+.wrapperCompact .triggerContent {
+  gap: 6px;
+}
+
+.wrapperCompact .iconBox {
+  width: 22px;
+  height: 22px;
+}
+
+.wrapperCompact .iconBox svg {
+  width: 12px;
+  height: 12px;
+}
+
+.wrapperCompact .value {
+  font-size: 0.72rem;
+  max-width: 72px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wrapperCompact .chevron {
+  width: 12px;
+  height: 12px;
+}
+
 .labelGroup {
   display: flex;
   flex-direction: column;

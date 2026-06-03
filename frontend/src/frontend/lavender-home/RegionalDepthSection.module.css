@@ -1,0 +1,315 @@
+.section {
+  position: relative;
+  padding: clamp(48px, 7vw, 80px) 0 clamp(56px, 8vw, 88px);
+  overflow: hidden;
+}
+
+.bgMesh {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(27, 67, 112, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(27, 67, 112, 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 90% 75% at 50% 40%, #000 12%, transparent 72%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bgGlow {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  width: min(920px, 95vw);
+  height: min(480px, 55vh);
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(74, 127, 185, 0.1) 0%,
+    rgba(255, 130, 63, 0.06) 45%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wrap {
+  position: relative;
+  z-index: 1;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--content-gutter);
+  box-sizing: border-box;
+}
+
+.header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto clamp(28px, 4vw, 36px);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 14px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--OR);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--OR), rgba(255, 130, 63, 0.35));
+}
+
+.title {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: clamp(1.85rem, 3vw, 2.65rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  color: var(--TX);
+  margin: 0 0 14px;
+}
+
+.titleAccent {
+  background: linear-gradient(135deg, var(--P) 0%, var(--OR) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.lead {
+  margin: 0;
+  font-size: clamp(0.98rem, 1.05vw, 1.08rem);
+  line-height: 1.65;
+  color: var(--MU);
+}
+
+.statsRow {
+  list-style: none;
+  margin: 0 auto clamp(32px, 4vw, 40px);
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(12px, 2vw, 20px);
+  max-width: 640px;
+}
+
+.statsRow li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: min(100px, 100%);
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--BR);
+  box-shadow: 0 4px 16px rgba(27, 67, 112, 0.06);
+}
+
+.statValue {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--P);
+}
+
+.statLabel {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--MU);
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(18px, 2.5vw, 24px);
+  align-items: stretch;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--BR);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 16px 40px rgba(27, 67, 112, 0.08);
+  overflow: hidden;
+  transition:
+    transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.28s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 48px rgba(27, 67, 112, 0.12);
+}
+
+.card_india .cardBanner {
+  background: linear-gradient(135deg, rgba(255, 153, 51, 0.12) 0%, rgba(19, 136, 8, 0.08) 50%, #fff 100%);
+}
+
+.card_kuwait .cardBanner {
+  background: linear-gradient(135deg, rgba(27, 67, 112, 0.1) 0%, rgba(59, 130, 246, 0.08) 50%, #fff 100%);
+}
+
+.cardBanner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 22px 18px;
+  border-bottom: 1px solid rgba(27, 67, 112, 0.08);
+}
+
+.flagWrap {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 40px;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.flagWrap svg {
+  width: 56px;
+  height: 40px;
+}
+
+.cardHead {
+  min-width: 0;
+}
+
+.cardName {
+  margin: 0 0 10px;
+  font-size: clamp(1.2rem, 1.5vw, 1.35rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--TX);
+}
+
+.metaPills {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.metaPills li {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--P);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(27, 67, 112, 0.12);
+}
+
+.card_india .metaPills li {
+  color: #0d5c2e;
+  border-color: rgba(19, 136, 8, 0.2);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.featureGrid {
+  list-style: none;
+  margin: 0;
+  padding: 18px 20px 8px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 14px;
+  flex: 1;
+}
+
+.featureGrid li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--T2);
+}
+
+.featureGrid li svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--OR);
+}
+
+.card_india .featureGrid li svg {
+  color: #138808;
+}
+
+.cardCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 20px 20px;
+  padding: 12px 18px;
+  align-self: flex-start;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #fff !important;
+  background: var(--P);
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease, gap 0.2s ease;
+}
+
+.cardCta:hover {
+  background: var(--PD);
+  gap: 12px;
+}
+
+.card_india .cardCta {
+  background: linear-gradient(135deg, #138808, #0d5c2e);
+}
+
+.card_india .cardCta:hover {
+  background: linear-gradient(135deg, #0d5c2e, #094a24);
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .featureGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .statsRow li {
+    flex: 1 1 calc(50% - 10px);
+    min-width: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card:hover {
+    transform: none;
+  }
+
+  .cardCta:hover {
+    gap: 8px;
+  }
+}

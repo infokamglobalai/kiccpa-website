@@ -1,5 +1,5 @@
 .page {
-  background: #fff;
+  background: transparent;
   color: var(--lv-text);
   overflow-x: hidden;
 }
@@ -31,7 +31,7 @@
 
 .visionBandText {
   flex: 1;
-  min-width: 280px;
+  min-width: min(280px, 100%);
   max-width: 720px;
 }
 
@@ -81,7 +81,7 @@
 
 /* Hero Section */
 .hero {
-  padding: 160px 0 120px;
+  padding: calc(var(--site-header-offset, 88px) + 48px) 0 120px;
   background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.8)), url('/hero_bg.png');
   background-size: cover;
   background-position: center;
@@ -609,5 +609,83 @@ video::-webkit-media-controls-panel {
     grid-template-columns: 1fr;
     padding: 30px;
     gap: 40px;
+  }
+
+  .cinemaLayout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .sidebar {
+    min-height: 0;
+    max-height: 420px;
+  }
+
+  .bentoGrid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+  }
+
+  .c1,
+  .c2,
+  .c3,
+  .c4 {
+    grid-column: span 1;
+    grid-row: span 1;
+    flex-direction: column;
+  }
+
+  .bentoCard {
+    padding: 28px 24px;
+  }
+
+  .cardVisual {
+    min-height: 200px;
+    width: 100%;
+  }
+
+  .tabNav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .tabText h3 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: calc(var(--site-header-offset, 72px) + 32px) 0 64px;
+  }
+
+  .heroBtns {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .visionBandLink {
+    white-space: normal;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .bentoSection,
+  .stakeholders {
+    padding: 72px 0;
+  }
+
+  .tabContent {
+    padding: 24px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 clamp(16px, 4vw, 24px);
+  }
+
+  .title {
+    font-size: clamp(2rem, 8vw, 2.8rem);
   }
 }

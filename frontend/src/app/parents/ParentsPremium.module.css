@@ -1,5 +1,5 @@
 .page {
-  background: #fff;
+  background: transparent;
   color: var(--lv-text);
   overflow-x: hidden;
 }
@@ -12,7 +12,7 @@
 
 /* Hero */
 .hero {
-  padding: 160px 0 100px;
+  padding: calc(var(--site-header-offset, 88px) + 48px) 0 100px;
   background: linear-gradient(135deg, #1b4370 0%, #0f172a 100%); /* Navy Brand Color */
   color: #fff;
   position: relative;
@@ -247,5 +247,29 @@
   }
   .grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: calc(var(--site-header-offset, 72px) + 28px) 0 64px;
+  }
+
+  .desc {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+  }
+
+  .timelineSection {
+    padding: 72px 0;
+  }
+
+  .container {
+    padding: 0 clamp(16px, 4vw, 24px);
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: clamp(2rem, 8vw, 3rem);
   }
 }

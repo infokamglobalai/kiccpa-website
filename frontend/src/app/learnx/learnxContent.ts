@@ -28,6 +28,25 @@ export const VISION_CLOSING =
 export const MISSION_INTRO =
   "Our mission is to revolutionize the education sector through AI-powered digital solutions that enhance academic excellence, operational efficiency, communication, automation, and institutional growth.";
 
+export const MISSION_HERO = {
+  label: "Our mission",
+  headline: "Revolutionizing Education Through",
+  headlineAccent: "AI & Digital Transformation",
+  description:
+    "We unite artificial intelligence, automation, and real-time analytics in one cloud-native platform—so teachers teach smarter, leaders decide faster, and every student gets a path built for how they actually learn.",
+  image: "/images/hero-ai-analytics.png",
+  imageAlt:
+    "AI-powered education platform with learning analytics, teacher dashboards, and connected campus operations",
+  floatingCards: [
+    { id: "learning", label: "AI Learning", icon: "brain" as const },
+    { id: "automation", label: "Automation", icon: "zap" as const },
+    { id: "analytics", label: "Analytics", icon: "chart" as const },
+    { id: "communication", label: "Communication", icon: "message" as const },
+  ],
+  ctaPrimary: { label: "Explore Platform", href: "/products" },
+  ctaSecondary: { label: "Watch Overview", href: "/resources" },
+} as const;
+
 export const MISSION_COMMITMENTS = [
   "Delivering advanced LMS, SMS, and HRMS platforms",
   "Supporting schools, universities, and institutions in digital transformation",
@@ -104,6 +123,40 @@ export const GCC_VISION = {
 } as const;
 
 export const ECOSYSTEM_STATS = [
-  { value: "3", label: "Core platforms — LMS, SMS, HRMS" },
-  { value: "2", label: "Strategic hubs — Kuwait & India" },
+  { value: "3", label: "Core platforms", hint: "LMS · SMS · HRMS" },
+  { value: "2", label: "Delivery hubs", hint: "Kuwait & India" },
+  { value: "AI", label: "Native intelligence", hint: "Learning & operations" },
+  { value: "EN · AR", label: "Bilingual ready", hint: "RTL & regional compliance" },
 ] as const;
+
+export const ECOSYSTEM_PLATFORMS = [
+  {
+    name: "LMS",
+    title: "Learning Management",
+    desc: "AI-powered courses, assessments, and personalized learning paths.",
+    href: "/solutions/lms",
+  },
+  {
+    name: "SMS",
+    title: "School Management",
+    desc: "Admissions, fees, attendance, transport, and parent communication.",
+    href: "/solutions/sms",
+  },
+  {
+    name: "HRMS",
+    title: "People & Operations",
+    desc: "Staff workflows, payroll hand-offs, and institutional governance.",
+    href: "/services",
+  },
+] as const;
+
+export const HERO_IMAGE = {
+  src: encodeURI("/images/EduAiTutors Advanced Learning Ecosystem 1.jpeg"),
+  alt: "LearnX advanced learning ecosystem — LMS, SMS, and connected campus operations",
+} as const;
+
+export const LEARNX_CTA = {
+  title: "Ready to transform your institution?",
+  titleAccent: "Start with LearnX.",
+  lead: "Book a demo, explore packages, or speak with our team about a tailored LMS, SMS, and HRMS rollout.",
+} as const;

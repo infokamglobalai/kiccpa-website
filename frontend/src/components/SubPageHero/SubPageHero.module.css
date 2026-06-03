@@ -2,8 +2,8 @@
 
 .wrap {
   position: relative;
-  min-height: 520px;
-  padding: 80px 7% 100px;
+  min-height: clamp(360px, 55vh, 520px);
+  padding: calc(var(--site-header-offset, 88px) + 32px) clamp(20px, 5vw, 7%) clamp(72px, 8vw, 100px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -393,66 +393,92 @@
   filter: blur(10px);
 }
 
-/* ── Contact: soft blobs + “signal” rings ── */
+/* ── Contact: light brand wash (aligned with homepage / solution) ── */
 .contact {
-  --hero-accent: #34d399;
-  --hero-em1: #6ee7b7;
-  --hero-em2: #7dd3fc;
-  --hero-em3: #fcd34d;
-  background: linear-gradient(165deg, #0b1f2a 0%, #134e4a 38%, #0f172a 100%);
+  --hero-accent: var(--OR);
+  --hero-em1: var(--P);
+  --hero-em2: var(--PM);
+  --hero-em3: var(--OR);
+  color: var(--TX);
+  background:
+    radial-gradient(ellipse 120% 80% at 12% -8%, rgba(59, 130, 246, 0.14), transparent 52%),
+    radial-gradient(ellipse 90% 70% at 90% 18%, rgba(255, 130, 63, 0.12), transparent 55%),
+    linear-gradient(180deg, #f5f9ff 0%, var(--PL) 45%, var(--PP) 100%);
 }
 
-.contact .blob {
-  position: absolute;
-  z-index: 1;
-  border-radius: 50%;
-  filter: blur(40px);
-  opacity: 0.45;
+.contact .mesh {
+  opacity: 0.5;
+  background-image:
+    linear-gradient(rgba(27, 67, 112, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(27, 67, 112, 0.04) 1px, transparent 1px);
 }
 
-.contact .blob1 {
-  width: 280px;
-  height: 280px;
-  top: 5%;
-  left: 15%;
-  background: radial-gradient(circle, rgba(52, 211, 153, 0.5) 0%, transparent 70%);
+.contact .fadeBottom {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 62%,
+    rgba(248, 250, 252, 0.7) 88%,
+    var(--PP) 100%
+  );
 }
 
-.contact .blob2 {
-  width: 320px;
-  height: 320px;
-  bottom: 0%;
-  right: 10%;
-  background: radial-gradient(circle, rgba(56, 189, 248, 0.45) 0%, transparent 70%);
+.contact .eyebrow {
+  color: var(--OR);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(27, 67, 112, 0.1);
+  box-shadow: 0 4px 20px rgba(27, 67, 112, 0.06);
 }
 
-.contact .ring {
-  position: absolute;
-  z-index: 1;
-  left: 50%;
-  top: 42%;
-  transform: translate(-50%, -50%);
-  width: min(70vw, 480px);
-  height: min(70vw, 480px);
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.03) inset,
-    0 0 80px rgba(52, 211, 153, 0.06);
+.contact .eyebrow::before {
+  background: var(--OR);
+  box-shadow: 0 0 12px rgba(255, 130, 63, 0.45);
 }
 
-.contact .ring::before {
-  content: "";
-  position: absolute;
-  inset: 12%;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.04);
+.contact .title {
+  color: var(--TX);
+}
+
+.contact .title em {
+  background: linear-gradient(
+    105deg,
+    var(--P) 0%,
+    var(--PM) 30%,
+    var(--OR) 60%,
+    var(--OR2) 100%
+  );
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.contact .lead {
+  color: var(--MU);
+}
+
+.contact .contactOrbA {
+  top: -14%;
+  right: -8%;
+  width: min(50vw, 420px);
+  height: min(50vw, 420px);
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, transparent 68%);
+  filter: blur(8px);
+}
+
+.contact .contactOrbB {
+  bottom: -20%;
+  left: -12%;
+  width: min(55vw, 460px);
+  height: min(42vw, 340px);
+  background: radial-gradient(circle, rgba(255, 130, 63, 0.1) 0%, transparent 70%);
+  filter: blur(10px);
 }
 
 @media (max-width: 800px) {
   .wrap {
-    min-height: 460px;
-    padding: 72px 6% 88px;
+    min-height: clamp(320px, 50vh, 460px);
+    padding: calc(var(--site-header-offset, 72px) + 24px) 6% 72px;
   }
 
   .about .blocks {

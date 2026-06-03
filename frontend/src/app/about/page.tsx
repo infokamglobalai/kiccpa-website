@@ -1,116 +1,224 @@
 "use client";
 
 import SubPageHero from "@/components/SubPageHero/SubPageHero";
-import { useEffect } from "react";
-import Link from "next/link";
-
-import IntelligenceMap from "@/components/IntelligenceMap/IntelligenceMap";
-import InstitutionalDocuments from "@/components/InstitutionalDocuments";
 import FounderMessage from "@/components/FounderMessage/FounderMessage";
+import InstitutionalDocuments from "@/components/InstitutionalDocuments";
+import { MotionReveal } from "@/components/ui";
+import { industrySectors } from "@/frontend/lavender-home/homeContent";
+import {
+  ArrowRight,
+  Building2,
+  CheckCircle2,
+  Code2,
+  GraduationCap,
+  Users,
+} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import {
+  aboutCapabilities,
+  aboutCta,
+  aboutMission,
+  aboutPrinciples,
+  aboutSectorTags,
+  aboutStory,
+} from "./aboutContent";
+import styles from "./AboutPage.module.css";
+
+const capIcons = [GraduationCap, Building2, Users, Code2] as const;
 
 export default function AboutPage() {
-  useEffect(() => {
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('vis'); }
-      });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.rv').forEach(el => io.observe(el));
-  }, []);
-
   return (
-    <>
+    <div className={styles.page}>
       <SubPageHero
         variant="about"
-        eyebrow="About Our Legacy"
+        eyebrow="About KICCPA"
         title={
           <>
-            Forward-Thinking Technology,
+            Forward-thinking technology,
             <br />
-            Rooted in <em>Kuwait</em>
+            rooted in <em>Kuwait</em>
           </>
         }
       >
-        A forward-thinking technology company headquartered in Kuwait. As a spinoff of KAM International Group, we
-        bring a legacy of excellence combined with a future-ready digital approach.
+        A technology company headquartered in Kuwait and part of the KAM International ecosystem—combining
+        regional delivery with enterprise-grade digital platforms.
       </SubPageHero>
 
-      {/* Story & Approach */}
-      <section className="inst-section rv">
-        <div className="inst-left">
-          <div className="sec-eyebrow">Our Story</div>
-          <h2>Where We <em>Came From</em></h2>
-          <p>
-            Founded with a vision to drive digital transformation, KICCPA helps organizations modernize operations
-            through customized technology solutions. Our collaboration with KAM Global enables world-class delivery —
-            including <Link href="/learnx">LearnX</Link>, our AI-powered education ecosystem for Kuwait and the GCC.
-          </p>
-          
-          <h3 style={{ marginTop: "32px" }}>Our Core Delivery Principles</h3>
-          <div className="perks">
-            <div className="perk">Consultative Understanding</div>
-            <div className="perk">Customized Execution</div>
-            <div className="perk">Agile Methodology</div>
-            <div className="perk">Future-Proofed Architecture</div>
-          </div>
-        </div>
-        
-        <div className="inst-card">
-          <div style={{ position: "relative", zIndex: 1 }}>
-            <div className="inst-avatar" style={{ borderRadius: '16px', width: 'auto', height: '140px', overflow: 'hidden' }}>
-              <img 
-                src="/images/ultra_about_team_1774864451077.png" 
-                alt="Our Team" 
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-              />
+      <section className={styles.story} aria-labelledby="about-story-title">
+        <div className={styles.storyGrid}>
+          <MotionReveal variant="soft" y={20}>
+            <div>
+              <p className={styles.eyebrow}>{aboutStory.eyebrow}</p>
+              <h2 id="about-story-title" className={styles.title}>
+                Where we <em>came from</em>
+              </h2>
+              <p className={styles.lead}>
+                {aboutStory.leadBefore}
+                <Link href={aboutStory.learnXHref}>{aboutStory.learnXLabel}</Link>
+                {aboutStory.leadAfter}
+              </p>
+              <ul className={styles.principles}>
+                {aboutPrinciples.map((p) => (
+                  <li key={p.title} className={styles.principle}>
+                    <span className={styles.principleIcon} aria-hidden>
+                      <CheckCircle2 size={18} strokeWidth={2.25} />
+                    </span>
+                    <div>
+                      <strong className={styles.principleTitle}>{p.title}</strong>
+                      <p className={styles.principleText}>{p.text}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className="inst-name" style={{ marginTop: '16px' }}>KICCPA &amp; KAM Global Team</div>
-            <div className="inst-role">Strategic Hubs in Kuwait &amp; India</div>
-            <div className="inst-quote" style={{ marginTop: "24px" }}>
-              &ldquo;To empower organizations with innovative, scalable, and intelligent digital platforms that enhance
-              efficiency and drive sustainable growth.&rdquo;
-            </div>
-            <div className="inst-stats">
-              <div><div className="is-v" style={{ color: "var(--OR)" }}>High</div><div className="is-l">Efficiency</div></div>
-              <div><div className="is-v" style={{ color: "var(--OR)" }}>Global</div><div className="is-l">Scale</div></div>
-            </div>
-          </div>
+          </MotionReveal>
+
+          <MotionReveal variant="media" y={24}>
+            <article className={styles.missionCard}>
+              <div className={styles.missionImageWrap}>
+                <Image
+                  src={aboutMission.teamImage}
+                  alt={aboutMission.teamAlt}
+                  fill
+                  className={styles.missionImage}
+                  sizes="(max-width: 900px) 100vw, 45vw"
+                />
+              </div>
+              <div className={styles.missionBody}>
+                <p className={styles.missionName}>{aboutMission.teamName}</p>
+                <p className={styles.missionRole}>{aboutMission.teamRole}</p>
+                <blockquote className={styles.missionQuote}>{aboutMission.quote}</blockquote>
+                <div className={styles.missionStats}>
+                  {aboutMission.stats.map((s) => (
+                    <div key={s.label}>
+                      <div className={styles.missionStatValue}>{s.value}</div>
+                      <div className={styles.missionStatLabel}>{s.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </article>
+          </MotionReveal>
         </div>
       </section>
 
-      <FounderMessage variant="about" />
-
-      <IntelligenceMap />
-
-      {/* Industries */}
-      <div className="search-section rv">
-        <div className="sec-eyebrow" style={{ justifyContent: "center" }}>Industries We Serve</div>
-        <h2>Built Across Key Sectors</h2>
-        <div className="stags">
-          <button className="stag">🏫 Education</button>
-          <button className="stag">💻 EdTech</button>
-          <button className="stag">🏥 Healthcare</button>
-          <button className="stag">🏢 Enterprise</button>
-          <button className="stag">📚 Training</button>
-          <button className="stag">🛍️ Retail</button>
-          <button className="stag">🏠 Real Estate</button>
+      <div className={styles.kamBand}>
+        <div className={styles.kamBandInner}>
+          <p className={styles.kamBandTitle}>Part of KAM International Group</p>
+          <p className={styles.kamBandText}>
+            Legacy of excellence in the Gulf and India—unified product, engineering, and support for institutions
+            and enterprises.
+          </p>
+          <div className={styles.kamChips}>
+            {["Kuwait", "India", "GCC", "LearnX"].map((chip) => (
+              <span key={chip} className={styles.kamChip}>
+                {chip}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
-      <InstitutionalDocuments />
+      <FounderMessage variant="about" />
 
-      <section className="cta-section rv" style={{ background: "#fff", borderTop: "none" }}>
-        <h2>
-          We Don&apos;t Just Build Software.
-          <br />
-          We Build <em>Partnerships.</em>
-        </h2>
-        <p>Focused on measurable business outcomes and long-term relationships — not one-off deliveries.</p>
-        <div className="cta-btns">
-          <Link href="/services"><button className="btn-cp">Explore Our Services →</button></Link>
-          <Link href="/contact"><button className="btn-co">Talk to Us</button></Link>
+      <section className={styles.capabilities} aria-labelledby="about-cap-title">
+        <header className={styles.capHeader}>
+          <MotionReveal variant="soft" y={12}>
+            <p className={styles.eyebrow}>{aboutCapabilities.eyebrow}</p>
+            <h2 id="about-cap-title" className={styles.title}>
+              {aboutCapabilities.title} <em>{aboutCapabilities.titleAccent}</em>
+            </h2>
+            <p className={styles.lead} style={{ margin: "0 auto", textAlign: "center" }}>
+              {aboutCapabilities.lead}
+            </p>
+          </MotionReveal>
+        </header>
+        <ul className={styles.capGrid}>
+          {aboutCapabilities.items.map((item, i) => {
+            const Icon = capIcons[i] ?? Code2;
+            return (
+              <li key={item.title}>
+                <MotionReveal variant="soft" delay={i * 0.06} y={16}>
+                  <Link href={item.href} className={styles.capCard}>
+                    <span className={styles.capIcon} aria-hidden>
+                      <Icon size={22} strokeWidth={2} />
+                    </span>
+                    <h3 className={styles.capTitle}>{item.title}</h3>
+                    <p className={styles.capDesc}>{item.desc}</p>
+                    <span className={styles.capLink}>
+                      Learn more <ArrowRight size={14} aria-hidden />
+                    </span>
+                  </Link>
+                </MotionReveal>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+
+      <section className={styles.industries} aria-labelledby="about-industries-title">
+        <div className={styles.industriesInner}>
+          <MotionReveal variant="soft" y={14}>
+            <p className={styles.eyebrow} style={{ justifyContent: "center" }}>
+              Industries we serve
+            </p>
+            <h2 id="about-industries-title" className={styles.title}>
+              Built across <em>key sectors</em>
+            </h2>
+            <p className={styles.industriesLead}>
+              Sector-specific platforms for compliance, language, and scale—configured for your market.
+            </p>
+          </MotionReveal>
+
+          <ul className={styles.sectorGrid}>
+            {industrySectors.map((sector, i) => (
+              <li key={sector.slug}>
+                <MotionReveal variant="soft" delay={i * 0.08} y={18}>
+                  <Link href={`/industries/${sector.slug}`} className={styles.sectorCard}>
+                    <h3 className={styles.sectorCardTitle}>{sector.title}</h3>
+                    <p className={styles.sectorCardDesc}>{sector.desc}</p>
+                  </Link>
+                </MotionReveal>
+              </li>
+            ))}
+          </ul>
+
+          <div className={styles.tagCloud} aria-label="Additional sectors">
+            {aboutSectorTags.map((tag) => (
+              <span key={tag} className={styles.tag}>
+                {tag}
+              </span>
+            ))}
+          </div>
         </div>
       </section>
-    </>
+
+      <div className={styles.docsWrap}>
+        <InstitutionalDocuments />
+      </div>
+
+      <section className={styles.cta} aria-labelledby="about-cta-title">
+        <MotionReveal variant="soft" y={20}>
+          <div className={styles.ctaInner}>
+            <h2 id="about-cta-title" className={styles.ctaTitle}>
+              {aboutCta.title}
+              <br />
+              <em>{aboutCta.titleAccent}</em>
+            </h2>
+            <p className={styles.ctaLead}>{aboutCta.lead}</p>
+            <div className={styles.ctaBtns}>
+              <Link href="/services" className={styles.btnPrimary}>
+                Explore our services
+                <ArrowRight size={16} aria-hidden />
+              </Link>
+              <Link href="/contact" className={styles.btnOutline}>
+                Talk to us
+              </Link>
+            </div>
+          </div>
+        </MotionReveal>
+      </section>
+    </div>
   );
 }

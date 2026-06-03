@@ -16,31 +16,95 @@
   --MU: #64748B;      /* slate muted */
   --BR: #D1DCE8;      /* soft blue border */
   --WH: #FFFFFF;
-  --BG: #F8FAFC;
+  --BG: #F4F7FA;      /* pale brand blue — matches hero wash */
   --DK: #050E1A;      /* ultra deep navy bg */
+
+  /* Site-wide surface — same wash as homepage hero */
+  --site-bg-gradient: linear-gradient(165deg, #ffffff 0%, var(--PL) 42%, var(--PP) 100%);
+  --site-bg-fallback: var(--PP);
   
   --GL: rgba(255, 255, 255, 0.7); /* glass layer */
   --GB: rgba(27, 67, 112, 0.08);  /* glass border */
-  
+
+  /* Site content width — hero, sections, navbar alignment */
+  --content-max: 1240px;
+  --content-gutter: clamp(16px, 3vw, 40px);
+
+  /* Fixed header — keep TopBar, Navbar, and hero padding in sync */
+  --topbar-h: 54px;
+  --navbar-h: 70px;
+  --header-offset-gap: 10px;
+  --header-total-h: calc(var(--topbar-h) + var(--navbar-h));
+  --site-header-offset: calc(var(--header-total-h) + var(--header-offset-gap));
+
   /* Ultimate Tech Company Typography Stack */
   --font-h: -apple-system, BlinkMacSystemFont, "SF Pro Display", var(--font-inter, "Inter"), "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-b: -apple-system, BlinkMacSystemFont, "SF Pro Text", var(--font-inter, "Inter"), "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+@media (max-width: 1024px) {
+  :root {
+    --topbar-h: 0px;
+    --header-total-h: var(--navbar-h);
+    --site-header-offset: calc(var(--navbar-h) + var(--header-offset-gap));
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--site-bg-fallback);
+  overflow-x: clip;
+  scrollbar-gutter: stable;
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
-body { 
-  font-family: var(--font-b); 
-  background: var(--WH); 
-  color: var(--TX); 
-  overflow-x: hidden; 
+
+body {
+  font-family: var(--font-b);
+  background: var(--site-bg-gradient);
+  background-color: var(--site-bg-fallback);
+  background-attachment: fixed;
+  color: var(--TX);
+  overflow-x: clip;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   letter-spacing: -0.01em;
+}
+
+/* Main content area inherits brand blue wash (footer/nav stay as defined) */
+main {
+  background: transparent;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+/* Full-width sections without 100vw scrollbar bleed */
+.site-full-bleed {
+  width: 100%;
+  max-width: 100%;
+  margin-inline: 0;
+  box-sizing: border-box;
+}
+
+/* Standard page shell — use on page roots */
+.site-page {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+  box-sizing: border-box;
+}
+
+img,
+video,
+svg {
+  max-width: 100%;
 }
 a { text-decoration: none; color: inherit; }
 button { cursor: pointer; font-family: var(--font-h); letter-spacing: -0.01em; }
@@ -698,7 +762,7 @@ button { cursor: pointer; font-family: var(--font-h); letter-spacing: -0.01em; }
 /* ─────────────────────────────────────────
    FOOTER (ULTRA MODERN GLASS)
 ───────────────────────────────────────── */
-.f-ultra { background: var(--BG); border-top: 1px solid var(--BR); padding: 0; display: flex; flex-direction: column; overflow: hidden; position: relative; }
+.f-ultra { background: var(--site-bg-gradient); border-top: 1px solid var(--BR); padding: 0; display: flex; flex-direction: column; overflow: hidden; position: relative; }
 
 .f-top { padding: 25px 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 25px; background: #ffffff; border-bottom: 1px solid rgba(0,0,0,0.04); position: relative; z-index: 5; }
 .ft-item { display: flex; align-items: center; gap: 14px; }
@@ -798,12 +862,12 @@ button { cursor: pointer; font-family: var(--font-h); letter-spacing: -0.01em; }
 
 .sub-p-hero h2 {
   font-family: var(--font-h);
-  font-size: 3.2rem;
+  font-size: clamp(1.75rem, 4vw, 3.2rem);
   font-weight: 800;
   line-height: 1.15;
   margin-bottom: 20px;
   max-width: 900px;
-  letter-spacing: -2px;
+  letter-spacing: -0.03em;
 }
 
 .sub-p-hero h2 em {
@@ -816,7 +880,7 @@ button { cursor: pointer; font-family: var(--font-h); letter-spacing: -0.01em; }
 }
 
 .sub-p-hero p {
-  font-size: 1.15rem;
+  font-size: clamp(0.95rem, 1.2vw, 1.15rem);
   font-weight: 500;
   color: rgba(255,255,255,0.8);
   max-width: 650px;

@@ -67,7 +67,7 @@ export default function Footer() {
         <div className={styles.grid}>
           <div className={styles.brandCol}>
             <Link href="/" className={styles.logoLink}>
-              <Image src="/images/kiccpa-logo.jpg" alt="KICCPA" width={160} height={48} sizes="160px" />
+              <Image src="/images/kiccpa-logo.png" alt="KICCPA" width={160} height={48} sizes="160px" />
             </Link>
             <p className={styles.brandDesc}>
               The GCC&apos;s digital transformation partner — AI-native LMS, ERP, and custom software with delivery

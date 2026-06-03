@@ -168,9 +168,10 @@
   position: relative;
   border-radius: 22px;
   overflow: hidden;
-  aspect-ratio: 4/3;
+  aspect-ratio: 16 / 10;
+  background: #f4f7fb;
   box-shadow: 0 20px 56px rgba(27, 67, 112, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(27, 67, 112, 0.08);
   isolation: isolate;
 }
 
@@ -178,19 +179,24 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(145deg, rgba(27, 67, 112, 0.18) 0%, transparent 50%, rgba(255, 130, 63, 0.07) 100%);
+  background: linear-gradient(
+    180deg,
+    transparent 72%,
+    rgba(27, 67, 112, 0.06) 100%
+  );
   pointer-events: none;
   z-index: 1;
 }
 
 .visualInner {
   position: absolute;
-  inset: -3% -1%;
+  inset: 0;
   will-change: transform;
 }
 
 .cover {
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
 }
 
 .visualChip {

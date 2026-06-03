@@ -1,0 +1,137 @@
+/* Four stats — pinned under hero, same brand wash as hero */
+
+.fold {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+.statsStrip {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0;
+  width: 100%;
+  max-width: var(--home-max, 1240px);
+  margin: 0 auto;
+  padding: 0;
+  border-radius: 16px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.72) 0%,
+    rgba(232, 242, 252, 0.88) 100%
+  );
+  border: 1px solid rgba(27, 67, 112, 0.08);
+  box-shadow: 0 8px 28px rgba(27, 67, 112, 0.06);
+  box-sizing: border-box;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  flex: 1 1 0;
+  min-width: 0;
+  position: relative;
+  padding: 12px 10px;
+  text-align: center;
+}
+
+@media (min-width: 901px) {
+  .fold {
+    padding: 0;
+  }
+
+  .statsStrip {
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(27, 67, 112, 0.06);
+    box-shadow: none;
+    backdrop-filter: blur(6px);
+  }
+
+  .stat {
+    padding: 7px 6px;
+  }
+
+  .statValue {
+    font-size: clamp(0.9rem, 1.1vw, 1.05rem);
+  }
+
+  .statLabel {
+    font-size: clamp(0.62rem, 0.85vw, 0.7rem);
+    max-width: 8.5rem;
+  }
+}
+
+.statValue {
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  font-weight: 900;
+  color: var(--P);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.statLabel {
+  font-size: clamp(0.68rem, 1vw, 0.76rem);
+  font-weight: 600;
+  color: var(--MU);
+  line-height: 1.25;
+  max-width: 9rem;
+}
+
+@media (min-width: 901px) {
+  .statsStrip {
+    flex-wrap: nowrap;
+  }
+
+  .stat:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 18%;
+    bottom: 18%;
+    width: 1px;
+    background: rgba(27, 67, 112, 0.12);
+  }
+}
+
+@media (max-width: 900px) {
+  .statsStrip {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stat::after {
+    display: none !important;
+  }
+}
+
+@media (max-width: 520px) {
+  .statsStrip {
+    grid-template-columns: 1fr;
+  }
+
+  .stat {
+    flex-direction: row;
+    justify-content: center;
+    gap: 8px;
+    text-align: left;
+  }
+
+  .statLabel {
+    max-width: none;
+  }
+}

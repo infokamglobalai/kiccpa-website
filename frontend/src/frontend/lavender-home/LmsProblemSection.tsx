@@ -79,8 +79,8 @@ export default function LmsProblemSection() {
     offset: ["start end", "end start"],
   });
 
-  const imgY = useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : ["-4%", "6%"]);
-  const imgScale = useTransform(scrollYProgress, [0, 0.5, 1], reduce ? [1, 1, 1] : [1.04, 1, 1.02]);
+  const imgY = useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : ["-2%", "3%"]);
+  const imgScale = useTransform(scrollYProgress, [0, 0.5, 1], reduce ? [1, 1, 1] : [1.02, 1, 1.01]);
 
   return (
     <section ref={sectionRef} className={styles.section} aria-labelledby="lms-problem-heading">
@@ -137,8 +137,9 @@ export default function LmsProblemSection() {
                   src={homeImages.problemInsight}
                   alt={homeImages.problemInsightAlt}
                   fill
-                  sizes="(max-width: 960px) 100vw, 45vw"
+                  sizes="(max-width: 960px) 100vw, 48vw"
                   className={styles.cover}
+                  unoptimized
                 />
               </motion.div>
             </div>

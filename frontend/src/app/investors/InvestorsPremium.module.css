@@ -1,5 +1,5 @@
 .page {
-  background: #fff;
+  background: transparent;
   color: var(--lv-text);
   overflow-x: hidden;
 }
@@ -12,7 +12,7 @@
 
 /* Hero */
 .hero {
-  padding: 180px 0 120px;
+  padding: calc(var(--site-header-offset, 88px) + 56px) 0 120px;
   background: linear-gradient(135deg, #1b4370 0%, #0f172a 100%); /* Deep Navy */
   color: #fff;
   position: relative;
@@ -213,4 +213,24 @@
   .metricsGrid { grid-template-columns: repeat(2, 1fr); }
   .pillarGrid { grid-template-columns: 1fr; }
   .resGrid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: calc(var(--site-header-offset, 72px) + 32px) 0 64px;
+  }
+
+  .container {
+    padding: 0 clamp(16px, 4vw, 24px);
+  }
+
+  .metricsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
 }

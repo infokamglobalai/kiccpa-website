@@ -72,9 +72,8 @@ export default function SubPageHero({
 
       {variant === "contact" && (
         <>
-          <div className={`${styles.blob} ${styles.blob1}`} aria-hidden />
-          <div className={`${styles.blob} ${styles.blob2}`} aria-hidden />
-          <div className={styles.ring} aria-hidden />
+          <div className={`${styles.decor} ${styles.contactOrbA}`} aria-hidden />
+          <div className={`${styles.decor} ${styles.contactOrbB}`} aria-hidden />
         </>
       )}
 

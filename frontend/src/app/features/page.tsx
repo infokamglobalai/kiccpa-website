@@ -1,233 +1,325 @@
 "use client";
 
+import { MotionReveal } from "@/components/ui";
+import {
+  ArrowRight,
+  Building2,
+  Check,
+  GraduationCap,
+  Heart,
+  Play,
+  Sparkles,
+  Users,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
-import { MotionReveal, StaggerTitle } from "@/components/ui";
+import { useEffect, useState } from "react";
 import { aiFeatures, experienceFeatures } from "./featuresData";
 import type { FeatureBlock } from "./featuresData";
 import {
-  FEATURE_CARD_IMAGE,
-  FEATURES_AI_STRIP,
-  FEATURES_EXPERIENCE_STRIP,
-  FEATURES_HERO_BG,
-} from "./featuresImages";
+  FEATURE_AUDIENCES,
+  FEATURE_CATEGORIES,
+  FEATURE_ECOSYSTEM,
+  FEATURE_STATS,
+  FEATURES_CTA,
+  FEATURES_HERO,
+} from "./featuresPageContent";
+import { FEATURE_CARD_IMAGE, FEATURES_HERO_BG } from "./featuresImages";
 import styles from "./FeaturesPage.module.css";
 
-const easeOut = [0.2, 0.8, 0.2, 1] as const;
+const audienceIcons = {
+  graduation: GraduationCap,
+  users: Users,
+  heart: Heart,
+  building: Building2,
+} as const;
 
-function FeatureShowcase({
+function FeatureRow({
   feature,
   index,
-  theme,
+  variant,
 }: {
   feature: FeatureBlock;
   index: number;
-  theme: "light" | "dark";
+  variant: "light" | "dark";
 }) {
-  const reduce = useReducedMotion();
+  const reversed = index % 2 === 1;
   const src = FEATURE_CARD_IMAGE[feature.id] ?? "/images/home-hero-lms.png";
 
   return (
-    <motion.article
-      className={theme === "dark" ? styles.cardDark : styles.cardLight}
-      initial={reduce ? false : { opacity: 0, y: 36 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-48px" }}
-      transition={{ duration: 0.55, delay: index * 0.06, ease: easeOut }}
-    >
-      <div className={styles.cardMedia}>
-        <Image
-          src={src}
-          alt=""
-          fill
-          sizes="(max-width: 900px) 100vw, (max-width: 1200px) 50vw, 520px"
-          className={styles.cardMediaImg}
-        />
-        <div className={styles.cardMediaOverlay} aria-hidden />
-      </div>
-      <div className={styles.cardBody}>
-        <h3 className={styles.cardH}>{feature.title}</h3>
-        <p className={styles.cardSummary}>{feature.summary}</p>
-        <div className={styles.cardCols}>
-          <div>
-            <p className={styles.cardLbl}>Key features</p>
-            <ul className={styles.cardList}>
-              {feature.keyFeatures.map((line) => (
-                <li key={line}>{line}</li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <p className={styles.cardLbl}>Business impact</p>
-            <ul className={styles.cardList}>
-              {feature.businessImpact.map((line) => (
-                <li key={line}>{line}</li>
-              ))}
-            </ul>
-          </div>
+    <MotionReveal variant="soft" y={28} delay={index * 0.04}>
+      <article
+        id={feature.id}
+        className={`${styles.featureRow} ${variant === "dark" ? styles.featureRowDark : ""} ${reversed ? styles.featureRowReverse : ""}`}
+      >
+        <div className={styles.featureMedia}>
+          <Image src={src} alt="" fill sizes="(max-width: 900px) 100vw, 520px" className={styles.featureImg} />
+          <div className={styles.featureMediaOverlay} aria-hidden />
         </div>
-        {feature.quote ? <blockquote className={styles.cardQuote}>{feature.quote}</blockquote> : null}
-      </div>
-    </motion.article>
+        <div className={styles.featureBody}>
+          <span className={styles.featureIndex}>
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          <h3 className={styles.featureTitle}>{feature.title}</h3>
+          <p className={styles.featureSummary}>{feature.summary}</p>
+          <div className={styles.featureCols}>
+            <div>
+              <p className={styles.featureLbl}>Key features</p>
+              <ul className={styles.featureBullets}>
+                {feature.keyFeatures.map((line) => (
+                  <li key={line}>
+                    <Check size={14} strokeWidth={2.5} aria-hidden />
+                    {line}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p className={styles.featureLbl}>Business impact</p>
+              <ul className={styles.featureBullets}>
+                {feature.businessImpact.map((line) => (
+                  <li key={line}>
+                    <Check size={14} strokeWidth={2.5} aria-hidden />
+                    {line}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          {feature.quote ? (
+            <blockquote className={styles.featureQuote}>{feature.quote}</blockquote>
+          ) : null}
+        </div>
+      </article>
+    </MotionReveal>
   );
 }
 
 export default function FeaturesPage() {
-  const reduce = useReducedMotion();
+  const [activeCategory, setActiveCategory] = useState("experience");
+
+  useEffect(() => {
+    const sections = FEATURE_CATEGORIES.map((c) => document.getElementById(c.id));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible?.target.id) setActiveCategory(visible.target.id);
+      },
+      { rootMargin: "-30% 0px -55% 0px", threshold: [0, 0.2, 0.5] }
+    );
+    sections.forEach((el) => el && observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
     <div className={styles.shell}>
-      {/* Immersive hero */}
-      <section className={styles.hero} aria-labelledby="features-hero-title">
-        <div className={styles.heroBg}>
-          <Image
-            src={FEATURES_HERO_BG}
-            alt=""
-            fill
-            priority
-            className={styles.heroBgImg}
-            sizes="100vw"
-          />
-          <div className={styles.heroBgMesh} aria-hidden />
-          <div className={styles.heroBgVignette} aria-hidden />
+      <header className={styles.hero} aria-labelledby="features-hero-title">
+        <div className={styles.heroBg} aria-hidden>
+          <Image src={FEATURES_HERO_BG} alt="" fill priority className={styles.heroBgImg} sizes="100vw" />
+          <div className={styles.heroBgOverlay} />
         </div>
         <div className={styles.heroInner}>
-          <motion.p
-            className={styles.heroKicker}
-            initial={reduce ? false : { opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, ease: easeOut }}
-          >
-            KICCPA LMS
-          </motion.p>
-          <div id="features-hero-title">
-            <StaggerTitle
-              as="h1"
-              className={styles.heroTitle}
-              text="Platform features for students, faculty & leaders"
-              highlightFromWord={3}
-              highlightClassName={styles.heroTitleGrad}
-            />
-          </div>
-          <motion.p
-            className={styles.heroLead}
-            initial={reduce ? false : { opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.15, ease: easeOut }}
-          >
-            Everything from modern UX and multilingual access to AI-driven paths, grading, and
-            predictive analytics — designed for adoption across your institution.
-          </motion.p>
-          <motion.div
-            className={styles.heroPills}
-            initial={reduce ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.35, duration: 0.5 }}
-          >
-            {["Adaptive learning", "Real-time analytics", "Bilingual & RTL"].map((label) => (
-              <span key={label} className={styles.pill}>
-                {label}
-              </span>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Experience — light region + strip image */}
-      <section className={styles.region} aria-labelledby="exp-heading">
-        <div className={styles.regionStrip}>
-          <div className={styles.stripVisual}>
-            <Image
-              src={FEATURES_EXPERIENCE_STRIP}
-              alt="Educators and learners collaborating with technology"
-              fill
-              className={styles.stripImg}
-              sizes="(max-width: 900px) 100vw, 40vw"
-            />
-            <div className={styles.stripCaption}>
-              <span>Human-centred</span>
-              <strong>Experience layer</strong>
+          <MotionReveal variant="soft" y={20}>
+            <p className={styles.heroEyebrow}>{FEATURES_HERO.eyebrow}</p>
+            <h1 id="features-hero-title" className={styles.heroTitle}>
+              {FEATURES_HERO.title}{" "}
+              <span className={styles.heroTitleAccent}>{FEATURES_HERO.titleAccent}</span>
+            </h1>
+            <p className={styles.heroLead}>{FEATURES_HERO.lead}</p>
+            <div className={styles.heroPills}>
+              {FEATURES_HERO.pills.map((label) => (
+                <span key={label} className={styles.pill}>
+                  {label}
+                </span>
+              ))}
             </div>
-          </div>
-          <div className={styles.stripCopy}>
-            <p className={styles.regionEyebrow} id="exp-heading">
-              Experience &amp; accessibility
-            </p>
-            <h2 className={styles.regionTitle}>
-              How people use the platform <em>every day</em>
-            </h2>
-            <p className={styles.regionDesc}>
-              Navigation, personalization, recommendations, dashboards, and cross-device access —
-              the foundation for engagement before AI layers go to work.
-            </p>
-          </div>
+            <div className={styles.heroActions}>
+              <Link href={FEATURES_HERO.ctaPrimary.href} className={styles.btnPrimary}>
+                {FEATURES_HERO.ctaPrimary.label}
+                <ArrowRight size={16} aria-hidden />
+              </Link>
+              <Link href={FEATURES_HERO.ctaSecondary.href} className={styles.btnGhost}>
+                {FEATURES_HERO.ctaSecondary.label}
+              </Link>
+              <Link href="/resources" className={styles.btnGhost}>
+                <Play size={14} fill="currentColor" aria-hidden />
+                Watch overview
+              </Link>
+            </div>
+          </MotionReveal>
         </div>
+      </header>
 
-        <div className={styles.cardGrid}>
-          {experienceFeatures.map((f, i) => (
-            <FeatureShowcase key={f.id} feature={f} index={i} theme="light" />
+      <section className={styles.stats} aria-label="Platform highlights">
+        <div className={styles.statsGrid}>
+          {FEATURE_STATS.map((s, i) => (
+            <MotionReveal key={s.label} variant="soft" y={12} delay={i * 0.04}>
+              <div className={styles.stat}>
+                <span className={styles.statVal}>{s.value}</span>
+                <span className={styles.statLabel}>{s.label}</span>
+                <span className={styles.statHint}>{s.hint}</span>
+              </div>
+            </MotionReveal>
           ))}
         </div>
       </section>
 
-      {/* AI — dark region */}
-      <section className={styles.regionDark} aria-labelledby="ai-heading">
-        <div className={styles.darkIntro}>
-          <div className={styles.darkIntroText}>
-            <p className={styles.regionEyebrowLight} id="ai-heading">
-              AI &amp; intelligent automation
-            </p>
-            <h2 className={styles.regionTitleLight}>
-              Intelligence built into <em>teaching and operations</em>
-            </h2>
-            <p className={styles.regionDescLight}>
-              Adaptive learning, conversational support, automated assessment, and forecasting —
-              so teams spend less time on admin and more on outcomes.
-            </p>
-          </div>
-          <div className={styles.darkIntroVisual}>
-            <Image
-              src={FEATURES_AI_STRIP}
-              alt="Connected systems and analytics"
-              fill
-              className={styles.darkIntroImg}
-              sizes="(max-width: 900px) 100vw, 44vw"
-            />
-            <div className={styles.darkIntroGlow} aria-hidden />
-          </div>
-        </div>
-
-        <div className={`${styles.cardGrid} ${styles.cardGridDark}`}>
-          {aiFeatures.map((f, i) => (
-            <FeatureShowcase key={f.id} feature={f} index={i} theme="dark" />
+      <nav className={styles.categoryNav} aria-label="Feature categories">
+        <div className={styles.categoryNavInner}>
+          {FEATURE_CATEGORIES.map((cat) => (
+            <button
+              key={cat.id}
+              type="button"
+              className={`${styles.categoryBtn} ${activeCategory === cat.id ? styles.categoryBtnActive : ""}`}
+              onClick={() => scrollTo(cat.id)}
+            >
+              {cat.label}
+            </button>
           ))}
+        </div>
+      </nav>
+
+      <section id="experience" className={styles.region} aria-labelledby="exp-heading">
+        <div className={styles.container}>
+          <MotionReveal variant="soft" y={16}>
+            <header className={styles.regionHead}>
+              <p className={styles.eyebrow} id="exp-heading">
+                Experience &amp; accessibility
+              </p>
+              <h2 className={styles.regionTitle}>
+                How people use the platform <em>every day</em>
+              </h2>
+              <p className={styles.regionLead}>
+                Navigation, personalization, dashboards, mobile access, and bilingual delivery—the
+                foundation for engagement before AI goes to work.
+              </p>
+            </header>
+          </MotionReveal>
+          <div className={styles.featureStack}>
+            {experienceFeatures.map((f, i) => (
+              <FeatureRow key={f.id} feature={f} index={i} variant="light" />
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <MotionReveal y={20}>
-        <section className={styles.ctaBand} aria-label="Next steps">
+      <section id="ai" className={styles.regionDark} aria-labelledby="ai-heading">
+        <div className={styles.container}>
+          <MotionReveal variant="soft" y={16}>
+            <header className={styles.regionHead}>
+              <p className={styles.eyebrowLight} id="ai-heading">
+                AI &amp; intelligent automation
+              </p>
+              <h2 className={styles.regionTitleLight}>
+                Intelligence built into <em>teaching and operations</em>
+              </h2>
+              <p className={styles.regionLeadLight}>
+                Adaptive learning, automated assessment, predictive analytics, and AI counselling—so
+                teams spend less time on admin and more on outcomes.
+              </p>
+            </header>
+          </MotionReveal>
+          <div className={styles.featureStack}>
+            {aiFeatures.map((f, i) => (
+              <FeatureRow key={f.id} feature={f} index={i} variant="dark" />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className={styles.audiences} aria-labelledby="audiences-heading">
+        <div className={styles.container}>
+          <MotionReveal variant="soft" y={16}>
+            <header className={styles.regionHeadCenter}>
+              <p className={styles.eyebrow}>Who benefits</p>
+              <h2 id="audiences-heading" className={styles.regionTitle}>
+                Built for every <em>stakeholder</em>
+              </h2>
+              <p className={styles.regionLead}>
+                One platform—tailored views for students, faculty, parents, and leadership.
+              </p>
+            </header>
+          </MotionReveal>
+          <div className={styles.audienceGrid}>
+            {FEATURE_AUDIENCES.map((a, i) => {
+              const Icon = audienceIcons[a.icon];
+              return (
+                <MotionReveal key={a.title} variant="soft" delay={i * 0.06} y={18}>
+                  <article className={styles.audienceCard}>
+                    <span className={styles.audienceIcon} aria-hidden>
+                      <Icon size={22} strokeWidth={2} />
+                    </span>
+                    <h3 className={styles.audienceTitle}>{a.title}</h3>
+                    <p className={styles.audienceDesc}>{a.desc}</p>
+                  </article>
+                </MotionReveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className={styles.ecosystem} aria-labelledby="ecosystem-heading">
+        <div className={styles.container}>
+          <MotionReveal variant="soft" y={16}>
+            <header className={styles.regionHeadCenter}>
+              <p className={styles.eyebrow}>Connected ecosystem</p>
+              <h2 id="ecosystem-heading" className={styles.regionTitle}>
+                Features that link to <em>products</em>
+              </h2>
+              <p className={styles.regionLead}>
+                Explore how capabilities roll up into LMS, school management, LearnX, and AI
+                counselling modules.
+              </p>
+            </header>
+          </MotionReveal>
+          <div className={styles.ecosystemGrid}>
+            {FEATURE_ECOSYSTEM.map((item, i) => (
+              <MotionReveal key={item.label} variant="soft" delay={i * 0.05} y={14}>
+                <Link href={item.href} className={styles.ecosystemCard}>
+                  <span className={styles.ecosystemLabel}>{item.label}</span>
+                  <span className={styles.ecosystemDesc}>{item.desc}</span>
+                  <ArrowRight size={16} className={styles.ecosystemArrow} aria-hidden />
+                </Link>
+              </MotionReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className={styles.cta} aria-labelledby="features-cta-title">
+        <MotionReveal variant="soft" y={20}>
           <div className={styles.ctaInner}>
-            <h2 className={styles.ctaTitle}>Scope that fits your <em>campus</em></h2>
-            <p className={styles.ctaText}>
-              See how these capabilities map to your curriculum, stakeholders, and rollout plan — we
-              tailor scope for schools and groups in Kuwait, India, and beyond.
-            </p>
+            <span className={styles.ctaIcon} aria-hidden>
+              <Sparkles size={24} />
+            </span>
+            <h2 id="features-cta-title" className={styles.ctaTitle}>
+              {FEATURES_CTA.title}
+              <br />
+              <em>{FEATURES_CTA.titleAccent}</em>
+            </h2>
+            <p className={styles.ctaLead}>{FEATURES_CTA.lead}</p>
             <div className={styles.ctaRow}>
               <Link href="/demo" className={styles.btnPrimary}>
                 Book a demo
+                <ArrowRight size={16} aria-hidden />
               </Link>
-              <Link href="/products#packages" className={styles.btnGhost}>
-                Packages
+              <Link href="/schools" className={styles.btnOutline}>
+                For schools
               </Link>
-              <Link href="/contact" className={styles.btnGhost}>
+              <Link href="/contact" className={styles.btnOutline}>
                 Contact us
               </Link>
             </div>
           </div>
-        </section>
-      </MotionReveal>
+        </MotionReveal>
+      </section>
     </div>
   );
 }
