@@ -6,6 +6,7 @@ type StaggerTitleProps = {
   text: string;
   className?: string;
   as?: "h1" | "h2" | "h3";
+  id?: string;
   highlightFromWord?: number;
   highlightClassName?: string;
 };
@@ -34,6 +35,7 @@ export default function StaggerTitle({
   text,
   className = "",
   as: Tag = "h1",
+  id,
   highlightFromWord,
   highlightClassName = "",
 }: StaggerTitleProps) {
@@ -45,7 +47,7 @@ export default function StaggerTitle({
     const tail =
       highlightFromWord != null ? words.slice(highlightFromWord).join(" ") : null;
     return (
-      <Tag className={className}>
+      <Tag id={id} className={className}>
         {head}
         {tail != null && tail.length > 0 ? (
           <>
@@ -61,6 +63,7 @@ export default function StaggerTitle({
 
   return (
     <MotionHeading
+      id={id}
       className={className}
       initial="hidden"
       whileInView="show"

@@ -2,7 +2,7 @@
 
 import { MotionReveal, StaggerTitle } from "@/components/ui";
 import { FlagIndia, FlagKuwait } from "@/components/flags/FlagIcons";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
 import Link from "next/link";
 import { regionalDepthContent } from "./homeContent";
@@ -13,16 +13,16 @@ const flagByMarket = {
   kuwait: FlagKuwait,
 } as const;
 
-const cardVariants = {
+const cardVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: [0.2, 0.8, 0.2, 1] },
+    transition: { duration: 0.5, ease: [0.2, 0.8, 0.2, 1] as const },
   },
 };
 
-const gridVariants = {
+const gridVariants: Variants = {
   hidden: {},
   show: { transition: { staggerChildren: 0.1, delayChildren: 0.08 } },
 };
