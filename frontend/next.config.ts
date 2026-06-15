@@ -16,6 +16,8 @@ const nextConfig: NextConfig = {
     ];
   },
   images: {
+    /** Serve /public images directly — avoids Amplify _next/image optimizer failures */
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
