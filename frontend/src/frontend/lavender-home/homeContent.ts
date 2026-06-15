@@ -1,4 +1,4 @@
-/** Local public/ images — use encodeURI for filenames with spaces or & */
+/** Local public/ images — use URL-safe filenames (no spaces or &) for reliable CDN/deploy serving */
 
 export const homeImages = {
   /** Photorealistic classroom — teachers and learners with devices */
@@ -9,31 +9,32 @@ export const homeImages = {
   heroAi: "/images/hero-ai-analytics.png",
   heroAiAlt:
     "Educator reviewing AI-assisted learning analytics and progress on a laptop screen",
-  lmsStandard: encodeURI("/images/EduAiTutors Advanced Learning Ecosystem 1.jpeg"),
+  lmsStandard: "/images/EduAiTutors Advanced Learning Ecosystem 1.jpeg",
   lmsStandardAlt: "Digital learning ecosystem — courses, assessments, and student dashboards",
-  problemInsight: encodeURI("/images/AI Predictive Analytics & Smart Automation.png"),
-  problemInsightAlt: "Predictive analytics and smart automation for education",
-  schoolOps: encodeURI("/images/End-to-End Operational Digitization 1.jpeg"),
+  problemInsight: "/images/student-performance-dashboard.png",
+  problemInsightAlt:
+    "Traditional LMS limitations versus KICCPA intelligent outcomes — predictive analytics and smart automation",
+  schoolOps: "/images/End-to-End Operational Digitization 1.jpeg",
   schoolOpsAlt: "End-to-end operational digitization for schools and institutions",
-  enterpriseArch: encodeURI("/images/Custom Enterprise Software Architecture 1.jpeg"),
+  enterpriseArch: "/images/Custom Enterprise Software Architecture 1.jpeg",
   enterpriseArchAlt: "Enterprise software architecture and scalable integrations",
   support: "/images/Reliable Support 1.png",
   supportAlt: "Dedicated implementation and long-term support",
   pillars: [
     {
-      src: encodeURI("/images/Digital & AI 1.jpeg"),
+      src: "/images/feature-ai-adaptive-learning.png",
       alt: "AI-driven adaptive learning and digital curriculum",
     },
     {
-      src: "/images/Scalable Architecture 1.png",
+      src: "/images/student-performance-dashboard.png",
       alt: "Scalable analytics and performance insights",
     },
     {
-      src: encodeURI("/images/Robust Legacy System Integrations 1.jpeg"),
+      src: "/images/feature-bilingual-rtl.png",
       alt: "NLP and integrations across languages and systems",
     },
     {
-      src: encodeURI("/images/Sales & Customer Relationship Platforms 1.jpeg"),
+      src: "/images/feature-parent-stakeholder.png",
       alt: "Engagement portals for parents and stakeholders",
     },
   ] as const,
