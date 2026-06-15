@@ -8,12 +8,12 @@ export const FEATURE_CARD_IMAGE: Record<string, string> = {
   stakeholders: "/images/feature-parent-stakeholder.png",
   adaptive: "/images/feature-ai-adaptive-learning.png",
   grading: "/images/Custom Enterprise Software Architecture 1.jpeg",
-  predictive: "/images/AI Predictive Analytics & Smart Automation.png",
+  predictive: "/images/student-performance-dashboard.png",
   "ai-counselor": "/images/solutions/ai-counselor.png",
 };
 
 export const FEATURES_HERO_BG = "/images/EduAiTutors Advanced Learning Ecosystem 1.jpeg";
 
-export const FEATURES_EXPERIENCE_STRIP = "/images/hero-human-education.png";
+export const FEATURES_EXPERIENCE_STRIP = "/images/feature-modern-ui.png";
 
-export const FEATURES_AI_STRIP = "/images/Scalable Architecture 1.png";
+export const FEATURES_AI_STRIP = "/images/student-performance-dashboard.png";
