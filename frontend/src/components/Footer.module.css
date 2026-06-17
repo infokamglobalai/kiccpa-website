@@ -281,6 +281,52 @@
   color: rgba(125, 211, 252, 0.85);
 }
 
+.poweredBy {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin: 14px 0 16px;
+  max-width: 100%;
+}
+
+.poweredByLabel {
+  font-size: clamp(0.78rem, 1.2vw, 0.92rem);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--OR);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.poweredByLogoLink {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 8px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.poweredByLogoLink:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.poweredByLogoLink:focus-visible {
+  outline: 2px solid rgba(125, 211, 252, 0.9);
+  outline-offset: 4px;
+}
+
+.poweredByLogo {
+  display: block;
+  width: auto;
+  height: auto;
+  max-height: 32px;
+  object-fit: contain;
+}
+
 .colTitle {
   font-size: 0.65rem;
   font-weight: 800;

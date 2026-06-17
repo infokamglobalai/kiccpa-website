@@ -69,6 +69,27 @@ export default function Footer() {
             <Link href="/" className={styles.logoLink}>
               <Image src="/images/kiccpa-logo.png" alt="KICCPA" width={160} height={48} sizes="160px" />
             </Link>
+
+            <div className={styles.poweredBy}>
+              <span className={styles.poweredByLabel}>Powered by</span>
+              <a
+                href="https://www.kamglobalai.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.poweredByLogoLink}
+                aria-label="KAM Global AI — opens in new tab"
+              >
+                <Image
+                  src="/images/kam-global-logo.png"
+                  alt="KAM Global AI"
+                  width={108}
+                  height={36}
+                  sizes="108px"
+                  className={styles.poweredByLogo}
+                />
+              </a>
+            </div>
+
             <p className={styles.brandDesc}>
               The GCC&apos;s digital transformation partner — AI-native LMS, ERP, and custom software with delivery
               teams across Kuwait and India.
