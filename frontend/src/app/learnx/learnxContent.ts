@@ -128,7 +128,7 @@ export const AI_STUDIO = {
   title: "AI Academic Studio — built for Indian classrooms",
   lead: "Not sci-fi gimmicks. Practical teacher tools for board-aligned assessments, lesson prep, and evaluation support.",
   image: {
-    src: encodeURI("/images/AI Predictive Analytics & Smart Automation.png"),
+    src: "/images/ai-predictive-analytics.png",
     alt: "AI question paper generator for teachers — board, grade, subject, and preview workflow",
   },
   steps: [
@@ -252,7 +252,7 @@ export const SECURITY = {
     { title: "Scalable cloud architecture", desc: "Grow from one school to a regional education group." },
   ] as const,
   image: {
-    src: encodeURI("/images/Custom Enterprise Software Architecture 1.jpeg"),
+    src: "/images/enterprise-software-architecture.jpeg",
     alt: "Secure multi-tenant school data protection with LearnX",
   },
 } as const;
