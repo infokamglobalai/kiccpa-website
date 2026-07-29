@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KICCPA Website — Software Project Documentation</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <style>
+    :root {
+      --navy: #0f2942;
+      --navy-mid: #1b4370;
+      --orange: #e85d04;
+      --bg: #f7f9fc;
+      --card: #ffffff;
+      --border: #d9e2ec;
+      --text: #1a2332;
+      --muted: #5a6a7a;
+      --code-bg: #0f172a;
+      --accent-soft: #eef4fb;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Georgia, "Times New Roman", serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #eef3f9 0%, var(--bg) 220px);
+      line-height: 1.65;
+    }
+    .layout { display: grid; grid-template-columns: 280px 1fr; min-height: 100vh; }
+    nav.toc {
+      position: sticky; top: 0; height: 100vh; overflow-y: auto;
+      background: var(--navy); color: #e8eef6; padding: 1.5rem 1rem 2rem;
+      font-family: "Segoe UI", system-ui, sans-serif; font-size: 0.82rem;
+    }
+    nav.toc h1 {
+      font-size: 0.95rem; margin: 0 0 0.35rem; letter-spacing: 0.04em;
+      color: #fff; font-weight: 700;
+    }
+    nav.toc .meta { color: #9bb0c7; margin-bottom: 1.25rem; font-size: 0.75rem; }
+    nav.toc a {
+      display: block; color: #c5d4e4; text-decoration: none;
+      padding: 0.28rem 0.55rem; border-radius: 6px; margin-bottom: 2px;
+    }
+    nav.toc a:hover { background: rgba(255,255,255,0.08); color: #fff; }
+    nav.toc .sec { margin-top: 0.85rem; color: var(--orange); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.68rem;
+      padding: 0 0.55rem; }
+    main { padding: 2.25rem 2.75rem 4rem; max-width: 980px; }
+    header.doc-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      color: #fff; border-radius: 16px; padding: 2rem 2.25rem; margin-bottom: 2rem;
+      box-shadow: 0 12px 40px rgba(15,41,66,0.22);
+    }
+    header.doc-hero h1 { margin: 0 0 0.4rem; font-size: 1.85rem; font-family: Georgia, serif; }
+    header.doc-hero p { margin: 0; opacity: 0.9; max-width: 62ch; }
+    header.doc-hero .badges { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    .badge {
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+      padding: 0.25rem 0.65rem; border-radius: 999px; font-size: 0.75rem;
+      font-family: "Segoe UI", sans-serif;
+    }
+    h2 {
+      font-family: Georgia, serif; color: var(--navy); font-size: 1.45rem;
+      border-bottom: 2px solid var(--orange); padding-bottom: 0.35rem;
+      margin: 2.4rem 0 1rem;
+    }
+    h3 { color: var(--navy-mid); font-size: 1.12rem; margin: 1.6rem 0 0.55rem; }
+    h4 { margin: 1.1rem 0 0.4rem; color: var(--navy); }
+    p, li { font-size: 0.98rem; }
+    .muted { color: var(--muted); }
+    .card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 1.1rem 1.25rem; margin: 1rem 0; box-shadow: 0 2px 8px rgba(15,41,66,0.04);
+    }
+    table {
+      width: 100%; border-collapse: collapse; margin: 0.85rem 0 1.25rem;
+      font-size: 0.88rem; font-family: "Segoe UI", system-ui, sans-serif;
+      background: #fff; border-radius: 10px; overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    th, td { text-align: left; padding: 0.55rem 0.7rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { background: var(--accent-soft); color: var(--navy); font-weight: 650; }
+    tr:last-child td { border-bottom: none; }
+    code, .path {
+      font-family: Consolas, "Cascadia Code", monospace; font-size: 0.84em;
+      background: #eef2f7; padding: 0.1em 0.35em; border-radius: 4px;
+    }
+    pre {
+      background: var(--code-bg); color: #e2e8f0; padding: 1rem 1.1rem;
+      border-radius: 10px; overflow-x: auto; font-size: 0.82rem;
+      font-family: Consolas, monospace; line-height: 1.5;
+    }
+    .mermaid {
+      background: #fff; border: 1px solid var(--border); border-radius: 12px;
+      padding: 1rem; margin: 1rem 0 1.4rem; overflow-x: auto;
+    }
+    .callout {
+      border-left: 4px solid var(--orange); background: #fff8f3;
+      padding: 0.85rem 1rem; border-radius: 0 10px 10px 0; margin: 1rem 0;
+      font-family: "Segoe UI", sans-serif; font-size: 0.9rem;
+    }
+    .callout.warn { border-left-color: #b45309; background: #fffbeb; }
+    .callout.info { border-left-color: var(--navy-mid); background: var(--accent-soft); }
+    ul.compact li { margin: 0.2rem 0; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 960px) {
+      .layout { grid-template-columns: 1fr; }
+      nav.toc { position: relative; height: auto; max-height: none; }
+      main { padding: 1.25rem; }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+    footer.doc-foot {
+      margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.85rem; font-family: "Segoe UI", sans-serif;
+    }
+  </style>
+</head>
+<body>
+<div class="layout">
+<nav class="toc" aria-label="Table of contents">
+  <h1>KICCPA Docs</h1>
+  <div class="meta">Software Project Documentation<br/>Generated from codebase · Jul 2026</div>
+  <div class="sec">Overview</div>
+  <a href="#exec">1. Executive Summary</a>
+  <a href="#objectives">2. Project Objectives</a>
+  <a href="#stack">3. Technology Stack</a>
+  <a href="#folders">4. Folder Structure</a>
+  <a href="#architecture">5. System Architecture</a>
+  <div class="sec">Modules &amp; Requirements</div>
+  <a href="#modules">6. Module-wise Docs</a>
+  <a href="#requirements">7. Requirements</a>
+  <a href="#database">8. Database</a>
+  <a href="#api">9. API Documentation</a>
+  <a href="#auth">10. Auth &amp; Authorization</a>
+  <div class="sec">Implementation</div>
+  <a href="#frontend">11. Frontend Architecture</a>
+  <a href="#backend">12. Backend Architecture</a>
+  <a href="#state">13. State Management</a>
+  <a href="#business">14. Business Logic</a>
+  <a href="#integrations">15. Third-party Integrations</a>
+  <a href="#security">16. Security Features</a>
+  <div class="sec">Ops</div>
+  <a href="#testing">17. Testing Strategy</a>
+  <a href="#deployment">18. Deployment Guide</a>
+  <a href="#maintenance">19. Maintenance Guide</a>
+  <a href="#future">20. Future Enhancements</a>
+</nav>
+
+<main>
+<header class="doc-hero">
+  <h1>KICCPA Website — Software Project Documentation</h1>
+  <p>
+    Production marketing site and in-house CMS for <strong>Kuwait International Company for Computer Programming Activities (KICCPA)</strong>,
+    strategic arm of KAM International. Documentation is derived from the repository at
+    <code style="background:rgba(255,255,255,0.15);color:#fff">kiccpa-website</code>
+    (npm workspaces: <code style="background:rgba(255,255,255,0.15);color:#fff">frontend</code> + <code style="background:rgba(255,255,255,0.15);color:#fff">backend</code>).
+  </p>
+  <div class="badges">
+    <span class="badge">Next.js 16.2.1 · React 19</span>
+    <span class="badge">Express 5 · MongoDB / Mongoose 9</span>
+    <span class="badge">NextAuth JWT Admin</span>
+    <span class="badge">Live: kiccpa.com</span>
+  </div>
+</header>
+
+<!-- ========== 1 ========== -->
+<section id="exec">
+  <h2>1. Executive Summary and Synopsis</h2>
+  <p>
+    <strong>KICCPA</strong> is a monorepo web platform that markets enterprise digital solutions (LMS, SMS, AI counsellor,
+    calendar, assessment, and related products) across GCC and India, captures leads and demo bookings, hosts downloadable
+    resources, and provides a credentials-protected admin CMS for posts, testimonials, and resources.
+  </p>
+  <div class="card">
+    <h4>Synopsis (as implemented)</h4>
+    <ul class="compact">
+      <li><strong>Frontend:</strong> Next.js App Router app in <code>frontend/</code> — marketing pages, forms, admin UI, API proxy, S3 video streaming, NextAuth.</li>
+      <li><strong>Backend:</strong> Single Express process in <code>backend/index.js</code> — REST JSON API, Multer uploads, Nodemailer SMTP, Mongoose models.</li>
+      <li><strong>Data:</strong> MongoDB Atlas (optional offline/mock mode when <code>MONGODB_URI</code> is missing).</li>
+      <li><strong>Deploy targets (documented in repo):</strong> Amplify (<code>amplify.yml</code>), EC2+PM2 (<code>deploy/</code>), App Runner (<code>backend/apprunner.yaml</code>); production currently also runs on Render + Cloudflare DNS.</li>
+    </ul>
+  </div>
+  <p class="muted">
+    Primary public surface: homepage composed by <code>frontend/src/frontend/lavender-home/LavenderHome.tsx</code>.
+    Brand identity uses navy/orange CSS variables in <code>frontend/src/app/globals.css</code>.
+  </p>
+</section>
+
+<!-- ========== 2 ========== -->
+<section id="objectives">
+  <h2>2. Project Objectives</h2>
+  <p>Objectives inferred from implemented features and <code>README.md</code>:</p>
+  <table>
+    <thead><tr><th>#</th><th>Objective</th><th>Evidence in codebase</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Corporate digital presence for KICCPA / KAM</td><td>Routes under <code>frontend/src/app/*</code>; shell <code>Navbar</code>, <code>Footer</code>, <code>TopBar</code></td></tr>
+      <tr><td>2</td><td>Product storytelling (LearnX suite)</td><td><code>solutions/[slug]</code>, <code>learnx</code>, <code>solutionsContent.ts</code></td></tr>
+      <tr><td>3</td><td>Lead capture &amp; demo booking with email notify</td><td><code>POST /api/leads</code>, <code>POST /api/demo-bookings</code>; <code>lib/actions.ts</code></td></tr>
+      <tr><td>4</td><td>School digital transformation survey</td><td><code>SchoolSurveyForm</code> → <code>POST /api/school-surveys</code></td></tr>
+      <tr><td>5</td><td>In-house CMS (no Sanity runtime use)</td><td><code>/admin/posts</code>; CRUD via proxied Express APIs</td></tr>
+      <tr><td>6</td><td>Media / brochure delivery</td><td>Multer upload; <code>/uploads</code> proxy; S3 video route</td></tr>
+      <tr><td>7</td><td>Bilingual / regional UX cues</td><td><code>RegionLanguageSelector</code>; EN/AR VTT subtitles in <code>public/</code></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ========== 3 ========== -->
+<section id="stack">
+  <h2>3. Technology Stack</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h4>Frontend (<code>frontend/package.json</code>)</h4>
+      <table>
+        <tr><th>Package</th><th>Version</th><th>Role</th></tr>
+        <tr><td>next</td><td>16.2.1</td><td>App Router, SSR, route handlers</td></tr>
+        <tr><td>react / react-dom</td><td>19.2.4</td><td>UI</td></tr>
+        <tr><td>next-auth</td><td>^4.24.13</td><td>Admin credentials auth</td></tr>
+        <tr><td>framer-motion</td><td>^12.38.0</td><td>Motion</td></tr>
+        <tr><td>lucide-react</td><td>^1.7.0</td><td>Icons</td></tr>
+        <tr><td>zod</td><td>^4.3.6</td><td>Server-action validation</td></tr>
+        <tr><td>@aws-sdk/client-s3</td><td>^3.1048.0</td><td>Video streaming from S3</td></tr>
+        <tr><td>react-qr-code</td><td>^2.0.21</td><td>Resources page QR</td></tr>
+        <tr><td>typescript</td><td>^5</td><td>Type checking</td></tr>
+      </table>
+      <p class="muted">Declared but unused in source (no imports found): <code>sanity</code>, <code>next-sanity</code>, <code>resend</code>.</p>
+    </div>
+    <div class="card">
+      <h4>Backend (<code>backend/package.json</code>)</h4>
+      <table>
+        <tr><th>Package</th><th>Version</th><th>Role</th></tr>
+        <tr><td>express</td><td>^5.2.1</td><td>HTTP API</td></tr>
+        <tr><td>mongoose</td><td>^9.3.3</td><td>ODM</td></tr>
+        <tr><td>multer</td><td>^2.1.1</td><td>Uploads (100MB)</td></tr>
+        <tr><td>nodemailer</td><td>^8.0.4</td><td>SMTP</td></tr>
+        <tr><td>cors</td><td>^2.8.6</td><td>CORS (open)</td></tr>
+        <tr><td>dotenv</td><td>^17.3.1</td><td>Env loading</td></tr>
+        <tr><td>nodemon</td><td>^3.1.14</td><td>Dev reload</td></tr>
+      </table>
+      <h4>Infrastructure (repo + ops)</h4>
+      <ul class="compact">
+        <li>MongoDB Atlas</li>
+        <li>AWS Amplify (<code>amplify.yml</code>)</li>
+        <li>AWS EC2 + PM2 (<code>deploy/ec2-pm2.ecosystem.cjs</code>)</li>
+        <li>AWS App Runner (<code>backend/apprunner.yaml</code>)</li>
+        <li>AWS S3 (resource videos)</li>
+        <li>Office 365 SMTP (per <code>deploy/ec2.env.example</code>)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 4 ========== -->
+<section id="folders">
+  <h2>4. Folder Structure</h2>
+  <pre>kiccpa-website/
+├── package.json                 # npm workspaces: frontend, backend
+├── amplify.yml                  # Amplify: appRoot = frontend
+├── README.md
+├── create_post.js               # One-off local post seeder script
+├── deploy/
+│   ├── ec2-pm2.ecosystem.cjs    # PM2: backend + frontend
+│   └── ec2.env.example          # Production env template
+├── backend/
+│   ├── index.js                 # All Express routes (single file)
+│   ├── package.json
+│   ├── seed.js                  # Blog post seed
+│   ├── apprunner.yaml
+│   └── models/
+│       ├── Lead.js
+│       ├── DemoBooking.js
+│       ├── SchoolSurvey.js
+│       ├── Post.js
+│       ├── Testimonial.js
+│       └── Resource.js
+└── frontend/
+    ├── next.config.ts
+    ├── package.json
+    ├── public/                  # images, brochures, uploads, VTT
+    └── src/
+        ├── middleware.ts        # Protects /admin/*
+        ├── app/                 # App Router pages + API routes
+        ├── components/          # Navbar, Footer, UI, dropdowns
+        ├── frontend/            # lavender-home, stakeholders, legacy home
+        └── lib/                 # auth-config, actions, s3Videos, helpers</pre>
+</section>
+
+<!-- ========== 5 ========== -->
+<section id="architecture">
+  <h2>5. System Architecture</h2>
+  <p>
+    Request flow as implemented: the browser talks to Next.js. Most <code>/api/*</code> calls (except NextAuth and S3 video)
+    are proxied by <code>frontend/src/app/api/[...path]/route.ts</code> to Express. Contact and demo server actions call Express
+    directly via <code>NEXT_PUBLIC_BACKEND_URL</code> (<code>frontend/src/lib/actions.ts</code>).
+  </p>
+
+  <h3>5.1 High-level architecture</h3>
+  <div class="mermaid">
+flowchart TB
+  Browser["Browser Client"]
+  CF["Cloudflare DNS and TLS"]
+  FE["Next.js Frontend - frontend folder"]
+  MW["middleware.ts - admin protection"]
+  NA["NextAuth - api auth routes"]
+  PX["API Proxy - api catch-all route"]
+  UP["Uploads Proxy - uploads catch-all route"]
+  S3R["S3 video route - api s3-video slug"]
+  SA["Server Actions - lib actions.ts"]
+  BE["Express Backend - backend index.js"]
+  DB[("MongoDB Atlas")]
+  SMTP["Office 365 SMTP"]
+  S3[("AWS S3 Bucket")]
+
+  Browser --> CF --> FE
+  FE --> MW
+  FE --> NA
+  FE --> PX
+  FE --> UP
+  FE --> S3R
+  FE --> SA
+  PX --> BE
+  UP --> BE
+  SA --> BE
+  S3R --> S3
+  BE --> DB
+  BE --> SMTP
+  NA -.->|"ADMIN_EMAIL and ADMIN_PASSWORD"| FE
+  </div>
+
+  <h3>5.2 Runtime deployment topology (common production pattern)</h3>
+  <div class="mermaid">
+flowchart LR
+  U["Users"] --> WWW["kiccpa.com"]
+  WWW --> FESvc["Frontend service - Render Amplify or PM2"]
+  FESvc -->|"BACKEND_PROXY_URL"| BESvc["Backend service - Express host"]
+  BESvc --> Atlas[("MongoDB Atlas")]
+  BESvc --> Mail["SMTP"]
+  FESvc --> S3[("S3 videos")]
+  </div>
+
+  <div class="callout info">
+    <strong>Note:</strong> <code>README.md</code> documents Amplify + EC2. The monorepo also supports Render dual-service hosting
+    and same-host PM2 (<code>deploy/ec2-pm2.ecosystem.cjs</code>). Architecture principles remain: separate frontend process and Express API.
+  </div>
+</section>
+
+<!-- ========== 6 ========== -->
+<section id="modules">
+  <h2>6. Module-wise Documentation</h2>
+
+  <h3>6.1 Marketing shell</h3>
+  <table>
+    <tr><th>Module</th><th>Path</th><th>Responsibility</th></tr>
+    <tr><td>Root layout</td><td><code>frontend/src/app/layout.tsx</code></td><td>Fonts, metadata, Providers, TopBar, Navbar, Footer</td></tr>
+    <tr><td>TopBar</td><td><code>components/TopBar.tsx</code></td><td>Announcement + utility links</td></tr>
+    <tr><td>Navbar</td><td><code>components/Navbar.tsx</code> + <code>navMenuConfig.ts</code></td><td>Primary nav + dropdowns</td></tr>
+    <tr><td>Footer</td><td><code>components/Footer.tsx</code></td><td>CTA, links, contact, “Powered by KAM”</td></tr>
+  </table>
+
+  <h3>6.2 Homepage (Lavender)</h3>
+  <p>
+    Active homepage: <code>app/page.tsx</code> renders <code>LavenderHome</code> from
+    <code>frontend/src/frontend/lavender-home/</code>, driven by <code>homeContent.ts</code>.
+    Legacy sections remain under <code>frontend/src/frontend/home/</code> but are not used by <code>/</code>.
+  </p>
+
+  <h3>6.3 Product / stakeholder pages</h3>
+  <table>
+    <tr><th>Area</th><th>Routes</th><th>Content source</th></tr>
+    <tr><td>Solutions</td><td><code>/solutions/[slug]</code></td><td>8 slugs in solutions content (lms, sms, ai-counselor, …)</td></tr>
+    <tr><td>LearnX</td><td><code>/learnx</code></td><td>Dedicated product landing</td></tr>
+    <tr><td>Stakeholders</td><td><code>/schools</code>, <code>/parents</code>, <code>/investors</code></td><td><code>frontend/stakeholders/*</code></td></tr>
+    <tr><td>Industries</td><td><code>/industries/[slug]</code></td><td>healthcare, logistics, government</td></tr>
+  </table>
+
+  <h3>6.4 Conversion forms</h3>
+  <table>
+    <tr><th>Form</th><th>UI</th><th>Transport</th><th>Backend</th></tr>
+    <tr><td>Contact</td><td><code>app/contact/page.tsx</code></td><td><code>submitContactAction</code></td><td><code>POST /api/leads</code></td></tr>
+    <tr><td>Demo</td><td><code>demo/DemoBookingForm.tsx</code></td><td><code>submitDemoBookingAction</code></td><td><code>POST /api/demo-bookings</code></td></tr>
+    <tr><td>School survey</td><td><code>resources/SchoolSurveyForm.tsx</code></td><td><code>fetch('/api/school-surveys')</code></td><td><code>POST /api/school-surveys</code></td></tr>
+  </table>
+
+  <h3>6.5 Resources &amp; CMS</h3>
+  <ul class="compact">
+    <li><strong>Public resources:</strong> <code>app/resources/page.tsx</code> — catalog, survey, QR via <code>react-qr-code</code>.</li>
+    <li><strong>Admin CMS:</strong> <code>app/admin/posts/page.tsx</code> — tabs for Posts, Testimonials, Resources; upload via <code>/api/upload</code>.</li>
+    <li><strong>Auth gate:</strong> <code>middleware.ts</code> + NextAuth credentials (<code>lib/auth-config.ts</code>).</li>
+  </ul>
+
+  <h3>6.6 Backend domain modules (single process)</h3>
+  <p>All handlers live in <code>backend/index.js</code> with models under <code>backend/models/</code>. There is no Express router split.</p>
+</section>
+
+<!-- ========== 7 ========== -->
+<section id="requirements">
+  <h2>7. Functional and Non-functional Requirements</h2>
+
+  <h3>7.1 Functional requirements (implemented)</h3>
+  <table>
+    <thead><tr><th>ID</th><th>Requirement</th><th>Implementation</th></tr></thead>
+    <tbody>
+      <tr><td>FR-01</td><td>Browse marketing pages</td><td>App Router <code>page.tsx</code> routes</td></tr>
+      <tr><td>FR-02</td><td>Submit contact inquiry</td><td>Zod + server action → Lead + SMTP</td></tr>
+      <tr><td>FR-03</td><td>Book product demo</td><td>DemoBooking validation, reference ID, dual email</td></tr>
+      <tr><td>FR-04</td><td>Submit school survey</td><td>SchoolSurvey model + honeypot</td></tr>
+      <tr><td>FR-05</td><td>List/download resources</td><td><code>GET /api/resources</code>, uploads proxy</td></tr>
+      <tr><td>FR-06</td><td>Admin manage CMS content</td><td><code>/admin/posts</code> + posts/testimonials/resources APIs</td></tr>
+      <tr><td>FR-07</td><td>Stream product videos</td><td><code>/api/s3-video/[slug]</code> or local MP4 flag</td></tr>
+      <tr><td>FR-08</td><td>Health check for ops</td><td><code>GET /health</code></td></tr>
+      <tr><td>FR-09</td><td>Offline resilience for blog</td><td>In-memory <code>mockPosts</code> when DB down</td></tr>
+    </tbody>
+  </table>
+
+  <h3>7.2 Non-functional requirements</h3>
+  <table>
+    <thead><tr><th>ID</th><th>Category</th><th>As implemented</th></tr></thead>
+    <tbody>
+      <tr><td>NFR-01</td><td>Availability</td><td>Express listens on <code>0.0.0.0</code>; Mongo connect timeout 15s; free Render may cold-start</td></tr>
+      <tr><td>NFR-02</td><td>Payload size</td><td>Express JSON/urlencoded + Multer limit <strong>100MB</strong></td></tr>
+      <tr><td>NFR-03</td><td>Session lifetime</td><td>NextAuth JWT <code>maxAge: 8 hours</code></td></tr>
+      <tr><td>NFR-04</td><td>Images</td><td><code>images.unoptimized: true</code> in <code>next.config.ts</code> (hosting compatibility)</td></tr>
+      <tr><td>NFR-05</td><td>Type safety</td><td>TypeScript on frontend; CommonJS JS on backend</td></tr>
+      <tr><td>NFR-06</td><td>Security</td><td>Admin UI auth; honeypots; <code>escapeHtml</code>; timing-safe credential compare — see §16</td></tr>
+      <tr><td>NFR-07</td><td>Observability</td><td>Console logging for mail/DB; no APM/instrumentation in repo</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ========== 8 ========== -->
+<section id="database">
+  <h2>8. Database Documentation</h2>
+  <p>
+    Database: <strong>MongoDB</strong> via Mongoose. Connection in <code>backend/index.js</code> using
+    <code>process.env.MONGODB_URI</code> with <code>serverSelectionTimeoutMS: 15000</code>.
+    If URI is absent or contains placeholder <code>admin:PASS</code>, the API runs in mock/offline mode.
+  </p>
+
+  <h3>8.1 Entity-relationship diagram</h3>
+  <div class="mermaid">
+erDiagram
+  LEAD {
+    ObjectId id
+    string name
+    string email
+    string scope
+    string message
+    date createdAt
+  }
+  DEMOBOOKING {
+    ObjectId id
+    string referenceId
+    string fullName
+    string workEmail
+    string organization
+    string jobTitle
+    string phone
+    string countryRegion
+    string productInterest
+    date preferredDate
+    string timePreference
+    string timezone
+    string goals
+    string source
+    date createdAt
+  }
+  SCHOOLSURVEY {
+    ObjectId id
+    string referenceId
+    string schoolName
+    string curriculum
+    string contactName
+    string email
+    string challenges
+    string goals
+    string usingSystems
+    string demoMode
+    string source
+    date createdAt
+    date updatedAt
+  }
+  POST {
+    ObjectId id
+    string title
+    string slug
+    string category
+    string author
+    string excerpt
+    string content
+    date date
+    string imageUrl
+    string videoUrl
+    boolean published
+  }
+  TESTIMONIAL {
+    ObjectId id
+    string name
+    string role
+    string company
+    string content
+    string image
+  }
+  RESOURCE {
+    ObjectId id
+    string title
+    string description
+    string category
+    string fileUrl
+    string thumbnailUrl
+    string fileType
+    number fileSize
+    date date
+  }
+  </div>
+  <p class="muted">Collections are independent (no foreign-key relations in schemas). Uniqueness indexes: <code>DemoBooking.referenceId</code>, <code>SchoolSurvey.referenceId</code>, <code>Post.slug</code>.</p>
+
+  <h3>8.2 Model field reference</h3>
+  <h4>Lead — <code>backend/models/Lead.js</code></h4>
+  <p>Required: <code>name</code>, <code>email</code>, <code>scope</code>, <code>message</code>. <code>createdAt</code> defaults to <code>Date.now</code>.</p>
+
+  <h4>DemoBooking — <code>backend/models/DemoBooking.js</code></h4>
+  <p>
+    Enum <code>timePreference</code>: <code>morning | afternoon | evening | flexible</code>.
+    Default <code>source: 'demo-page'</code>. Unique indexed <code>referenceId</code>.
+  </p>
+
+  <h4>SchoolSurvey — <code>backend/models/SchoolSurvey.js</code></h4>
+  <p>
+    <code>timestamps: true</code>. Enums for <code>usingSystems</code> and <code>demoMode</code>.
+    Default <code>source: 'resources-page'</code>.
+  </p>
+
+  <h4>Post — <code>backend/models/Post.js</code></h4>
+  <p>Unique <code>slug</code>; default <code>author: 'KICCPA Team'</code>; default <code>published: true</code>; optional media URLs.</p>
+
+  <h4>Testimonial — <code>backend/models/Testimonial.js</code></h4>
+  <p>Required <code>name</code>, <code>role</code>, <code>content</code>; optional <code>company</code>, <code>image</code>.</p>
+
+  <h4>Resource — <code>backend/models/Resource.js</code></h4>
+  <p>
+    Category enum includes Brochure, Product Guide, Case Study, Whitepaper, Technical Document,
+    Investor Document, Institutional Document, Video, Other. Required <code>fileUrl</code> and <code>fileType</code>.
+  </p>
+</section>
+
+<!-- ========== 9 ========== -->
+<section id="api">
+  <h2>9. API Documentation (All Endpoints)</h2>
+  <p>Source of truth: <code>backend/index.js</code>. Base URL examples: <code>http://127.0.0.1:5000</code> (local) or the deployed Express host.</p>
+
+  <h3>9.1 Endpoint inventory</h3>
+  <table>
+    <thead><tr><th>Method</th><th>Path</th><th>Auth on Express?</th><th>Summary</th></tr></thead>
+    <tbody>
+      <tr><td>GET</td><td><code>/health</code></td><td>No</td><td>Plain text alive message</td></tr>
+      <tr><td>POST</td><td><code>/api/upload</code></td><td>No</td><td>Multipart file upload</td></tr>
+      <tr><td>GET</td><td><code>/api/testimonials</code></td><td>No</td><td>List testimonials</td></tr>
+      <tr><td>POST</td><td><code>/api/testimonials</code></td><td>No</td><td>Create testimonial</td></tr>
+      <tr><td>DELETE</td><td><code>/api/testimonials/:id</code></td><td>No</td><td>Delete by id</td></tr>
+      <tr><td>GET</td><td><code>/api/resources</code></td><td>No</td><td>List resources</td></tr>
+      <tr><td>POST</td><td><code>/api/resources</code></td><td>No</td><td>Create (503 if DB down)</td></tr>
+      <tr><td>DELETE</td><td><code>/api/resources/:id</code></td><td>No</td><td>Delete by id</td></tr>
+      <tr><td>GET</td><td><code>/api/posts</code></td><td>No</td><td>Published posts or mock</td></tr>
+      <tr><td>GET</td><td><code>/api/posts/:slug</code></td><td>No</td><td>Post by slug</td></tr>
+      <tr><td>POST</td><td><code>/api/posts</code></td><td>No</td><td>Create post</td></tr>
+      <tr><td>DELETE</td><td><code>/api/posts/:id</code></td><td>No</td><td>Delete post</td></tr>
+      <tr><td>POST</td><td><code>/api/leads</code></td><td>No</td><td>Contact lead + email</td></tr>
+      <tr><td>POST</td><td><code>/api/demo-bookings</code></td><td>No</td><td>Demo request + email</td></tr>
+      <tr><td>POST</td><td><code>/api/school-surveys</code></td><td>No</td><td>Survey + email</td></tr>
+    </tbody>
+  </table>
+
+  <h3>9.2 Frontend-native routes (not Express)</h3>
+  <table>
+    <tr><th>Route</th><th>File</th><th>Notes</th></tr>
+    <tr><td><code>/api/auth/*</code></td><td><code>app/api/auth/[...nextauth]/route.ts</code></td><td>NextAuth GET/POST</td></tr>
+    <tr><td><code>/api/[...path]</code></td><td><code>app/api/[...path]/route.ts</code></td><td>Proxies to Express <code>/api/*</code></td></tr>
+    <tr><td><code>/api/s3-video/[slug]</code></td><td><code>app/api/s3-video/[slug]/route.ts</code></td><td>Streams S3 object</td></tr>
+    <tr><td><code>/uploads/[...path]</code></td><td><code>app/uploads/[...path]/route.ts</code></td><td>Proxies upload files</td></tr>
+  </table>
+
+  <h3>9.3 Request / response details</h3>
+  <div class="card">
+    <h4>POST /api/leads</h4>
+    <pre>{
+  "name": "string",
+  "email": "string",
+  "scope": "string",
+  "message": "string"
+}
+// 201 → { success: true, message: "Inquiry received and team notified!" }</pre>
+  </div>
+  <div class="card">
+    <h4>POST /api/demo-bookings</h4>
+    <pre>// Required: fullName, workEmail, organization, countryRegion,
+// productInterest, preferredDate, timePreference, goals (≥10 chars)
+// Optional: jobTitle, phone, timezone
+// Honeypot: company_website | website → fake 201
+// 201 → { success, message, referenceId: "DEMO-..." }</pre>
+  </div>
+  <div class="card">
+    <h4>POST /api/school-surveys</h4>
+    <pre>// Required: schoolName, contactName, email
+// Arrays: curriculum, challenges, goals, demoSolutions
+// Enums: usingSystems, demoMode
+// 201 → { success, message, referenceId: "EDU-..." }</pre>
+  </div>
+  <div class="card">
+    <h4>POST /api/upload</h4>
+    <p>Multipart field <code>file</code>. Success: <code>{ url: "/uploads/&lt;timestamp&gt;.&lt;ext&gt;" }</code>. Stored under <code>frontend/public/uploads/</code> relative to monorepo.</p>
+  </div>
+  <div class="card">
+    <h4>GET /health</h4>
+    <p>Response body: <code>KICCPA Backend is alive! 🚀</code></p>
+  </div>
+</section>
+
+<!-- ========== 10 ========== -->
+<section id="auth">
+  <h2>10. Authentication and Authorization Flow</h2>
+  <p>
+    Authentication is implemented <strong>only on the frontend</strong> for the admin UI.
+    Express endpoints are not protected by API keys or session middleware.
+  </p>
+
+  <h3>10.1 Sequence — admin login</h3>
+  <div class="mermaid">
+sequenceDiagram
+  participant U as User
+  participant Login as Admin Login Page
+  participant NA as NextAuth Handler
+  participant Auth as auth-config.ts
+  participant MW as middleware.ts
+  participant CMS as Admin CMS
+
+  U->>Login: Submit email and password
+  Login->>NA: signIn credentials provider
+  NA->>Auth: authorize credentials
+  Auth->>Auth: timingSafeEqual check
+  alt valid credentials
+    Auth-->>NA: admin user object
+    NA-->>Login: JWT session 8 hours
+    Login->>CMS: redirect to CMS
+    CMS->>MW: withAuth token check
+    MW-->>CMS: allow access
+  else invalid or missing env
+    Auth-->>NA: null
+    NA-->>Login: login error
+  end
+  </div>
+
+  <h3>10.2 Implementation facts</h3>
+  <ul class="compact">
+    <li>Provider: Credentials (<code>lib/auth-config.ts</code>).</li>
+    <li>Compare via <code>crypto.timingSafeEqual</code> after UTF-8 buffers; length mismatch fails closed.</li>
+    <li>Session strategy: JWT; <code>maxAge: 60 * 60 * 8</code>.</li>
+    <li>Secret: <code>NEXTAUTH_SECRET</code>.</li>
+    <li>Middleware matcher: <code>/admin</code>, <code>/admin/:path*</code>; <code>/admin/login</code> allowed without token.</li>
+    <li>Sign-out: <code>signOut({ callbackUrl: "/" })</code> from admin CMS.</li>
+  </ul>
+
+  <div class="callout warn">
+    <strong>Authorization gap:</strong> CMS write/delete/upload Express routes are publicly callable if the backend URL is reachable.
+    Only the Next.js admin pages are gated. Hardening should add shared-secret or session verification on Express (see §20).
+  </div>
+</section>
+
+<!-- ========== 11 ========== -->
+<section id="frontend">
+  <h2>11. Frontend Architecture</h2>
+
+  <h3>11.1 App Router map</h3>
+  <table>
+    <tr><th>Route</th><th>File</th></tr>
+    <tr><td><code>/</code></td><td><code>app/page.tsx</code> → LavenderHome</td></tr>
+    <tr><td><code>/about</code>, <code>/contact</code>, <code>/services</code>, <code>/products</code>, <code>/features</code></td><td>respective <code>page.tsx</code></td></tr>
+    <tr><td><code>/demo</code></td><td>Demo booking</td></tr>
+    <tr><td><code>/resources</code></td><td>Catalog + survey</td></tr>
+    <tr><td><code>/solutions/[slug]</code></td><td>Product detail</td></tr>
+    <tr><td><code>/admin/login</code>, <code>/admin/posts</code></td><td>CMS</td></tr>
+    <tr><td><code>/admin</code></td><td>Redirect → <code>/admin/posts</code></td></tr>
+    <tr><td><code>/investor</code></td><td>Redirect → <code>/investors</code></td></tr>
+  </table>
+
+  <h3>11.2 Layering</h3>
+  <div class="mermaid">
+flowchart TB
+  subgraph presentation ["Presentation Layer"]
+    Pages["App pages - page.tsx routes"]
+    Sections["lavender-home and stakeholders"]
+    UI["components ui and shell"]
+  end
+  subgraph application ["Application Layer"]
+    Actions["lib actions.ts"]
+    AuthLib["lib auth-config.ts"]
+    S3Lib["lib s3Videos.ts"]
+  end
+  subgraph edge ["Edge and Route Handlers"]
+    Proxy["api catch-all proxy"]
+    S3API["api s3-video handler"]
+    Uploads["uploads catch-all proxy"]
+    NextAuthAPI["api auth handler"]
+  end
+  Pages --> Sections
+  Pages --> UI
+  Pages --> Actions
+  Pages --> Proxy
+  Actions --> ExpressBE["Express API"]
+  Proxy --> ExpressBE
+  </div>
+
+  <h3>11.3 Styling</h3>
+  <ul class="compact">
+    <li>Global design tokens: <code>app/globals.css</code> (navy/orange variables, gradients).</li>
+    <li>CSS Modules co-located with components/pages.</li>
+    <li>Fonts via <code>next/font</code>: Inter, Playfair Display, DM Sans.</li>
+    <li>Motion: Framer Motion + UI helpers under <code>components/ui/</code>.</li>
+  </ul>
+
+  <h3>11.4 Config highlights (<code>next.config.ts</code>)</h3>
+  <ul class="compact">
+    <li>Turbopack root = monorepo parent.</li>
+    <li>No rewrite of <code>/api</code> (would break NextAuth) — proxy route handlers instead.</li>
+    <li>Redirects: <code>/blog</code> → <code>/</code>; legacy video paths → S3 video API.</li>
+    <li><code>images.unoptimized: true</code>.</li>
+  </ul>
+</section>
+
+<!-- ========== 12 ========== -->
+<section id="backend">
+  <h2>12. Backend Architecture</h2>
+  <p>
+    Monolithic Express application: middleware → model imports → route handlers → listen.
+    No controllers/services folders; helpers are local functions in <code>index.js</code>
+    (<code>generateDemoReference</code>, <code>generateSurveyReference</code>, <code>smtpConfigured</code>, <code>escapeHtml</code>).
+  </p>
+
+  <h3>12.1 Class / module diagram (logical)</h3>
+  <div class="mermaid">
+classDiagram
+  class ExpressApp {
+    cors()
+    json limit 100mb
+    urlencoded limit 100mb
+    listen PORT
+  }
+  class MulterUpload {
+    diskStorage uploads dir
+    limits 100MB
+  }
+  class MongoConnection {
+    connect MONGODB_URI
+    readyState
+  }
+  class Mailer {
+    transporter Nodemailer
+    smtpConfigured()
+  }
+  class Lead
+  class DemoBooking
+  class SchoolSurvey
+  class Post
+  class Testimonial
+  class Resource
+  ExpressApp --> MulterUpload
+  ExpressApp --> MongoConnection
+  ExpressApp --> Mailer
+  ExpressApp --> Lead
+  ExpressApp --> DemoBooking
+  ExpressApp --> SchoolSurvey
+  ExpressApp --> Post
+  ExpressApp --> Testimonial
+  ExpressApp --> Resource
+  </div>
+
+  <h3>12.2 Startup behavior</h3>
+  <ol>
+    <li>Load dotenv.</li>
+    <li>Ensure upload directory exists.</li>
+    <li>Connect Mongo if URI valid; else warn and continue offline.</li>
+    <li>Register routes.</li>
+    <li>Listen on <code>process.env.PORT || 5000</code> bound to <code>0.0.0.0</code> (Render injects <code>PORT</code>, often 10000).</li>
+  </ol>
+</section>
+
+<!-- ========== 13 ========== -->
+<section id="state">
+  <h2>13. State Management</h2>
+  <p>
+    There is <strong>no</strong> global client store (no Redux, Zustand, Jotai, React Query, or SWR).
+    Patterns in use:
+  </p>
+  <table>
+    <tr><th>Pattern</th><th>Where</th></tr>
+    <tr><td>Component <code>useState</code> / <code>useEffect</code></td><td>Forms, Navbar, admin CMS, resources page</td></tr>
+    <tr><td>NextAuth <code>SessionProvider</code></td><td><code>components/Providers.tsx</code></td></tr>
+    <tr><td>Server Actions</td><td>Contact + demo (<code>lib/actions.ts</code>)</td></tr>
+    <tr><td><code>useTransition</code></td><td>Demo form pending UX</td></tr>
+    <tr><td>Server / DB as source of truth</td><td>Posts, testimonials, resources fetched on demand</td></tr>
+  </table>
+</section>
+
+<!-- ========== 14 ========== -->
+<section id="business">
+  <h2>14. Business Logic</h2>
+
+  <h3>14.1 Lead capture flow</h3>
+  <div class="mermaid">
+flowchart TD
+  A["Contact form"] --> B["Zod ContactSchema"]
+  B -->|invalid| E["Return field error"]
+  B -->|valid| C["POST api leads"]
+  C --> D{"Mongo ready?"}
+  D -->|yes| S["Save Lead"]
+  D -->|no| L["Console log only"]
+  S --> M["SMTP internal and user ack"]
+  L --> M
+  M --> R["201 success"]
+  </div>
+
+  <h3>14.2 Demo booking rules (<code>backend/index.js</code>)</h3>
+  <ul class="compact">
+    <li>Honeypot fields short-circuit with fake success.</li>
+    <li>Validate name, email regex, organization, country, product, goals length, time enum, date not in the past.</li>
+    <li>Generate <code>DEMO-{base36}-{rand}</code> reference.</li>
+    <li>Persist + notify <code>LEADS_NOTIFY_TO</code> (or default info@ addresses) + confirmation to user.</li>
+    <li>Duplicate key → HTTP 409.</li>
+  </ul>
+
+  <h3>14.3 School survey</h3>
+  <ul class="compact">
+    <li>Same honeypot pattern; reference prefix <code>EDU-</code>.</li>
+    <li>Normalize enums; truncate free-text; coerce arrays to strings.</li>
+    <li>Dual email (internal + user).</li>
+  </ul>
+
+  <h3>14.4 CMS content</h3>
+  <ul class="compact">
+    <li>Posts list returns only <code>published: true</code> when online; offline uses seeded <code>mockPosts</code>.</li>
+    <li>Get-by-slug does not re-check published flag.</li>
+    <li>Resources create requires live DB (503 otherwise).</li>
+  </ul>
+</section>
+
+<!-- ========== 15 ========== -->
+<section id="integrations">
+  <h2>15. Third-party Integrations</h2>
+  <table>
+    <thead><tr><th>Integration</th><th>Purpose</th><th>Config / code</th></tr></thead>
+    <tbody>
+      <tr><td>MongoDB Atlas</td><td>Persistence</td><td><code>MONGODB_URI</code></td></tr>
+      <tr><td>Nodemailer + SMTP</td><td>Lead/demo/survey mail</td><td><code>SMTP_HOST/PORT/USER/PASS</code>; Office 365 example in <code>ec2.env.example</code></td></tr>
+      <tr><td>AWS S3</td><td>Product videos</td><td><code>@aws-sdk/client-s3</code>; bucket defaults <code>kiccpa-resources</code>; region <code>ap-south-1</code></td></tr>
+      <tr><td>NextAuth</td><td>Admin sessions</td><td><code>NEXTAUTH_SECRET</code>, admin env creds</td></tr>
+      <tr><td>Unsplash</td><td>Remote images allowlist</td><td><code>next.config.ts</code> remotePatterns</td></tr>
+      <tr><td>Cloudflare / Render / Amplify / EC2</td><td>Hosting &amp; DNS</td><td>Ops; see §18</td></tr>
+    </tbody>
+  </table>
+  <p class="muted"><code>resend</code> and Sanity packages are installed but not wired in application source.</p>
+</section>
+
+<!-- ========== 16 ========== -->
+<section id="security">
+  <h2>16. Security Features</h2>
+  <table>
+    <tr><th>Control</th><th>Location</th><th>Notes</th></tr>
+    <tr><td>Admin credentials + timing-safe compare</td><td><code>auth-config.ts</code></td><td>Protects admin UI only</td></tr>
+    <tr><td>JWT session + middleware</td><td><code>middleware.ts</code></td><td>8-hour max age</td></tr>
+    <tr><td>Honeypot fields</td><td>Demo + school survey APIs</td><td><code>company_website</code> / <code>website</code></td></tr>
+    <tr><td>Input validation</td><td>Zod (FE) + Express checks</td><td>Stronger on demos/surveys than leads</td></tr>
+    <tr><td>HTML escaping in emails</td><td><code>escapeHtml</code></td><td>SMTP HTML bodies</td></tr>
+    <tr><td>Mongo URI placeholder guard</td><td><code>index.js</code></td><td>Skips connect for <code>admin:PASS</code></td></tr>
+  </table>
+  <div class="callout warn">
+    <strong>Known risks from code review:</strong>
+    <ul>
+      <li>Open CORS (<code>app.use(cors())</code>) — any origin.</li>
+      <li>Unauthenticated CMS mutating endpoints on Express.</li>
+      <li>100MB upload limit without auth.</li>
+      <li>Secrets must live in host env (never commit <code>.env</code>).</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ========== 17 ========== -->
+<section id="testing">
+  <h2>17. Testing Strategy</h2>
+  <div class="card">
+    <p><strong>Current state (as in repository):</strong></p>
+    <ul class="compact">
+      <li>No project-owned <code>*.test.*</code> / <code>*.spec.*</code> suites for app code.</li>
+      <li>Backend <code>npm test</code> is a stub that exits with error.</li>
+      <li>Frontend has <code>lint</code> (<code>eslint</code> / <code>eslint-config-next</code>) but no test runner script.</li>
+      <li>No Playwright/Cypress/Jest project configuration checked in.</li>
+    </ul>
+  </div>
+  <h3>Recommended strategy (not yet implemented)</h3>
+  <ol>
+    <li><strong>API contract tests</strong> — health, leads validation, demo honeypot, published posts filter.</li>
+    <li><strong>Model validation tests</strong> — Mongoose enums and unique indexes.</li>
+    <li><strong>Auth tests</strong> — timing-safe authorize paths; middleware allow/deny for <code>/admin</code>.</li>
+    <li><strong>E2E smoke</strong> — homepage load, contact submit (mocked SMTP), admin login.</li>
+    <li><strong>CI</strong> — add GitHub Actions (currently no <code>.github/</code> workflows).</li>
+  </ol>
+</section>
+
+<!-- ========== 18 ========== -->
+<section id="deployment">
+  <h2>18. Deployment Guide</h2>
+
+  <h3>18.1 Local development</h3>
+  <pre># From repo root
+npm install
+
+# Terminal A — backend
+cd backend
+# configure .env (MONGODB_URI, SMTP_*)
+npm run dev   # or npm start → node index.js  (port 5000)
+
+# Terminal B — frontend
+cd frontend
+# .env: NEXT_PUBLIC_BACKEND_URL=http://localhost:5000
+#       NEXTAUTH_SECRET, ADMIN_EMAIL, ADMIN_PASSWORD
+npm run dev   # http://localhost:3000</pre>
+
+  <h3>18.2 Environment variables</h3>
+  <p>Authoritative template: <code>deploy/ec2.env.example</code>.</p>
+  <table>
+    <tr><th>Variable</th><th>Service</th><th>Purpose</th></tr>
+    <tr><td><code>PORT</code></td><td>Backend</td><td>Listen port (default 5000)</td></tr>
+    <tr><td><code>MONGODB_URI</code></td><td>Backend</td><td>Atlas connection</td></tr>
+    <tr><td><code>SMTP_*</code>, <code>LEADS_NOTIFY_TO</code></td><td>Backend</td><td>Mail</td></tr>
+    <tr><td><code>BACKEND_PROXY_URL</code></td><td>Frontend</td><td>Preferred Express base for proxy</td></tr>
+    <tr><td><code>NEXT_PUBLIC_BACKEND_URL</code></td><td>Frontend</td><td>Fallback + server actions</td></tr>
+    <tr><td><code>NEXTAUTH_URL</code>, <code>NEXTAUTH_SECRET</code></td><td>Frontend</td><td>Auth</td></tr>
+    <tr><td><code>ADMIN_EMAIL</code>, <code>ADMIN_PASSWORD</code></td><td>Frontend</td><td>CMS login</td></tr>
+    <tr><td><code>AWS_*</code> / <code>S3_RESOURCES_*</code></td><td>Frontend</td><td>Video streaming</td></tr>
+  </table>
+
+  <h3>18.3 AWS Amplify (frontend)</h3>
+  <p><code>amplify.yml</code>: <code>appRoot: frontend</code>, <code>npm ci</code>, <code>npm run build</code>, artifacts <code>.next</code>.</p>
+
+  <h3>18.4 EC2 + PM2 (both apps)</h3>
+  <pre>pm2 start deploy/ec2-pm2.ecosystem.cjs
+pm2 save</pre>
+  <p>Ecosystem runs <code>kiccpa-backend</code> (<code>backend/index.js</code>) and <code>kiccpa-web</code> (frontend <code>npm start</code> on 3000) with proxy env toward local backend.</p>
+
+  <h3>18.5 App Runner (backend)</h3>
+  <p><code>backend/apprunner.yaml</code>: Node 20, <code>npm install</code>, <code>node index.js</code>, port 5000.</p>
+
+  <h3>18.6 Render dual-service (current ops pattern)</h3>
+  <table>
+    <tr><th>Service</th><th>Root Directory</th><th>Build</th><th>Start</th><th>Role</th></tr>
+    <tr><td>Frontend (e.g. website-2)</td><td><code>frontend</code></td><td><code>npm install && npm run build</code></td><td><code>npm start</code></td><td>Custom domain <code>kiccpa.com</code></td></tr>
+    <tr><td>Backend (e.g. website)</td><td><code>backend</code></td><td><code>npm install</code></td><td><code>npm start</code></td><td>API only; no marketing domain</td></tr>
+  </table>
+  <div class="callout info">
+    Point <code>BACKEND_PROXY_URL</code> / <code>NEXT_PUBLIC_BACKEND_URL</code> at the <strong>backend</strong> Render URL.
+    Attach <code>www.kiccpa.com</code> only to the <strong>frontend</strong> service. Backend root returning <code>Cannot GET /</code> is expected.
+  </div>
+
+  <h3>18.7 DNS (Cloudflare → Render)</h3>
+  <pre>CNAME  www  →  &lt;frontend-service&gt;.onrender.com   (DNS only)
+A      @    →  216.24.57.1                         (DNS only)</pre>
+  <p>Allow MongoDB Atlas network access (e.g. <code>0.0.0.0/0</code> for serverless hosts).</p>
+</section>
+
+<!-- ========== 19 ========== -->
+<section id="maintenance">
+  <h2>19. Maintenance Guide</h2>
+  <table>
+    <tr><th>Task</th><th>How</th></tr>
+    <tr><td>Update marketing copy / homepage</td><td>Edit <code>lavender-home/homeContent.ts</code> and section components; redeploy frontend</td></tr>
+    <tr><td>Manage posts / testimonials / resources</td><td>Login <code>/admin/login</code> → CMS; or API with caution</td></tr>
+    <tr><td>Seed sample posts</td><td><code>backend/seed.js</code> (wipes posts then inserts)</td></tr>
+    <tr><td>Rotate admin password</td><td>Change <code>ADMIN_PASSWORD</code> (+ optional <code>NEXTAUTH_SECRET</code>) and redeploy frontend</td></tr>
+    <tr><td>SMTP outages</td><td>Forms still return success if DB write works; check logs for mail errors</td></tr>
+    <tr><td>Cold starts (free hosts)</td><td>Hit <code>/health</code> to wake backend before demos</td></tr>
+    <tr><td>Disk uploads on ephemeral hosts</td><td>Multer writes under <code>frontend/public/uploads</code> — may not persist on container restarts; prefer S3 for production media</td></tr>
+    <tr><td>Dependency updates</td><td>Workspace <code>npm</code> in root; test build of both apps</td></tr>
+  </table>
+</section>
+
+<!-- ========== 20 ========== -->
+<section id="future">
+  <h2>20. Future Enhancements</h2>
+  <p>Suggested improvements grounded in current gaps:</p>
+  <ol>
+    <li><strong>Protect Express mutating routes</strong> — shared secret or JWT verification mirroring NextAuth.</li>
+    <li><strong>Restrict CORS</strong> to known frontend origins.</li>
+    <li><strong>Persist uploads to S3</strong> instead of local disk (align with video pipeline).</li>
+    <li><strong>Automated tests + CI</strong> (GitHub Actions) for API and auth smoke checks.</li>
+    <li><strong>Remove unused deps</strong> (<code>sanity</code>, <code>next-sanity</code>, <code>resend</code>) or adopt them intentionally.</li>
+    <li><strong>Unify API access</strong> — route contact/demo through the Next proxy so only <code>BACKEND_PROXY_URL</code> is required.</li>
+    <li><strong>Admin update endpoints</strong> — today CMS is create/list/delete; no PATCH/PUT for posts/resources.</li>
+    <li><strong>Observability</strong> — structured logging, health that checks Mongo readyState, uptime alerts.</li>
+    <li><strong>Rate limiting</strong> on public POST endpoints (leads, demos, surveys, upload).</li>
+    <li><strong>Infrastructure-as-code</strong> — add <code>render.yaml</code> or Terraform for reproducible dual-service deploy.</li>
+  </ol>
+</section>
+
+<footer class="doc-foot">
+  <p>
+    Document generated from the <strong>kiccpa-website</strong> codebase analysis.
+    Key sources: <code>backend/index.js</code>, <code>backend/models/*</code>, <code>frontend/src/app/**</code>,
+    <code>frontend/src/lib/*</code>, <code>deploy/*</code>, <code>amplify.yml</code>, <code>README.md</code>.
+  </p>
+  <p>© 2026 KICCPA documentation artifact — for internal engineering use.</p>
+</footer>
+</main>
+</div>
+
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: "neutral",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" }
+  });
+</script>
+</body>
+</html>
