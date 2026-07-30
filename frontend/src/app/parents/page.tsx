@@ -73,12 +73,12 @@ export default function ParentsPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              style={{ display: "flex", gap: "16px" }}
+              className={styles.heroCtas}
             >
-              <Link href="/demo" className="btn-cp" style={{ background: "#ff823f", color: "#fff", borderColor: "#ff823f" }}>
+              <Link href="/demo" className={styles.heroPrimaryBtn}>
                 Request a Demo →
               </Link>
-              <Link href="/contact" className="btn-co" style={{ borderColor: "rgba(255,255,255,0.4)", color: "#fff" }}>
+              <Link href="/contact" className={styles.heroGhostBtn}>
                 Contact Support
               </Link>
             </motion.div>
