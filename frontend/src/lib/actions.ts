@@ -25,7 +25,7 @@ export async function submitContactAction(formData: FormData) {
 
   try {
     // Calling the standalone MongoDB backend server
-    const API = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
+    const API = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5010";
     const response = await fetch(`${API}/api/leads`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -109,7 +109,7 @@ export async function submitDemoBookingAction(formData: FormData): Promise<DemoB
   const v = validated.data;
 
   try {
-    const API = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
+    const API = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5010";
     const response = await fetch(`${API}/api/demo-bookings`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
