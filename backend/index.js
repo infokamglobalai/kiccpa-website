@@ -607,6 +607,10 @@ app.post('/api/school-surveys', async (req, res) => {
   }
 });
 
+require('./recruitment')(app);
+require('./studio')(app);
+require('./subscribers')(app);
+
 app.get('/health', (req, res) => res.send('KICCPA Backend is alive! 🚀'));
 
 app.listen(PORT, '0.0.0.0', () => {

@@ -8,7 +8,7 @@ import styles from "./LoginPage.module.css";
 
 function LoginForm() {
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/admin/posts";
+  const callbackUrl = searchParams.get("callbackUrl") || "/admin";
   const errorParam = searchParams.get("error");
 
   const [email, setEmail] = useState("");
@@ -41,9 +41,9 @@ function LoginForm() {
   return (
     <div className={styles.wrap}>
       <div className={styles.card}>
-        <p className={styles.eyebrow}>KICCPA CMS</p>
-        <h1 className={styles.title}>Admin sign in</h1>
-        <p className={styles.hint}>Use the credentials from your <code>frontend/.env</code> file.</p>
+        <p className={styles.eyebrow}>KICCPA</p>
+        <h1 className={styles.title}>Operations desk</h1>
+        <p className={styles.hint}>Super admin, admin, HR, SEO, and marketing accounts sign in here. Each role opens only the desks it is allowed to use.</p>
 
         <form onSubmit={onSubmit} className={styles.form}>
           {error && (

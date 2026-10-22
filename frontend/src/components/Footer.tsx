@@ -70,26 +70,6 @@ export default function Footer() {
               <Image src="/images/kiccpa-logo.jpg" alt="KICCPA" width={160} height={48} sizes="160px" />
             </Link>
 
-            <div className={styles.poweredBy}>
-              <span className={styles.poweredByLabel}>Powered by</span>
-              <a
-                href="https://www.kamglobalai.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.poweredByLogoLink}
-                aria-label="KAM Global AI — opens in new tab"
-              >
-                <Image
-                  src="/images/kam-global-logo.png"
-                  alt="KAM Global AI"
-                  width={108}
-                  height={36}
-                  sizes="108px"
-                  className={styles.poweredByLogo}
-                />
-              </a>
-            </div>
-
             <p className={styles.brandDesc}>
               The GCC&apos;s digital transformation partner — AI-native LMS, ERP, and custom software with delivery
               teams across Kuwait and India.
@@ -141,18 +121,9 @@ export default function Footer() {
             </nav>
 
             <h3 id="footer-nav-partners" className={`${styles.colTitle} ${styles.colTitleSpaced}`}>
-              Partner network
+              Products
             </h3>
             <nav className={styles.navTight} aria-labelledby="footer-nav-partners">
-              <a
-                href="https://www.kamglobalai.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.extLink}
-              >
-                KAM Global
-                <ArrowUpRight className={styles.extIcon} aria-hidden size={14} strokeWidth={2.5} />
-              </a>
               <a
                 href="https://www.eduaitutors.com"
                 target="_blank"
@@ -244,7 +215,7 @@ export default function Footer() {
         </div>
 
         <div className={styles.floor}>
-          <p className={styles.floorTagline}>Strategic arm of KAM International</p>
+          <p className={styles.floorTagline}>Where it meets AI</p>
           <div className={styles.floorRow}>
             <p className={styles.legal}>
               © {currentYear} KICCPA (Kuwait International Company for Computer Programming Activities). All rights

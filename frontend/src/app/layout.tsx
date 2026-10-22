@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Sans, Inter, Playfair_Display } from "next/font/google";
+import { DM_Sans, Inter, Manrope, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({ 
@@ -20,17 +20,25 @@ const dmSans = DM_Sans({
   weight: ["400", "500", "600", "700"],
 });
 
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-manrope",
+  weight: ["500", "600", "700", "800"],
+});
+
 export const metadata: Metadata = {
-  title: "KICCPA | Where It Meets AI",
-  description: "Advanced AI solutions and software development by KICCPA.",
+  title: {
+    default: "KICCPA",
+    template: "%s · KICCPA",
+  },
+  description:
+    "KICCPA builds software, learning platforms, and business systems. Where it meets AI.",
   icons: {
     icon: "/favicon.png",
   },
 };
 
-import Navbar from "@/components/Navbar";
-import TopBar from "@/components/TopBar";
-import Footer from "@/components/Footer";
+import Chrome from "@/kam/Chrome";
 import Providers from "@/components/Providers";
 
 export default function RootLayout({
@@ -40,12 +48,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-scroll-behavior="smooth">
-      <body className={`${inter.variable} ${playfairDisplay.variable} ${dmSans.variable}`}>
+      <body className={`${inter.variable} ${manrope.variable} ${playfairDisplay.variable} ${dmSans.variable}`}>
         <Providers>
-          <TopBar />
-          <Navbar />
-          {children}
-          <Footer />
+          <Chrome>{children}</Chrome>
         </Providers>
       </body>
     </html>

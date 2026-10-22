@@ -23,18 +23,31 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const adminEmail = process.env.ADMIN_EMAIL?.trim().toLowerCase();
-        const adminPass = process.env.ADMIN_PASSWORD ?? "";
-        if (!adminEmail || !adminPass) {
-          console.error("[auth] Set ADMIN_EMAIL and ADMIN_PASSWORD in frontend/.env");
-          return null;
-        }
         const email = credentials?.email?.trim().toLowerCase() ?? "";
         const password = credentials?.password ?? "";
         if (!email || !password) return null;
+
+        const api = process.env.BACKEND_PROXY_URL || process.env.NEXT_PUBLIC_BACKEND_URL || "http://127.0.0.1:5000";
+        try {
+          const response = await fetch(`${api.replace(/\/$/, "")}/api/staff/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }),
+          });
+          if (response.ok) {
+            const staff = (await response.json()) as { id: string; email: string; name: string; role: string };
+            return { id: staff.id, email: staff.email, name: staff.name, role: staff.role };
+          }
+        } catch (error) {
+          console.error("[auth] Staff directory unavailable:", error);
+        }
+
+        const adminEmail = process.env.ADMIN_EMAIL?.trim().toLowerCase();
+        const adminPass = process.env.ADMIN_PASSWORD ?? "";
+        if (!adminEmail || !adminPass) return null;
         if (!safeEqual(email, adminEmail)) return null;
         if (!safeEqual(password, adminPass)) return null;
-        return { id: "admin", name: "Admin", email: adminEmail };
+        return { id: "superadmin", name: "Super admin", email: adminEmail, role: "superadmin" };
       },
     }),
   ],
@@ -50,12 +63,16 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.email = user.email;
+        token.name = user.name;
+        token.role = user.role || "hr";
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
         session.user.email = token.email as string;
+        session.user.name = token.name as string;
+        session.user.role = token.role;
       }
       return session;
     },

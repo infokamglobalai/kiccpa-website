@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { signOut } from "next-auth/react";
 
 type PostRecord = { _id: string; title: string; category?: string; slug?: string };
 type TestimonialRecord = { _id: string; name: string; role?: string; company?: string };
@@ -199,19 +198,9 @@ export default function AdminDashboard() {
               <button className={activeTab === 'resources' ? 'active' : ''} onClick={() => setActiveTab('resources')}>Resources</button>
             </div>
           </div>
-          <div style={{ display: "flex", gap: 12, alignItems: "flex-end" }}>
-            <button
-              type="button"
-              className="admin-back-btn"
-              onClick={() => signOut({ callbackUrl: "/" })}
-              style={{ border: "none", font: "inherit", cursor: "pointer" }}
-            >
-              Sign out
-            </button>
-            <Link href="/" className="admin-back-btn">
-              ← Back to Site
-            </Link>
-          </div>
+          <Link href="/admin/studio" className="admin-back-btn">
+            Articles desk
+          </Link>
         </header>
 
         <div className="admin-grid">
@@ -427,20 +416,20 @@ export default function AdminDashboard() {
 
       <style jsx>{`
         .admin-page-wrap {
-          min-height: 100vh;
-          background: #f8fafc;
-          padding: 160px 20px 60px;
-          color: #1e293b;
+          min-height: auto;
+          background: transparent;
+          padding: 0;
+          color: #142033;
           font-family: inherit;
         }
         .admin-container { max-width: 1200px; margin: 0 auto; }
         .admin-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; border-bottom: 1px solid #e2e8f0; padding-bottom: 20px; }
-        .ah-left h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 16px; color: var(--P); }
-        .ah-left h1 span { color: var(--OR); }
+        .ah-left h1 { font-size: 2rem; font-weight: 600; letter-spacing: -0.05em; margin-bottom: 16px; color: #1c1917; }
+        .ah-left h1 span { color: #a8a29e; }
         
         .admin-tabs { display: flex; gap: 10px; }
         .admin-tabs button { padding: 10px 20px; border-radius: 12px; border: 1px solid #e2e8f0; background: white; cursor: pointer; font-weight: 700; color: #64748b; transition: all 0.3s; }
-        .admin-tabs button.active { background: var(--P); color: white; border-color: var(--P); transform: translateY(-3px); box-shadow: 0 4px 12px rgba(27,67,112,0.2); }
+        .admin-tabs button.active { background: #1c1917; color: white; border-color: #1c1917; }
 
         .upload-box { display: flex; gap: 10px; }
         .upload-box input { flex: 1; pointer-events: none; }
@@ -458,7 +447,7 @@ export default function AdminDashboard() {
         .admin-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px; }
         @media (max-width: 1000px) { .admin-grid { grid-template-columns: 1fr; } }
 
-        .admin-card { background: white; border-radius: 24px; padding: 32px; border: 1px solid #f1f5f9; box-shadow: 0 10px 40px rgba(0,0,0,0.03); }
+        .admin-card { background: rgba(255,255,255,0.58); border-radius: 22px; padding: 28px; border: 1px solid rgba(255,255,255,0.8); box-shadow: 0 16px 40px rgba(60,40,20,0.05); backdrop-filter: blur(16px); }
         .ac-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #f1f5f9; }
         .ac-head h2 { font-size: 1.5rem; font-weight: 700; }
         
@@ -472,7 +461,7 @@ export default function AdminDashboard() {
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .code-text { font-family: 'Courier New', Courier, monospace; font-size: 0.9rem; background: #1e293b !important; color: #e2e8f0 !important; }
         
-        .admin-submit-btn { margin-top: 10px; padding: 18px; border-radius: 14px; background: var(--P); color: white; font-weight: 800; border: none; cursor: pointer; transition: all 0.3s; font-size: 1.1rem; }
+        .admin-submit-btn { margin-top: 10px; padding: 14px; border-radius: 999px; background: #1c1917; color: white; font-weight: 600; border: none; cursor: pointer; font-size: 1rem; }
         .admin-submit-btn:hover { background: var(--PD); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(27, 67, 112, 0.2); }
 
         .admin-post-list { display: flex; flex-direction: column; gap: 16px; }

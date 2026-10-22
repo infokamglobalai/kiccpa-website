@@ -80,19 +80,6 @@ export default function LavenderHome({ onOpenVideo }: LavenderHomeProps) {
                   {line}
                 </motion.p>
               ))}
-              <motion.p
-                className={styles.heroKamLine}
-                variants={{
-                  hidden: { opacity: 0, y: 14 },
-                  show: {
-                    opacity: 1,
-                    y: 0,
-                    transition: { duration: 0.5, ease: heroEase },
-                  },
-                }}
-              >
-                Part of the <strong className={styles.heroKamStrong}>KAM International</strong> ecosystem.
-              </motion.p>
             </motion.div>
             <motion.div
               className={styles.heroCtasUltra}
