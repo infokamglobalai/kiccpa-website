@@ -1,0 +1,41 @@
+name: Deploy VPS
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: kiccpa-vps-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy to Hostinger
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull, build, and restart KICCPA
+        uses: appleboy/ssh-action@v1.2.5
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          fingerprint: SHA256:6OifuLU5PVbLEaNyM/ALF8/4tl2eynGSeZE6V/D5RGQ
+          command_timeout: 30m
+          script: |
+            set -e
+            if [ -s /root/.nvm/nvm.sh ]; then
+              export NVM_DIR=/root/.nvm
+              . /root/.nvm/nvm.sh
+            fi
+            export PATH="/usr/local/bin:/usr/bin:${PATH}"
+            cd /var/www/kiccpa-com
+            git fetch origin main
+            git reset --hard origin/main
+            npm ci --include=dev
+            npm run build
+            pm2 restart kiccpa-backend kiccpa-frontend
+            pm2 save
+            sleep 4
+            curl -fsS http://127.0.0.1:5010/health
+            curl -fsS -o /dev/null http://127.0.0.1:3010/
