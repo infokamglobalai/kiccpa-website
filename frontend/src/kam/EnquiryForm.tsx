@@ -72,7 +72,7 @@ export function BusinessEnquiryForm() {
       </label>
       <label>Service
         <select name="service" value={service} onChange={(event) => setService(event.target.value)} required>
-          {activeServices.map((item) => <option key={item.href} value={item.title}>{item.title}</option>)}
+          {activeServices.map((item) => <option key={item.title} value={item.title}>{item.title}</option>)}
         </select>
       </label>
       <label>Requirements<textarea name="requirements" required minLength={10} placeholder="Describe the requirement." /></label>

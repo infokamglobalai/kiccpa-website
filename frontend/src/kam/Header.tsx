@@ -108,7 +108,7 @@ export default function Header() {
               <div className={styles.megaLabel}>{group.label}</div>
               <p className={styles.megaBlurb}>{group.blurb}</p>
               {group.links.map((link) => (
-                <Link key={link.href} href={link.href} onClick={() => setMega(false)}>
+                <Link key={link.href + link.title} href={link.href} onClick={() => setMega(false)}>
                   <strong>{link.title}</strong>
                   <span>{link.text}</span>
                 </Link>
@@ -127,7 +127,7 @@ export default function Header() {
                 <div key={group.label}>
                   <small>{group.label}</small>
                   {group.links.map((link) => (
-                    <Link key={link.href} href={link.href} onClick={() => setOpen(false)}>{link.title}</Link>
+                    <Link key={link.href + link.title} href={link.href} onClick={() => setOpen(false)}>{link.title}</Link>
                   ))}
                 </div>
               ))}
