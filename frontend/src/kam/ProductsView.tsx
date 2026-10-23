@@ -39,16 +39,9 @@ export default function ProductsView() {
         <section key={product.id} id={product.id} className={`${styles.pdSection} ${index % 2 === 1 ? styles.pdLight : ""}`}>
           <div className={`${styles.wrap} ${styles.pdRow} ${index % 2 === 1 ? styles.pdAlt : ""}`}>
             <Reveal>
-              {product.image ? (
-                <figure className={styles.pdMedia}>
-                  <img src={product.image} alt={product.alt} />
-                </figure>
-              ) : (
-                <div className={styles.pdMark} aria-hidden="true">
-                  <span>Platform</span>
-                  <strong>kam.eduaitutors.com</strong>
-                </div>
-              )}
+              <figure className={styles.pdMedia}>
+                <img src={product.image} alt={product.alt} />
+              </figure>
             </Reveal>
             <Reveal>
               <p className={styles.pdEyebrow}>{product.audience}</p>
@@ -60,6 +53,7 @@ export default function ProductsView() {
               </ul>
               <div className={styles.rowBtns}>
                 <a className={styles.hpBtn} href={product.href} target="_blank" rel="noreferrer">{product.cta} <span className={styles.arrow}>→</span></a>
+                <Link className={styles.hpBtnGhost} href="/business-enquiry?service=Product+Demo">Book a Demo</Link>
                 <Link className={styles.hpBtnLine} href="/contact">Talk to KICCPA</Link>
               </div>
             </Reveal>

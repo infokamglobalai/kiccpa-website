@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CtaBand, Faq, PageHero } from "./Blocks";
 import AboutView from "./AboutView";
+import CareersView from "./CareersView";
 import OpenRoles from "./OpenRoles";
 import { JobList } from "./JobList";
 import { listPublicJobs } from "@/lib/jobs";
@@ -282,29 +283,7 @@ export function GlobalPage() {
 
 export async function CareersPage() {
   const { jobs, database } = await listPublicJobs();
-  return (
-    <main className={styles.sv}>
-      <section className={styles.svHero}>
-        <div className={styles.wrap}>
-          <p className={styles.svEyebrow}>Careers</p>
-          <h1>Build your next chapter with us.</h1>
-          <p>Open roles are published by the KICCPA hiring team. Choose a role to read the brief and send a complete application. A general note is not a vacancy.</p>
-        </div>
-      </section>
-      <section className={styles.svSection}>
-        <div className={styles.wrap}>
-          {!database && <p className={styles.muted}>The hiring database is not connected, so live roles cannot be shown yet.</p>}
-          {database && jobs.length === 0 && (
-            <article className={styles.plain}>
-              <h2>No open roles right now</h2>
-              <p>When HR publishes a role, it appears here and on the matching service page. There is no general application until a role is posted.</p>
-            </article>
-          )}
-          {jobs.length > 0 && <JobList jobs={jobs} />}
-        </div>
-      </section>
-    </main>
-  );
+  return <CareersView jobs={jobs} database={database} />;
 }
 
 export function LegalPage({ kind }: { kind: "privacy" | "terms" | "cookies" }) {

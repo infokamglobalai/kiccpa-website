@@ -23,6 +23,17 @@ export default function Page() {
           <Suspense fallback={<p>Loading the form…</p>}>
             <JobSeekerForm />
           </Suspense>
+          <div style={{ marginTop: 32, padding: "20px 24px", background: "#f8fafc", borderRadius: 12, border: "1px solid #e2e8f0", textAlign: "center" }}>
+            <p style={{ margin: "0 0 8px", fontWeight: 700, color: "#0f172a" }}>
+              Prefer direct recruitment communication?
+            </p>
+            <p style={{ margin: 0, color: "#475569", fontSize: "0.95rem" }}>
+              WhatsApp our talent acquisition team at{" "}
+              <a href="https://wa.me/96599889588" target="_blank" rel="noreferrer" style={{ color: "#16a34a", fontWeight: 700 }}>+965 9988 9588</a>
+              {" "}or email your profile to{" "}
+              <a href="mailto:careers@kiccpa.com" style={{ color: "#2563eb", fontWeight: 700, textDecoration: "underline" }}>careers@kiccpa.com</a>
+            </p>
+          </div>
         </div>
       </section>
     </main>

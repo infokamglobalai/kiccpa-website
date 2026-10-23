@@ -20,7 +20,7 @@ export default function Page() {
             <p>Tell us about your business requirements. Our team can review your enquiry and identify a relevant next step.</p>
           </div>
           <figure className={styles.ctHeroMedia}>
-            <img src="/assets/hero/home-hero.jpg" alt="Contemporary glass architecture in deep blue light, used beside the contact introduction." />
+            <img src="/assets/hero/kuwait-city-skyline.jpg" alt="Kuwait City skyline overlooking the Arabian Gulf at dusk." />
           </figure>
         </div>
       </section>
