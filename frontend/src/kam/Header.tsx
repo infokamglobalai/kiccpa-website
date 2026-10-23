@@ -97,6 +97,12 @@ export default function Header() {
       </div>
       {mega && (
         <div id="services-menu" className={styles.mega} role="region" aria-label="Services" data-services-root>
+          <div className={styles.megaTopBar}>
+            <Link href="/services" onClick={() => setMega(false)}>
+              <strong>All Services Directory</strong>
+              <span>Explore Complete Capabilities Overview →</span>
+            </Link>
+          </div>
           {megaGroups.map((group) => (
             <div key={group.label}>
               <div className={styles.megaLabel}>{group.label}</div>

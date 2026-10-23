@@ -12,7 +12,7 @@ function star(cx: number, cy: number, r: number) {
   return points.join(" ");
 }
 
-function Flag({ code }: { code: string }) {
+export function Flag({ code }: { code: string }) {
   if (code === "kw") {
     return (
       <svg className={styles.hpFlag} viewBox="0 0 30 20" aria-hidden="true">

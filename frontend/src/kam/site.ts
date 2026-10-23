@@ -46,10 +46,10 @@ export const contacts = {
 };
 
 export const socials: { label: string; href: string }[] = [
-  { label: "LinkedIn", href: "" },
-  { label: "Instagram", href: "" },
-  { label: "Facebook", href: "" },
-  { label: "YouTube", href: "" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/kiccpa" },
+  { label: "Instagram", href: "https://www.instagram.com/kiccpa" },
+  { label: "Facebook", href: "https://www.facebook.com/kiccpa" },
+  { label: "YouTube", href: "https://www.youtube.com/@kiccpa" },
 ];
 
 export type ServiceId =

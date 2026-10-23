@@ -16,6 +16,13 @@ function SocialIcon({ name }: { name: string }) {
   if (name === "Facebook") {
     return <svg {...common}><path d="M14 9h3V6h-3c-2.2 0-4 1.8-4 4v2H8v3h2v7h3v-7h2.6l.4-3H13v-2c0-.6.4-1 1-1z" /></svg>;
   }
+  if (name === "YouTube") {
+    return (
+      <svg {...common}>
+        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+      </svg>
+    );
+  }
   return <svg {...common}><path d="M23 12.2a11 11 0 1 1-3.2-7.8A11 11 0 0 1 23 12.2zM10 15.5V8.8l6.2 3.3z" /></svg>;
 }
 
@@ -56,6 +63,16 @@ export default function Footer() {
             <li><Link href="/products">Products</Link></li>
             <li><Link href="/careers">Careers</Link></li>
             <li><Link href="/contact">Contact</Link></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <ul>
+            <li><a href="tel:+96560919345">+965 6091 9345</a></li>
+            <li><a href="https://wa.me/96599889588" target="_blank" rel="noreferrer">+965 9988 9588 (WhatsApp)</a></li>
+            <li><a href="mailto:info@kiccpa.com">info@kiccpa.com</a></li>
+            <li><span style={{ fontSize: "0.92rem", color: "rgba(255,255,255,0.7)" }}>Kuwait City, Kuwait</span></li>
+            <li><span style={{ fontSize: "0.82rem", color: "rgba(255,255,255,0.5)" }}>Sun – Thu: 8:00 AM – 5:00 PM</span></li>
           </ul>
         </div>
       </div>

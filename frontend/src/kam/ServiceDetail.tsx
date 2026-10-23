@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import DivisionView from "./DivisionView";
 import { clientPath, homeSteps, seekerPath, serviceBySlug } from "./home-content";
 import styles from "./kam.module.css";
 
@@ -7,6 +8,11 @@ export default function ServiceDetail({ slug }: { slug: string }) {
   const found = serviceBySlug(slug);
   if (!found) notFound();
   const { division, item } = found;
+
+  if (!item) {
+    return <DivisionView division={division} slug={slug} />;
+  }
+
   const shared = division.items.filter((entry) => entry.href.endsWith(`/${slug}`));
   const title = shared.length > 1 ? "Healthcare recruitment" : item?.title || division.title;
   const text = shared.length > 1
