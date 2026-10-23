@@ -50,7 +50,7 @@ export const servicePagesData: Record<string, ServicePageData> = {
     title: "AI & Automation",
     headline: "Intelligent automation. Built for business results.",
     lead: "KICCPA scopes and deploys custom artificial intelligence, intelligent document extraction, and cross-platform automation pipelines that eliminate manual bottlenecks and accelerate operational velocity.",
-    image: "/images/AI Predictive Analytics & Smart Automation.png",
+    image: "/images/ai-automation.png",
     alt: "AI predictive analytics, machine learning, and automation workflows.",
     challengesHead: {
       eyebrow: "Operational Bottlenecks",
@@ -182,7 +182,7 @@ export const servicePagesData: Record<string, ServicePageData> = {
     title: "Software & App Development",
     headline: "Bespoke digital platforms. Engineered to perform.",
     lead: "KICCPA builds custom web platforms, mobile applications, and enterprise software shaped strictly around your organization's business workflows and scaling goals.",
-    image: "/images/Custom Enterprise Software Architecture 1.jpeg",
+    image: "/images/software-architecture.jpg",
     alt: "Custom enterprise software architecture and application development.",
     challengesHead: {
       eyebrow: "Development Challenges",
@@ -446,7 +446,7 @@ export const servicePagesData: Record<string, ServicePageData> = {
     title: "IT Support & Cybersecurity",
     headline: "Proactive systems management. Enterprise threat protection.",
     lead: "KICCPA delivers multi-tier IT helpdesk operations, 24/7 infrastructure health monitoring, and security governance designed to keep your business running smoothly without technical interruption.",
-    image: "/images/Reliable Support 1.png",
+    image: "/images/it-support.png",
     alt: "Reliable IT systems support, security monitoring, and endpoint administration.",
     challengesHead: {
       eyebrow: "Security & Support Friction",
@@ -710,7 +710,7 @@ export const servicePagesData: Record<string, ServicePageData> = {
     title: "Sales & Lead Generation",
     headline: "Targeted B2B prospecting. Qualified sales conversations.",
     lead: "KICCPA builds and executes structured outbound prospecting campaigns, speed-to-lead inbound qualification, and appointment setting that fills your sales pipeline with qualified decision-makers.",
-    image: "/images/Sales & Customer Relationship Platforms 1.jpeg",
+    image: "/images/sales-crm.jpg",
     alt: "Sales strategy and proactive customer relationship management.",
     challengesHead: {
       eyebrow: "Sales Pipeline Challenges",
@@ -842,7 +842,7 @@ export const servicePagesData: Record<string, ServicePageData> = {
     title: "Back Office & BPO",
     headline: "Accurate transaction processing. Streamlined back-office workflows.",
     lead: "KICCPA delivers rigorous back-office operational execution—from invoice verification and transaction reconciliation to content moderation and data indexing—governed by strict quality SLAs.",
-    image: "/images/End-to-End Operational Digitization 1.jpeg",
+    image: "/images/back-office.jpg",
     alt: "End-to-end operational digitization and back-office transaction workflows.",
     challengesHead: {
       eyebrow: "Administrative Friction",
@@ -974,7 +974,7 @@ export const servicePagesData: Record<string, ServicePageData> = {
     title: "Virtual Assistants & CRM",
     headline: "Executive productivity. Well-maintained CRM data.",
     lead: "KICCPA matches leadership with top-tier bilingual virtual executive assistants and dedicated CRM administrators who handle correspondence, scheduling, and pipeline hygiene with meticulous detail.",
-    image: "/images/virtual_assistant_crm.jpg",
+    image: "/images/virtual-assistants.jpg",
     alt: "Executive assistant managing schedules and CRM workflows.",
     challengesHead: {
       eyebrow: "Productivity Challenges",

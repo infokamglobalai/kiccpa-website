@@ -42,7 +42,7 @@ export const sectorPagesData: Record<string, SectorPageData> = {
     eyebrow: "Healthcare & Clinical Staffing",
     headline: "Qualified clinical professionals. Rigorously verified.",
     lead: "KICCPA connects hospitals, clinics, and healthcare networks with vetted physicians, specialized nurses, and allied medical practitioners. (Recruitment enquiries are reviewed against clinical specifications; no placement is guaranteed).",
-    image: "/images/medical_doctors_hospital.jpg",
+    image: "/images/medical.jpg",
     alt: "Specialist medical doctors and clinical consultants.",
     rolesHead: {
       eyebrow: "Talent Specializations",
@@ -244,7 +244,7 @@ export const sectorPagesData: Record<string, SectorPageData> = {
     eyebrow: "Energy & Petroleum Engineering",
     headline: "Certified technical talent. Strict HSE compliance.",
     lead: "KICCPA recruits certified engineers, HSE officers, and technical field specialists for upstream exploration, downstream refining, and pipeline operations across the Middle East.",
-    image: "/images/oil_gas_energy.jpg",
+    image: "/images/oil-gas.jpg",
     alt: "Industrial energy operations facility and engineers.",
     rolesHead: {
       eyebrow: "Talent Specializations",
@@ -345,7 +345,7 @@ export const sectorPagesData: Record<string, SectorPageData> = {
     eyebrow: "Civil & Commercial Construction",
     headline: "Proven site leadership. Skilled construction talent.",
     lead: "KICCPA supplies certified project directors, civil engineers, MEP specialists, and skilled trades for commercial architecture, high-rise developments, and large-scale infrastructure projects.",
-    image: "/images/construction_civil_site.jpg",
+    image: "/images/construction.jpg",
     alt: "Civil engineering and commercial construction site supervision.",
     rolesHead: {
       eyebrow: "Talent Specializations",
@@ -446,7 +446,7 @@ export const sectorPagesData: Record<string, SectorPageData> = {
     eyebrow: "Industrial Plant & Production Staffing",
     headline: "Plant operations leadership. Precision industrial talent.",
     lead: "KICCPA supplies production managers, industrial maintenance engineers, and quality control specialists for modern manufacturing plants, automated assembly lines, and processing facilities.",
-    image: "/images/manufacturing_industrial_plant.jpg",
+    image: "/images/manufacturing.jpg",
     alt: "Automated manufacturing facility and plant operations.",
     rolesHead: {
       eyebrow: "Talent Specializations",
