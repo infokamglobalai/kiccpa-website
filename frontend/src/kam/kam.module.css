@@ -1344,3 +1344,258 @@
   }
 }
 
+/* ==========================================================================
+   Service Pages & Sector Pages Styles
+   ========================================================================== */
+.svcWhatWeDoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+.svcWhatWeDoCard {
+  background: #fff;
+  border: 1px solid var(--hp-line);
+  border-radius: 20px;
+  padding: 28px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 10px 28px rgba(8, 36, 83, 0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.svcWhatWeDoCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(8, 36, 83, 0.1);
+  border-color: var(--hp-orange);
+}
+.svcWhatWeDoCard h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--hp-navy);
+  margin: 0;
+}
+.svcWhatWeDoCard > p {
+  font-size: 0.94rem;
+  line-height: 1.6;
+  color: var(--hp-muted);
+  margin: 0;
+}
+.svcWhatWeDoBullets {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px solid var(--hp-line);
+  padding-top: 14px;
+}
+.svcWhatWeDoBullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--hp-navy);
+  font-weight: 600;
+}
+
+/* Sector Pages: Roles We Recruit For */
+.sectorRolesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+.sectorRoleCard {
+  background: #fff;
+  border: 1px solid var(--hp-line);
+  border-radius: 18px;
+  padding: 24px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 8px 24px rgba(8, 36, 83, 0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.sectorRoleCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px rgba(8, 36, 83, 0.09);
+  border-color: var(--hp-orange);
+}
+.sectorRoleMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.sectorRoleCategory {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--hp-orange);
+  background: rgba(244, 119, 53, 0.08);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+.sectorRoleExp {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--hp-navy);
+  background: var(--hp-bg);
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--hp-line);
+}
+.sectorRoleCard h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--hp-navy);
+  margin: 0;
+  line-height: 1.3;
+}
+.sectorRoleCard p {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--hp-muted);
+  margin: 0;
+}
+
+/* Sector Pages: Two Short Action Boxes */
+.sectorActionBoxesGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.sectorActionBox {
+  background: #fff;
+  border: 1px solid var(--hp-line);
+  border-radius: 24px;
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 12px 36px rgba(8, 36, 83, 0.06);
+  position: relative;
+}
+.sectorBoxEmployer {
+  border-top: 4px solid var(--hp-orange);
+}
+.sectorBoxCandidate {
+  border-top: 4px solid var(--hp-navy);
+}
+.sectorBoxBadge {
+  align-self: flex-start;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--hp-navy);
+  padding: 5px 12px;
+  border-radius: 999px;
+}
+.sectorBoxEmployer .sectorBoxBadge {
+  background: var(--hp-orange);
+}
+.sectorActionBox h3 {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--hp-navy);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+.sectorActionBox > p {
+  font-size: 0.96rem;
+  line-height: 1.6;
+  color: var(--hp-muted);
+  margin: 0;
+}
+.sectorStepsList {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-top: 1px solid var(--hp-line);
+  padding-top: 18px;
+}
+.sectorStepsList li {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--hp-navy);
+  font-weight: 600;
+}
+.sectorActionBox .hpBtn, .sectorActionBox .hpBtnGhost {
+  margin-top: auto;
+  width: 100%;
+  justify-content: center;
+}
+
+@media (max-width: 1024px) {
+  .svcWhatWeDoGrid, .sectorRolesGrid, .sectorActionBoxesGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* About Page Additions: Mission, Vision, Glance */
+.abMissionVision {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.abMissionCard {
+  background: #fff;
+  border: 1px solid var(--ab-line);
+  border-radius: 20px;
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 10px 28px rgba(8, 36, 83, 0.05);
+  position: relative;
+}
+.abMissionCardOrange {
+  border-top: 4px solid var(--ab-orange);
+}
+.abMissionCardNavy {
+  border-top: 4px solid var(--ab-navy);
+}
+.abMissionCard h3 {
+  font-size: 1.45rem;
+  letter-spacing: -0.02em;
+  color: var(--ab-navy);
+  margin: 0;
+}
+.abMissionCard p {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--ab-ink);
+  margin: 0;
+}
+.abGlance {
+  background: #fff;
+  border: 1px solid var(--ab-line);
+  border-radius: 24px;
+  padding: 36px 32px;
+  box-shadow: 0 12px 36px rgba(8, 36, 83, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.abKamLine {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--ab-navy);
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--ab-line);
+  margin: 0;
+}
+@media (max-width: 1024px) {
+  .abMissionVision {
+    grid-template-columns: 1fr;
+  }
+}
+

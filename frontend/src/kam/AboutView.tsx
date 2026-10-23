@@ -1,7 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { aboutPage } from "./about-content";
-import { homeProducts } from "./home-content";
-import { howWeWork } from "./site";
+import { homeProducts, homeSteps } from "./home-content";
 import Reveal from "./Reveal";
 import styles from "./kam.module.css";
 
@@ -24,6 +25,7 @@ export default function AboutView() {
 
   return (
     <main className={styles.ab}>
+      {/* 1. Hero */}
       <section className={styles.abHero} aria-label="About KICCPA">
         <div className={styles.abHeroGrid}>
           <div className={styles.abHeroCopy}>
@@ -31,8 +33,12 @@ export default function AboutView() {
             <h1>{page.hero.title}</h1>
             <p>{page.hero.text}</p>
             <div className={styles.rowBtns}>
-              <a className={styles.hpBtn} href={page.hero.primary.href}>{page.hero.primary.label} <span className={styles.arrow}>→</span></a>
-              <Link className={styles.hpBtnGhost} href={page.hero.secondary.href}>{page.hero.secondary.label}</Link>
+              <a className={styles.hpBtn} href={page.hero.primary.href}>
+                {page.hero.primary.label} <span className={styles.arrow}>→</span>
+              </a>
+              <Link className={styles.hpBtnGhost} href={page.hero.secondary.href}>
+                {page.hero.secondary.label}
+              </Link>
             </div>
           </div>
           <figure className={styles.abHeroMedia}>
@@ -41,6 +47,51 @@ export default function AboutView() {
         </div>
       </section>
 
+      {/* 2. Mission & Vision — One Line Each */}
+      <section className={styles.abSection} id="mission-vision">
+        <div className={styles.wrap}>
+          <div className={styles.abMissionVision}>
+            <article className={`${styles.abMissionCard} ${styles.abMissionCardOrange}`}>
+              <p className={styles.abEyebrow}>{page.missionVision.mission.title}</p>
+              <h3>{page.missionVision.mission.title}</h3>
+              <p>{page.missionVision.mission.statement}</p>
+            </article>
+            <article className={`${styles.abMissionCard} ${styles.abMissionCardNavy}`}>
+              <p className={styles.abEyebrow}>{page.missionVision.vision.title}</p>
+              <h3>{page.missionVision.vision.title}</h3>
+              <p>{page.missionVision.vision.statement}</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Company at a Glance (Stats Row + KAM Relationship) */}
+      <section className={`${styles.abSection} ${styles.abLight}`} id="glance">
+        <div className={styles.wrap}>
+          <Reveal>
+            <div className={styles.abHead}>
+              <p className={styles.abEyebrow}>{page.glance.eyebrow}</p>
+              <h2>{page.glance.title}</h2>
+            </div>
+          </Reveal>
+          <div className={styles.abGlance}>
+            <p className={styles.abKamLine}>
+              <strong>Strategic Partnership:</strong> {page.glance.kamRelationship}
+            </p>
+            <div className={styles.hpStatsRow}>
+              {page.glance.stats.map((stat) => (
+                <div key={stat.label} className={styles.hpStatCard}>
+                  <span className={styles.hpStatVal}>{stat.value}</span>
+                  <span className={styles.hpStatLabel}>{stat.label}</span>
+                  <span className={styles.hpStatNote}>{stat.note}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Leadership Section */}
       <section className={styles.abSection} aria-labelledby="leadership">
         <div className={`${styles.wrap} ${styles.abFounder}`}>
           <Reveal className={styles.abStretch}>
@@ -55,26 +106,41 @@ export default function AboutView() {
           <Reveal>
             <p className={styles.abEyebrow}>{page.leadership.eyebrow}</p>
             <h2 id="leadership">{page.leadership.title}</h2>
-            {page.leadership.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+            {page.leadership.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
             <p className={styles.abNote}>{page.leadership.note}</p>
             <div className={styles.rowBtns}>
               {page.leadership.links.map((link, index) => (
-                <Link key={link.href} className={index === 0 ? styles.hpBtn : styles.hpBtnLine} href={link.href}>{link.label}</Link>
+                <Link
+                  key={link.href}
+                  className={index === 0 ? styles.hpBtn : styles.hpBtnLine}
+                  href={link.href}
+                >
+                  {link.label} {index === 0 ? <span className={styles.arrow}>→</span> : null}
+                </Link>
               ))}
             </div>
           </Reveal>
         </div>
       </section>
 
-      <section className={`${styles.abSection} ${styles.abLight}`} id="capabilities" aria-labelledby="who">
+      {/* 5. Who We Are (Cover all 3 divisions) */}
+      <section className={`${styles.abSection} ${styles.abLight}`} id="who" aria-labelledby="who-heading">
         <div className={`${styles.wrap} ${styles.abSplit}`}>
           <Reveal>
             <p className={styles.abEyebrow}>{page.who.eyebrow}</p>
-            <h2 id="who">{page.who.title}</h2>
-            {page.who.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+            <h2 id="who-heading">{page.who.title}</h2>
+            {page.who.paragraphs.map((paragraph, idx) => (
+              <p key={idx}>{paragraph}</p>
+            ))}
             <ul className={styles.abCaps}>
               {page.who.capabilities.map((item) => (
-                <li key={item.href}><Link href={item.href}>{item.title} <span className={styles.arrow}>→</span></Link></li>
+                <li key={item.href}>
+                  <Link href={item.href}>
+                    {item.title} <span className={styles.arrow}>→</span>
+                  </Link>
+                </li>
               ))}
             </ul>
           </Reveal>
@@ -86,6 +152,7 @@ export default function AboutView() {
         </div>
       </section>
 
+      {/* 6. Our Core Pillars */}
       <section className={styles.abSection} aria-labelledby="approach">
         <div className={styles.wrap}>
           <Reveal>
@@ -109,19 +176,22 @@ export default function AboutView() {
         </div>
       </section>
 
+      {/* 7. How We Work — 5 Delivery Steps */}
       <section className={`${styles.abSection} ${styles.abLight}`} aria-labelledby="how-we-work">
         <div className={styles.wrap}>
           <Reveal>
             <div className={styles.abHead}>
+              <p className={styles.abEyebrow}>{page.work.eyebrow}</p>
               <h2 id="how-we-work">{page.work.title}</h2>
               <p>{page.work.text}</p>
             </div>
           </Reveal>
-          <ol className={styles.abSteps}>
-            {howWeWork.map((step) => (
+          <ol className={styles.hpSteps}>
+            {homeSteps.map((step) => (
               <li key={step.n}>
-                <span>{step.n}</span>
-                <strong>{step.title}</strong>
+                <span className={styles.hpStepNum}>{step.n}</span>
+                <strong className={styles.hpStepTitle}>{step.title}</strong>
+                <span className={styles.hpStepsSub}>{step.sub}</span>
                 <p>{step.text}</p>
               </li>
             ))}
@@ -129,6 +199,7 @@ export default function AboutView() {
         </div>
       </section>
 
+      {/* 8. Guiding Principles */}
       <section className={styles.abSection} aria-labelledby="principles">
         <div className={styles.wrap}>
           <Reveal>
@@ -150,6 +221,7 @@ export default function AboutView() {
         </div>
       </section>
 
+      {/* 9. Digital Products */}
       <section className={`${styles.abSection} ${styles.abLight}`} aria-labelledby="about-products">
         <div className={styles.wrap}>
           <Reveal>
@@ -160,12 +232,18 @@ export default function AboutView() {
           </Reveal>
           <div className={styles.abProducts}>
             {homeProducts.map((product) => (
-              <a key={product.name} href={product.href} {...(product.external ? { target: "_blank", rel: "noreferrer" } : {})}>
+              <a
+                key={product.name}
+                href={product.href}
+                {...(product.external ? { target: "_blank", rel: "noreferrer" } : {})}
+              >
                 <img src={product.image} alt={product.alt} />
                 <span>
                   <strong>{product.name}</strong>
                   <p>{product.text}</p>
-                  <em>{product.cta} <span className={styles.arrow}>→</span></em>
+                  <em>
+                    {product.cta} <span className={styles.arrow}>→</span>
+                  </em>
                 </span>
               </a>
             ))}
@@ -173,17 +251,48 @@ export default function AboutView() {
         </div>
       </section>
 
-      <section className={styles.abClose}>
-        <img src={page.close.image} alt={page.close.alt} />
+      {/* 10. Closing CTA with Direct Reach */}
+      <section className={styles.hpClose}>
+        <div className={styles.hpCloseMedia} aria-hidden="true">
+          <img src={page.close.image} alt="" />
+        </div>
         <div className={styles.wrap}>
-          <div className={styles.abCloseInner}>
-          <p className={styles.abEyebrow}>{page.close.eyebrow}</p>
-          <h2>{page.close.title}</h2>
-          <p>{page.close.text}</p>
-          <div className={styles.rowBtns}>
-            <Link className={styles.hpBtn} href={page.close.primary.href}>{page.close.primary.label} <span className={styles.arrow}>→</span></Link>
-            <Link className={styles.hpBtnGhost} href={page.close.secondary.href}>{page.close.secondary.label}</Link>
-          </div>
+          <div className={styles.hpCloseInner}>
+            <div>
+              <p className={styles.hpEyebrow} style={{ color: "#ff9a56" }}>{page.close.eyebrow}</p>
+              <h2 style={{ color: "#fff" }}>{page.close.title}</h2>
+              <p style={{ color: "rgba(255,255,255,0.82)" }}>{page.close.text}</p>
+              <div className={styles.hpCloseContact}>
+                <span className={styles.hpCloseContactLabel}>Direct Reach</span>
+                <a href="tel:+96560919345" className={styles.hpCloseContactLink}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                  </svg>
+                  <span>Phone (Kuwait): +965 6091 9345</span>
+                </a>
+                <a href="https://wa.me/96599889588" target="_blank" rel="noopener noreferrer" className={styles.hpCloseContactLink}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+                  </svg>
+                  <span>WhatsApp: +965 9988 9588</span>
+                </a>
+                <a href="mailto:info@kiccpa.com" className={styles.hpCloseContactLink}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" />
+                    <rect x="2" y="4" width="20" height="16" rx="2" />
+                  </svg>
+                  <span>Email: info@kiccpa.com</span>
+                </a>
+              </div>
+            </div>
+            <div className={styles.rowBtns}>
+              <Link className={styles.hpBtn} href={page.close.primary.href}>
+                {page.close.primary.label} <span className={styles.arrow}>→</span>
+              </Link>
+              <Link className={styles.hpBtnGhost} href={page.close.secondary.href}>
+                {page.close.secondary.label}
+              </Link>
+            </div>
           </div>
         </div>
       </section>

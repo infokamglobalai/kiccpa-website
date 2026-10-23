@@ -37,10 +37,10 @@ export const divisions: Division[] = [
     clientLabel: "Request a Service",
     seekerLabel: "Explore Opportunities",
     items: [
-      { title: "AI & Automation", href: "/services/ai-automation", summary: "Automation and AI work scoped to a stated business requirement.", image: "/assets/services/digital.jpg", alt: "People working together in a technology studio." },
-      { title: "Software & App Development", href: "/services/software-development", summary: "Applications and software shaped around an agreed process.", image: "/assets/services/digital.jpg", alt: "A technology studio used for software conversations." },
-      { title: "Cloud & Data Solutions", href: "/services/cloud-data", summary: "Cloud delivery and data work discussed against a written scope.", image: "/assets/services/cloud.jpg", alt: "A cool-lit technical environment used for cloud conversations." },
-      { title: "IT Support & Cybersecurity", href: "/services/it-support-cybersecurity", summary: "Support and security conversations. No certification is claimed here.", image: "/assets/services/cloud.jpg", alt: "Technical workspace used beside IT support enquiries." },
+      { title: "AI & Automation", href: "/services/ai-automation", summary: "Automation and AI work scoped to a stated business requirement.", image: "/images/AI Predictive Analytics & Smart Automation.png", alt: "AI predictive analytics, machine learning, and automation workflows." },
+      { title: "Software & App Development", href: "/services/software-development", summary: "Applications and software shaped around an agreed process.", image: "/images/Custom Enterprise Software Architecture 1.jpeg", alt: "Custom enterprise software architecture and application development." },
+      { title: "Cloud & Data Solutions", href: "/services/cloud-data", summary: "Cloud delivery and data work discussed against a written scope.", image: "/assets/services/cloud.jpg", alt: "Cloud infrastructure, data pipelines, and server architecture." },
+      { title: "IT Support & Cybersecurity", href: "/services/it-support-cybersecurity", summary: "Support and security conversations. No certification is claimed here.", image: "/images/Reliable Support 1.png", alt: "Reliable IT systems support, security monitoring, and endpoint administration." },
     ],
   },
   {
@@ -57,9 +57,9 @@ export const divisions: Division[] = [
     seekerLabel: "Explore Opportunities",
     items: [
       { title: "Customer Service & Support", href: "/services/customer-support", summary: "Customer interaction support discussed around your workflow.", image: "/assets/services/operations.jpg", alt: "Colleagues working together in an office." },
-      { title: "Sales & Lead Generation", href: "/services/sales-lead-generation", summary: "Sales support enquiries. Results are not guaranteed.", image: "/assets/industries/enterprise.jpg", alt: "A meeting room used beside sales support enquiries." },
-      { title: "Back Office & BPO", href: "/services/back-office-bpo", summary: "Back-office process support with an agreed scope.", image: "/assets/services/operations.jpg", alt: "An operations workspace." },
-      { title: "Virtual Assistants & CRM", href: "/services/virtual-assistants-crm", summary: "Assistant and CRM support for the tools you already use.", image: "/assets/industries/enterprise.jpg", alt: "A conference table used beside CRM support enquiries." },
+      { title: "Sales & Lead Generation", href: "/services/sales-lead-generation", summary: "Sales support enquiries. Results are not guaranteed.", image: "/images/Sales & Customer Relationship Platforms 1.jpeg", alt: "Sales strategy and proactive customer relationship management." },
+      { title: "Back Office & BPO", href: "/services/back-office-bpo", summary: "Back-office process support with an agreed scope.", image: "/images/End-to-End Operational Digitization 1.jpeg", alt: "End-to-end operational digitization and back-office transaction workflows." },
+      { title: "Virtual Assistants & CRM", href: "/services/virtual-assistants-crm", summary: "Assistant and CRM support for the tools you already use.", image: "/images/virtual_assistant_crm.jpg", alt: "Executive assistant managing schedules and CRM workflows." },
     ],
   },
   {
@@ -76,11 +76,11 @@ export const divisions: Division[] = [
     seekerLabel: "Start an Enquiry",
     items: [
       { title: "Nursing", href: "/services/healthcare-recruitment", summary: "A sector you can ask about. No licence or vacancy is published here.", image: "/assets/industries/healthcare.jpg", alt: "A calm hospital corridor." },
-      { title: "Medical & Healthcare", href: "/services/healthcare-recruitment", summary: "Healthcare recruitment enquiries, reviewed by the team.", image: "/assets/industries/healthcare.jpg", alt: "A calm hospital corridor." },
+      { title: "Medical & Healthcare", href: "/services/healthcare-recruitment", summary: "Healthcare recruitment enquiries, reviewed by the team.", image: "/images/medical_doctors_hospital.jpg", alt: "Specialist medical doctors and clinical consultants." },
       { title: "Hotels & Hospitality", href: "/services/hospitality-recruitment", summary: "Hospitality recruitment enquiries.", image: "/assets/industries/hospitality.jpg", alt: "An evening hotel lobby." },
-      { title: "Oil & Gas", href: "/services/oil-gas-recruitment", summary: "Oil and gas recruitment enquiries.", image: "/assets/industries/logistics.jpg", alt: "An ordered industrial aisle." },
-      { title: "Construction", href: "/services/construction-recruitment", summary: "Construction recruitment enquiries.", image: "/assets/industries/logistics.jpg", alt: "An industrial interior used beside construction enquiries." },
-      { title: "Manufacturing", href: "/services/manufacturing-recruitment", summary: "Manufacturing recruitment enquiries.", image: "/assets/industries/logistics.jpg", alt: "An industrial interior used beside manufacturing enquiries." },
+      { title: "Oil & Gas", href: "/services/oil-gas-recruitment", summary: "Oil and gas recruitment enquiries.", image: "/images/oil_gas_energy.jpg", alt: "An ordered industrial energy operations facility." },
+      { title: "Construction", href: "/services/construction-recruitment", summary: "Construction recruitment enquiries.", image: "/images/construction_civil_site.jpg", alt: "Civil engineering and commercial construction site supervision." },
+      { title: "Manufacturing", href: "/services/manufacturing-recruitment", summary: "Manufacturing recruitment enquiries.", image: "/images/manufacturing_industrial_plant.jpg", alt: "Automated manufacturing facility and plant operations." },
     ],
   },
 ];
@@ -161,21 +161,21 @@ export const homeIndustries = [
   {
     title: "Oil & Gas",
     summary: "Specialized engineering talent, field logistics, and supply chain digital systems.",
-    image: "/assets/industries/logistics.jpg",
+    image: "/images/oil_gas_energy.jpg",
     alt: "Industrial supply chain and energy facility.",
     href: "/services/oil-gas-recruitment",
   },
   {
     title: "Construction",
     summary: "Technical workforce placement, project logistics support, and site workflows.",
-    image: "/assets/industries/enterprise.jpg",
+    image: "/images/construction_civil_site.jpg",
     alt: "Infrastructure project planning workspace.",
     href: "/services/construction-recruitment",
   },
   {
     title: "Manufacturing",
     summary: "Process digitization, plant operations support, and technical workforce placement.",
-    image: "/assets/industries/retail.jpg",
+    image: "/images/manufacturing_industrial_plant.jpg",
     alt: "Modern manufacturing operations floor.",
     href: "/services/manufacturing-recruitment",
   },
@@ -349,12 +349,31 @@ export function seekerPath(division: Division, service?: string) {
   return `/job-seeker-enquiry?sector=${encodeURIComponent(sector)}`;
 }
 
+const sectorAliases: Record<string, string> = {
+  nursing: "Nursing",
+  "medical-healthcare": "Medical & Healthcare",
+  "hotels-hospitality": "Hotels & Hospitality",
+  "oil-gas": "Oil & Gas",
+  construction: "Construction",
+  manufacturing: "Manufacturing",
+};
+
 export function serviceBySlug(slug: string) {
   for (const division of divisions) {
     if (division.href.endsWith(`/${slug}`)) return { division, item: null as ServiceLink | null };
     const item = division.items.find((entry) => entry.href.endsWith(`/${slug}`));
     if (item) return { division, item };
   }
+
+  const aliasTitle = sectorAliases[slug];
+  if (aliasTitle) {
+    const hrDiv = divisions.find((d) => d.id === "hr");
+    if (hrDiv) {
+      const item = hrDiv.items.find((entry) => entry.title === aliasTitle) || hrDiv.items[0];
+      return { division: hrDiv, item };
+    }
+  }
+
   return null;
 }
 
@@ -363,6 +382,9 @@ export function allServiceSlugs() {
   for (const division of divisions) {
     slugs.add(division.href.split("/").pop() || "");
     for (const item of division.items) slugs.add(item.href.split("/").pop() || "");
+  }
+  for (const alias of Object.keys(sectorAliases)) {
+    slugs.add(alias);
   }
   return [...slugs].filter((slug) => Boolean(slug) && slug !== "hr-recruitment");
 }
