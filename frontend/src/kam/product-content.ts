@@ -14,7 +14,7 @@ export const productCatalog = [
     ],
     href: "https://learnx.school",
     cta: "Open learnx.school",
-    image: "/images/resources/learnx-sms-catalog-cover.png",
+    image: "/images/resources/learnx-sms-catalog-cover.webp",
     alt: "Cover of the LearnX school management catalogue.",
   },
   {
@@ -32,7 +32,7 @@ export const productCatalog = [
     ],
     href: "https://eduaitutors.com",
     cta: "Open eduaitutors.com",
-    image: "/images/EduAiTutors Advanced Learning Ecosystem 1.jpeg",
+    image: "/images/eduaitutors-ecosystem.webp",
     alt: "Visual published for EduAiTutors. Not a capture of a student account.",
   },
   {

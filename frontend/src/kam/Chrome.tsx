@@ -17,7 +17,8 @@ export default function Chrome({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const stored = localStorage.getItem("kam-motion");
     if (stored === "off") document.documentElement.dataset.motion = "off";
-    const onScroll = () => setShowTop(window.scrollY > 700);
+    /* Only setState when the boolean actually flips, not on every scroll event. */
+    const onScroll = () => setShowTop((prev) => (window.scrollY > 700) === prev ? prev : !prev);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -43,7 +44,17 @@ export default function Chrome({ children }: { children: React.ReactNode }) {
         </svg>
       </a>
       {showTop && (
-        <button type="button" className={styles.backTop} aria-label="Back to top" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+        <button
+        type="button"
+        className={styles.backTop}
+        aria-label="Back to top"
+        onClick={() => {
+          const reduce =
+            window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+            document.documentElement.dataset.motion === "off";
+          window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+        }}
+      >
           ↑
         </button>
       )}

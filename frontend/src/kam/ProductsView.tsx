@@ -23,8 +23,8 @@ export default function ProductsView() {
 
       <section className={styles.pdSection} aria-label="Choose a product">
         <div className={`${styles.wrap} ${styles.pdWho}`}>
-          {productCatalog.map((product) => (
-            <Reveal key={product.id} className={styles.pdStretch}>
+          {productCatalog.map((product, index) => (
+            <Reveal key={product.id} index={index} variant="rise" className={styles.pdStretch}>
               <a href={`#${product.id}`}>
                 <span>{product.audience}</span>
                 <strong>{product.name}</strong>

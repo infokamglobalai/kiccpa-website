@@ -33,7 +33,7 @@ export default function HomePage() {
             </div>
           </div>
           <figure className={styles.hpHeroMedia}>
-            <img src={page.hero.image} alt={page.hero.alt} />
+            <img src={page.hero.image} alt={page.hero.alt} width={1280} height={720} fetchPriority="high" decoding="async" />
           </figure>
         </div>
       </section>
@@ -42,18 +42,35 @@ export default function HomePage() {
 
       <section className={styles.hpSection} id="services">
         <div className={styles.wrap}>
-          <Reveal>
+          <Reveal parts>
             <div className={styles.hpHead}>
               <p className={styles.hpEyebrow}>{page.services.eyebrow}</p>
               <h2>{page.services.title}</h2>
             </div>
           </Reveal>
+          {/* "Three Services. One Partner." drawn: one trunk splits into the
+              three division columns. Static and still meaningful without JS. */}
+          <Reveal className={styles.hpConvergeWrap}>
+            <svg
+              className={styles.hpConverge}
+              viewBox="0 0 1200 96"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path pathLength={1} style={{ "--i": 0 } as React.CSSProperties} d="M600 0 V36" />
+              <path pathLength={1} style={{ "--i": 1 } as React.CSSProperties} d="M600 36 C600 70, 200 62, 200 96" />
+              <path pathLength={1} style={{ "--i": 2 } as React.CSSProperties} d="M600 36 V96" />
+              <path pathLength={1} style={{ "--i": 3 } as React.CSSProperties} d="M600 36 C600 70, 1000 62, 1000 96" />
+              <circle className={styles.hpConvergeDot} cx="600" cy="36" r="3" />
+            </svg>
+          </Reveal>
           <div className={styles.hpServices}>
             {divisions.map((division, index) => (
-              <Reveal key={division.id} className={styles.hpStretch}>
+              <Reveal key={division.id} index={index} className={styles.hpStretch}>
                 <article className={styles.hpService}>
                   <div className={styles.hpServiceMedia}>
-                    <img src={division.image} alt={division.alt} />
+                    <img src={division.image} alt={division.alt} width={1280} height={720} loading="lazy" decoding="async" />
                     <span>{String(index + 1).padStart(2, "0")}</span>
                   </div>
                   <div className={styles.hpServiceBody}>
@@ -83,7 +100,7 @@ export default function HomePage() {
 
       <section className={`${styles.hpSection} ${styles.hpLight}`}>
         <div className={styles.wrap}>
-          <Reveal>
+          <Reveal parts>
             <div className={styles.hpHead}>
               <p className={styles.hpEyebrow}>{page.why.eyebrow}</p>
               <h2>{page.why.title}</h2>
@@ -91,7 +108,7 @@ export default function HomePage() {
           </Reveal>
           <div className={styles.hpWhy}>
             {whyKiccpa.map((item, index) => (
-              <Reveal key={item.title} className={styles.hpStretch}>
+              <Reveal key={item.title} index={index} className={styles.hpStretch}>
                 <article>
                   <em>{String(index + 1).padStart(2, "0")}</em>
                   <span><Icon name={item.icon} /></span>
@@ -106,7 +123,7 @@ export default function HomePage() {
 
       <section className={styles.hpSection}>
         <div className={styles.wrap}>
-          <Reveal>
+          <Reveal parts>
             <div className={styles.hpHead}>
               <p className={styles.hpEyebrow}>{page.steps.eyebrow}</p>
               <h2>{page.steps.title}</h2>
@@ -126,7 +143,7 @@ export default function HomePage() {
 
       <section className={`${styles.hpSection} ${styles.hpLight}`} id="platforms">
         <div className={styles.wrap}>
-          <Reveal>
+          <Reveal parts>
             <div className={styles.hpHead}>
               <p className={styles.hpEyebrow}>{page.platforms.eyebrow}</p>
               <h2>{page.platforms.title}</h2>
@@ -135,7 +152,7 @@ export default function HomePage() {
           <div className={styles.hpProducts}>
             {homeProducts.map((product) => (
               <a key={product.name} href={product.href} {...(product.external ? { target: "_blank", rel: "noreferrer" } : {})}>
-                <img src={product.image} alt={product.alt} />
+                <img src={product.image} alt={product.alt} width={1000} height={667} loading="lazy" decoding="async" />
                 <span className={styles.hpProductBody}>
                   <strong>{product.name}</strong>
                   <p>{product.text}</p>
@@ -149,7 +166,7 @@ export default function HomePage() {
 
       <section className={styles.hpClose}>
         <div className={styles.hpCloseMedia} aria-hidden="true">
-          <img src={page.hero.image} alt="" />
+          <img src={page.hero.image} alt="" loading="lazy" decoding="async" />
         </div>
         <div className={styles.wrap}>
           <div className={styles.hpCloseInner}>

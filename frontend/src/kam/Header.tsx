@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { megaGroups, nav } from "./site";
 import styles from "./kam.module.css";
 
@@ -11,17 +11,40 @@ export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [mega, setMega] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const barRef = useRef<HTMLSpanElement>(null);
   const servicesOn = pathname.startsWith("/services");
 
+  /**
+   * The progress bar writes `transform` straight to the node on a rAF.
+   * Previously it read `scrollHeight` (a forced layout) and re-rendered the
+   * whole header through React state on every scroll event, then animated
+   * `width`, which is layout + paint rather than compositor-only.
+   */
   useEffect(() => {
-    const onScroll = () => {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(max > 0 ? window.scrollY / max : 0);
+    let max = document.documentElement.scrollHeight - window.innerHeight;
+    let queued = false;
+    const paint = () => {
+      queued = false;
+      const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      if (barRef.current) barRef.current.style.transform = `scaleX(${p})`;
     };
-    onScroll();
+    const onScroll = () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(paint);
+    };
+    const remeasure = () => {
+      max = document.documentElement.scrollHeight - window.innerHeight;
+      paint();
+    };
+    const observer = new ResizeObserver(remeasure);
+    observer.observe(document.documentElement);
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    paint();
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -58,10 +81,10 @@ export default function Header() {
 
   return (
     <header className={styles.header}>
-      <span className={styles.progress} style={{ width: `${progress * 100}%` }} />
+      <span ref={barRef} className={styles.progress} style={{ transform: "scaleX(0)" }} />
       <div className={styles.headerInner}>
         <Link href="/" className={styles.brand} aria-label="KICCPA home">
-          <Image src="/images/kiccpa-logo-light.png" alt="KICCPA — Where it meets AI" width={684} height={277} className={styles.logoImg} priority quality={100} />
+          <Image src="/images/kiccpa-logo-light.png" alt="KICCPA — Where it meets AI" width={684} height={277} className={styles.logoImg} priority />
         </Link>
         <nav className={styles.nav} aria-label="Primary">
           {nav.map((item) =>

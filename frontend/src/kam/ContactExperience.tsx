@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { submitContactAction } from "@/lib/actions";
 import { contacts, engagementModels, serviceOptions, type ServiceId } from "./site";
 import styles from "./kam.module.css";
+import Reveal from "./Reveal";
 
 type Draft = {
   name: string;
@@ -152,7 +153,7 @@ export default function ContactExperience() {
   return (
     <section className={styles.ctSection} aria-labelledby="contact-intro">
       <div className={`${styles.wrap} ${styles.ctGrid}`}>
-        <div>
+        <Reveal variant="left">
           <p className={styles.ctEyebrowDark}>Get in touch</p>
           <h2 id="contact-intro">Let&apos;s connect.</h2>
           <p className={styles.ctIntro}>Choose the appropriate contact channel for your region or send your requirements using the enquiry form.</p>
@@ -181,7 +182,7 @@ export default function ContactExperience() {
               <a href={`mailto:${africaEmail}`}>{africaEmail}</a>
             </article>
           </div>
-        </div>
+        </Reveal>
 
         <div className={styles.ctPanel}>
           {sent && result ? (

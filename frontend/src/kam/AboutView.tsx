@@ -43,7 +43,7 @@ export default function AboutView() {
 
       <section className={styles.abSection} aria-labelledby="leadership">
         <div className={`${styles.wrap} ${styles.abFounder}`}>
-          <Reveal className={styles.abStretch}>
+          <Reveal variant="left" className={styles.abStretch}>
             <figure className={styles.abPortrait}>
               <img src={page.leadership.image} alt={page.leadership.alt} />
               <figcaption>
@@ -52,7 +52,7 @@ export default function AboutView() {
               </figcaption>
             </figure>
           </Reveal>
-          <Reveal>
+          <Reveal variant="right">
             <p className={styles.abEyebrow}>{page.leadership.eyebrow}</p>
             <h2 id="leadership">{page.leadership.title}</h2>
             {page.leadership.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
@@ -88,7 +88,7 @@ export default function AboutView() {
 
       <section className={styles.abSection} aria-labelledby="approach">
         <div className={styles.wrap}>
-          <Reveal>
+          <Reveal parts>
             <div className={styles.abHead}>
               <p className={styles.abEyebrow}>{page.approach.eyebrow}</p>
               <h2 id="approach">{page.approach.title}</h2>
@@ -96,8 +96,8 @@ export default function AboutView() {
             </div>
           </Reveal>
           <div className={styles.abPanels}>
-            {page.approach.panels.map((panel) => (
-              <Reveal key={panel.title} className={styles.abStretch}>
+            {page.approach.panels.map((panel, index) => (
+              <Reveal key={panel.title} index={index} variant="rise" className={styles.abStretch}>
                 <Link href={panel.href} className={styles.abPanel}>
                   <span><Mark name={panel.icon} /></span>
                   <strong>{panel.title}</strong>
@@ -111,7 +111,7 @@ export default function AboutView() {
 
       <section className={`${styles.abSection} ${styles.abLight}`} aria-labelledby="how-we-work">
         <div className={styles.wrap}>
-          <Reveal>
+          <Reveal parts>
             <div className={styles.abHead}>
               <h2 id="how-we-work">{page.work.title}</h2>
               <p>{page.work.text}</p>
@@ -131,15 +131,15 @@ export default function AboutView() {
 
       <section className={styles.abSection} aria-labelledby="principles">
         <div className={styles.wrap}>
-          <Reveal>
+          <Reveal parts>
             <div className={styles.abHead}>
               <p className={styles.abEyebrow}>{page.principles.eyebrow}</p>
               <h2 id="principles">{page.principles.title}</h2>
             </div>
           </Reveal>
           <div className={styles.abPrinciples}>
-            {page.principles.items.map((item) => (
-              <Reveal key={item.title} className={styles.abStretch}>
+            {page.principles.items.map((item, index) => (
+              <Reveal key={item.title} index={index} variant="scale" className={styles.abStretch}>
                 <article>
                   <h3>{item.title}</h3>
                   <p>{item.text}</p>
@@ -152,7 +152,7 @@ export default function AboutView() {
 
       <section className={`${styles.abSection} ${styles.abLight}`} aria-labelledby="about-products">
         <div className={styles.wrap}>
-          <Reveal>
+          <Reveal parts>
             <div className={styles.abHead}>
               <h2 id="about-products">{page.products.title}</h2>
               <p>{page.products.text}</p>

@@ -48,6 +48,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-scroll-behavior="smooth">
+      <head>
+        {/* Marks that JS is alive before first paint. Scroll-reveal hidden
+            states are gated on this, so content is never stuck invisible. */}
+        <script
+          dangerouslySetInnerHTML={{ __html: "document.documentElement.dataset.js='1'" }}
+        />
+      </head>
       <body className={`${inter.variable} ${manrope.variable} ${playfairDisplay.variable} ${dmSans.variable}`}>
         <Providers>
           <Chrome>{children}</Chrome>

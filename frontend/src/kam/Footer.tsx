@@ -27,7 +27,7 @@ export default function Footer() {
       <div className={`${styles.wrap} ${styles.corpGrid}`}>
         <div className={styles.corpBrand}>
           <Link href="/" aria-label="KICCPA home">
-            <Image src="/images/kiccpa-logo-light.png" alt="KICCPA — Where it meets AI" width={684} height={277} className={styles.corpLogo} quality={100} />
+            <Image src="/images/kiccpa-logo-light.png" alt="KICCPA — Where it meets AI" width={684} height={277} className={styles.corpLogo} />
           </Link>
           <p>Where it meets AI</p>
           <nav className={styles.socials} aria-label="Social media">

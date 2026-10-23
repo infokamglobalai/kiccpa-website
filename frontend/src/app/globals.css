@@ -22,9 +22,65 @@
   --GL: rgba(255, 255, 255, 0.7); /* glass layer */
   --GB: rgba(27, 67, 112, 0.08);  /* glass border */
   
-  /* Ultimate Tech Company Typography Stack */
-  --font-h: -apple-system, BlinkMacSystemFont, "SF Pro Display", var(--font-inter, "Inter"), "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-b: -apple-system, BlinkMacSystemFont, "SF Pro Text", var(--font-inter, "Inter"), "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  /* ─── KICCPA design tokens (single source of truth) ───
+     Namespaced sets in kam.module.css (--hp-*, --ab-*, --sv-*, --ct-*) map onto these. */
+
+  /* ground + surface */
+  --k-bg:         #ffffff;
+  --k-field:      #f7f9fc;  /* alternating full-bleed section ground */
+  --k-surface:    #eaf1f9;  /* panels/tiles sitting ON white — a real tone step */
+  --k-surface-2:  #e2ebf6; /* panel hover */
+  --k-line:       #dce5f0;
+
+  /* dark fields */
+  --k-night:      #071426;  /* the outside of the page: hero, closing band, footer */
+  --k-navy:       #082453;  /* ink + solid marks */
+
+  /* ink */
+  --k-ink:        #082453;
+  --k-ink-2:      #102f5f;
+  --k-muted:      #526987;
+  --k-on-dark:    rgba(255, 255, 255, 0.78);
+
+  /* accent — used for the action, for state, and for one signature mark. Nothing else. */
+  --k-accent:     #ff6417;
+  --k-accent-ink: #071426;  /* navy ON orange: 5.8:1. White on orange is 2.96:1 and fails AA. */
+  --k-accent-hi:  #ff7a3a;
+
+  /* type scale — five steps, nothing in between */
+  --t-display: clamp(2.75rem, 0.6rem + 6vw, 5.5rem);
+  --t-h2:      clamp(2rem, 1.3rem + 2.9vw, 3.25rem);
+  --t-h3:      1.3125rem;
+  --t-lede:    clamp(1.125rem, 1.02rem + 0.44vw, 1.3125rem);
+  --t-body:    1.0625rem;
+  --t-small:   0.8125rem;
+
+  /* motion */
+  --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-expo:   cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft:   cubic-bezier(0.33, 1, 0.68, 1);
+  --t-press:  140ms;
+  --t-hover:  180ms;
+  --t-ui:     240ms;
+  --t-move:   360ms;
+  --t-reveal: 700ms;
+  --stagger-item: 70ms;
+
+  /* radius — three values only */
+  --r: 0px;
+  --r-pill: 999px;
+
+  /* the only shadow on the site: things that genuinely float */
+  --shadow-pop: 0 24px 64px -16px rgba(7, 20, 38, 0.32);
+}
+
+/* Headings are Manrope (the wordmark's own face), body is Inter. These are
+   declared on `body`, not `:root`, because next/font puts --font-manrope and
+   --font-inter on the body element — at :root they would be out of scope and
+   the whole font stack would collapse to the serif default. */
+body {
+  --font-h: var(--font-manrope), "Manrope", "Segoe UI", system-ui, sans-serif;
+  --font-b: var(--font-inter), "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -33,14 +89,18 @@ html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
-body { 
-  font-family: var(--font-b); 
-  background: var(--WH); 
-  color: var(--TX); 
-  overflow-x: hidden; 
+/* The in-page motion toggle must switch smooth scrolling off too. */
+html[data-motion="off"] { scroll-behavior: auto; }
+body {
+  font-family: var(--font-b);
+  font-size: var(--t-body);
+  background: var(--WH);
+  color: var(--TX);
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  letter-spacing: -0.01em;
+  /* Negative tracking belongs on display type, not on 17px paragraphs. */
+  letter-spacing: 0;
 }
 a { text-decoration: none; color: inherit; }
 button { cursor: pointer; font-family: var(--font-h); letter-spacing: -0.01em; }

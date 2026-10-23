@@ -104,7 +104,7 @@ export const homeProducts = [
     href: "https://learnx.school",
     external: true,
     cta: "Open learnx.school",
-    image: "/images/resources/learnx-sms-catalog-cover.png",
+    image: "/images/resources/learnx-sms-catalog-cover.webp",
     alt: "Cover of the LearnX school management catalogue.",
   },
   {
@@ -113,7 +113,7 @@ export const homeProducts = [
     href: "https://www.eduaitutors.com",
     external: true,
     cta: "Open EduAiTutors",
-    image: "/images/EduAiTutors Advanced Learning Ecosystem 1.jpeg",
+    image: "/images/eduaitutors-ecosystem.webp",
     alt: "Visual for the EduAiTutors learning product.",
   },
   {
@@ -122,7 +122,7 @@ export const homeProducts = [
     href: "https://kam.eduaitutors.com",
     external: true,
     cta: "Open the platform",
-    image: "/images/student-performance-dashboard.png",
+    image: "/images/student-performance-dashboard.webp",
     alt: "Illustration beside the EduAiTutors platform link. Not a live screenshot of kam.eduaitutors.com.",
   },
 ];
