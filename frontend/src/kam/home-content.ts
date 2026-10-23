@@ -58,7 +58,7 @@ export const divisions: Division[] = [
     items: [
       { title: "Customer Service & Support", href: "/services/customer-support", summary: "Customer interaction support discussed around your workflow.", image: "/assets/services/operations.jpg", alt: "Colleagues working together in an office." },
       { title: "Sales & Lead Generation", href: "/services/sales-lead-generation", summary: "Sales support enquiries. Results are not guaranteed.", image: "/assets/industries/enterprise.jpg", alt: "A meeting room used beside sales support enquiries." },
-      { title: "Back Office & BPO", href: "/services/back-office-bPO", summary: "Back-office process support with an agreed scope.", image: "/assets/services/operations.jpg", alt: "An operations workspace." },
+      { title: "Back Office & BPO", href: "/services/back-office-bpo", summary: "Back-office process support with an agreed scope.", image: "/assets/services/operations.jpg", alt: "An operations workspace." },
       { title: "Virtual Assistants & CRM", href: "/services/virtual-assistants-crm", summary: "Assistant and CRM support for the tools you already use.", image: "/assets/industries/enterprise.jpg", alt: "A conference table used beside CRM support enquiries." },
     ],
   },
@@ -359,13 +359,14 @@ const sectorAliases: Record<string, string> = {
 };
 
 export function serviceBySlug(slug: string) {
+  const normSlug = slug.toLowerCase();
   for (const division of divisions) {
-    if (division.href.endsWith(`/${slug}`)) return { division, item: null as ServiceLink | null };
-    const item = division.items.find((entry) => entry.href.endsWith(`/${slug}`));
+    if (division.href.toLowerCase().endsWith(`/${normSlug}`)) return { division, item: null as ServiceLink | null };
+    const item = division.items.find((entry) => entry.href.toLowerCase().endsWith(`/${normSlug}`));
     if (item) return { division, item };
   }
 
-  const aliasTitle = sectorAliases[slug];
+  const aliasTitle = sectorAliases[normSlug];
   if (aliasTitle) {
     const hrDiv = divisions.find((d) => d.id === "hr");
     if (hrDiv) {
@@ -380,11 +381,11 @@ export function serviceBySlug(slug: string) {
 export function allServiceSlugs() {
   const slugs = new Set<string>();
   for (const division of divisions) {
-    slugs.add(division.href.split("/").pop() || "");
-    for (const item of division.items) slugs.add(item.href.split("/").pop() || "");
+    slugs.add(division.href.split("/").pop()?.toLowerCase() || "");
+    for (const item of division.items) slugs.add(item.href.split("/").pop()?.toLowerCase() || "");
   }
   for (const alias of Object.keys(sectorAliases)) {
-    slugs.add(alias);
+    slugs.add(alias.toLowerCase());
   }
   return [...slugs].filter((slug) => Boolean(slug) && slug !== "hr-recruitment");
 }
