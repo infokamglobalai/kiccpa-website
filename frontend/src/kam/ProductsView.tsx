@@ -9,15 +9,23 @@ export default function ProductsView() {
   return (
     <main className={styles.pd}>
       <section className={styles.pdHero} aria-label="Products">
-        <div className={styles.wrap}>
-          <p className={styles.pdEyebrow}>{page.eyebrow}</p>
-          <h1>{page.title}</h1>
-          <p>{page.lede}</p>
-          <div className={styles.pdJumps}>
-            {productCatalog.map((product) => (
-              <a key={product.id} href={`#${product.id}`}>{product.name}</a>
-            ))}
+        <div className={styles.pdHeroGrid}>
+          <div className={styles.pdHeroCopy}>
+            <p className={styles.pdEyebrow}>{page.eyebrow}</p>
+            <h1>{page.title}</h1>
+            <p>{page.lede}</p>
+            <div className={styles.pdJumps}>
+              {productCatalog.map((product) => (
+                <a key={product.id} href={`#${product.id}`}>{product.name}</a>
+              ))}
+            </div>
           </div>
+          <figure className={styles.pdHeroMedia}>
+            <img
+              src="/images/student-performance-dashboard.png"
+              alt="KICCPA Education and School Management Platform Ecosystem"
+            />
+          </figure>
         </div>
       </section>
 

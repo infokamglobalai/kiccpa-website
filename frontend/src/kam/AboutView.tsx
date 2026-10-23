@@ -186,13 +186,13 @@ export default function AboutView() {
               <p>{page.work.text}</p>
             </div>
           </Reveal>
-          <ol className={styles.hpSteps}>
+          <ol className={styles.deliveryGrid}>
             {homeSteps.map((step) => (
-              <li key={step.n}>
-                <span className={styles.hpStepNum}>{step.n}</span>
-                <strong className={styles.hpStepTitle}>{step.title}</strong>
-                <span className={styles.hpStepsSub}>{step.sub}</span>
-                <p>{step.text}</p>
+              <li key={step.n} className={styles.deliveryCard}>
+                <span className={styles.deliveryNum}>{step.n}</span>
+                <strong className={styles.deliveryTitle}>{step.title}</strong>
+                <span className={styles.deliverySub}>{step.sub}</span>
+                <p className={styles.deliveryText}>{step.text}</p>
               </li>
             ))}
           </ol>

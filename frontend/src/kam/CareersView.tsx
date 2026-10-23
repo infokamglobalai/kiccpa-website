@@ -161,12 +161,15 @@ export default function CareersView({ jobs, database }: { jobs: PublicJob[]; dat
               A transparent, structured 5-stage recruitment journey designed to respect your time and provide clear feedback.
             </p>
           </div>
-          <ol className={styles.svSteps}>
-            {steps.map((step) => (
-              <li key={step.n}>
-                <span>{step.n}</span>
-                <strong>{step.title}</strong>
-                <p>{step.text}</p>
+          <ol className={styles.hiringStepGrid}>
+            {steps.map((step, idx) => (
+              <li key={step.n} className={styles.hiringStepCard}>
+                <div className={styles.hiringStepHeader}>
+                  <span className={styles.hiringStepBadge}>{step.n}</span>
+                  {idx < steps.length - 1 && <span className={styles.hiringStepArrow} aria-hidden="true">→</span>}
+                </div>
+                <strong className={styles.hiringStepTitle}>{step.title}</strong>
+                <p className={styles.hiringStepText}>{step.text}</p>
               </li>
             ))}
           </ol>
