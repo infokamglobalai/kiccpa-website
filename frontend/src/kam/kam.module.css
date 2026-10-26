@@ -1655,3 +1655,130 @@
   .greenPhotoWindow { left: 0; right: 0; top: 46%; bottom: 12%; border-radius: 0; }
   .greenPhotoWindow .pamphletPhoto { object-fit: cover; }
 }
+
+
+/* The closed pamphlet and the enquiry card share one aligned row. */
+.bookShell { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); grid-template-rows: auto; }
+.bookPages { grid-area: 1 / 1 / 2 / -1; }
+.bookCover { grid-area: 1 / 1 / 2 / -1; }
+.letsTalkCard { grid-area: 1 / 2 / 2 / 3; min-width: 0; margin-left: 16px; padding: 38px 36px; background: #fff; border: 1px solid var(--k-line); border-radius: 6px; box-shadow: 0 16px 40px rgba(8,36,83,.055); position: relative; z-index: 2; }
+.letsTalkCard > .ctEyebrowDark { color: #416850; margin-bottom: 20px; }
+.ctPanel { scroll-margin-top: 116px; }
+@media (max-width:1024px) {
+  .bookShell { grid-template-columns: minmax(0,1fr); }
+  .letsTalkCard { grid-area: 2 / 1 / 3 / -1; margin: 24px 0 0; padding: 32px; }
+}
+@media (max-width:700px) {
+  .letsTalkCard { padding: 26px 22px; }
+}
+
+
+/* Two straightforward, static contact cards. */
+.staticContactCards { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; align-items: stretch; }
+.contactInfoCard, .contactFormCard { min-width: 0; padding: clamp(24px,3vw,40px); background: #fff; border: 1px solid var(--k-line); border-radius: 6px; box-shadow: 0 12px 30px rgba(8,36,83,.035); }
+.contactInfoCard { display: flex; flex-direction: column; }
+.contactInfoCard h2, .contactFormCard .ctForm h2 { font-family: var(--font-h); font-size: clamp(1.8rem,2.5vw,2.4rem); font-weight: 500; line-height: 1.16; letter-spacing: -.03em; margin: 0 0 14px; }
+.contactFormCard .ctForm h2 { margin-bottom: 0; }
+.contactInfoCard .ctIntro { margin-bottom: 24px; }
+.contactInfoCard .ctLeafPhoto { margin-top: 28px; }
+.contactInfoCard .ctCard, .contactInfoCard .ctCard:hover { transform: none; transition: none; }
+.staticContactCards *, .staticContactCards .ctReview { animation: none; }
+.ct .photoHeroCopy > *, .ct .photoHero .bannerPhoto img { animation: none; }
+@media (max-width:1024px) {
+  .staticContactCards { grid-template-columns: minmax(0,1fr); }
+  .contactInfoCard .ctLeafPhoto { flex: auto; }
+}
+
+/* Theme-matched menus: the complete row responds to hover and keyboard focus. */
+.mega a { padding: 12px 14px; border-radius: 4px; border-left: 3px solid transparent; }
+.mega a:hover, .mega a:focus-visible { background: var(--k-navy); border-left-color: var(--k-accent); outline: none; }
+.mega a:hover strong, .mega a:focus-visible strong { color: #fff; }
+.mega a:hover span, .mega a:focus-visible span { color: #dce5f2; }
+.drawer details a:hover, .drawer details a:focus-visible { background: #eaf0f8; color: var(--k-navy); box-shadow: inset 3px 0 var(--k-accent); }
+.ctForm .ctChip:hover { background: #eaf0f8; border-color: var(--k-navy); box-shadow: inset 0 0 0 1px var(--k-navy); }
+.ctForm .ctChipOn { color: #fff; background: var(--k-navy); border-color: var(--k-navy); box-shadow: inset 0 -3px var(--k-accent); }
+.ctForm .ctChipOn:hover { background: #153b70; }
+.themedSelect { position: relative; min-width: 0; display: grid; gap: 8px; }
+.selectLabel { font-weight: 700; color: var(--k-navy); font-size: .9rem; }
+.ctForm .selectTrigger { display: flex; align-items: center; justify-content: space-between; gap: 18px; width: 100%; min-height: 52px; padding: 14px 18px; border: 1px solid var(--k-line); border-radius: 6px; color: var(--k-navy); background: #f1f4f8; font: inherit; text-align: left; cursor: pointer; }
+.selectTrigger svg { flex-shrink: 0; }
+.ctForm .selectTrigger:hover { background: #eaf0f8; border-color: #9caec8; }
+.ctForm .selectTrigger:focus-visible, .ctForm .selectTrigger[aria-expanded="true"] { outline: 2px solid var(--k-accent); outline-offset: 2px; background: #fff; }
+.ctForm .selectMenu { position: absolute; z-index: 30; top: calc(100% + 8px); left: 0; right: 0; list-style: none; padding: 6px; margin: 0; max-height: 300px; overflow-y: auto; border: 1px solid var(--k-line); border-radius: 8px; background: #fff; box-shadow: 0 16px 40px rgba(8,36,83,.16); }
+.ctForm .selectOption { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 46px; padding: 11px 12px; margin: 0; border-left: 3px solid transparent; border-radius: 4px; color: var(--k-navy); font-size: .9rem; line-height: 1.4; cursor: pointer; }
+.selectOption[aria-selected="true"] { background: #edf2f8; font-weight: 700; }
+.ctForm .selectOption[data-active="true"] { background: var(--k-navy); color: #fff; border-left-color: var(--k-accent); }
+.selectOption svg { flex-shrink: 0; color: var(--k-accent); }
+.practiceBrief { background: #fff; border-left: 3px solid var(--k-accent); padding: clamp(24px,4vw,56px); }
+.practiceBrief span { display: block; margin-top: 32px; color: var(--k-muted); font-size: .9rem; line-height: 2.4; letter-spacing: .04em; }
+
+/* Service chapters: distinct surfaces within one editorial palette. */
+.serviceDetail { --chapter-tint: #e8f0ff; --chapter-deep: #173e75; }
+.serviceDetail[data-division="outsourcing"] { --chapter-tint: #edf0fc; --chapter-deep: #303d75; }
+.serviceDetail[data-division="hr"] { --chapter-tint: #e8f3f2; --chapter-deep: #1a515b; }
+.serviceDetail .svSection { padding: 80px 0; }
+.capabilityBand { background: radial-gradient(ellipse at 95% 5%, #e9effa 0%, transparent 55%), linear-gradient(135deg, #fff 20%, #f5f8fc 100%); }
+.serviceDetail .serviceIntro { max-width: 790px; }
+.serviceDetail .serviceCapabilities article, .servicesOverview .svWhy article { background: linear-gradient(145deg, #fff, #f5f8fc); border: 1px solid #dce5f0; border-top: 3px solid var(--k-accent); border-radius: 8px; box-shadow: 0 8px 24px rgba(8,36,83,.035); }
+.serviceDetail .serviceCapabilities article > span { color: var(--k-navy); display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--chapter-tint); letter-spacing: 0; margin-bottom: 24px; }
+/* A light, open example section with one clear preparation panel. */
+.serviceDetail .servicePractice {
+  background: linear-gradient(120deg, #f7faff 0%, var(--chapter-tint) 100%);
+  color: var(--k-navy);
+  border-block: 1px solid #e3eaf2;
+}
+.serviceDetail .servicePracticeGrid { grid-template-columns: minmax(0,1.2fr) minmax(0,.8fr); align-items: center; gap: clamp(32px,6vw,88px); }
+.serviceDetail .servicePractice .svEyebrow { color: #526b87; }
+.serviceDetail .servicePractice h2 { color: var(--k-navy); font-size: clamp(1.9rem,3vw,2.7rem); line-height: 1.18; max-width: 22ch; margin-bottom: 22px; }
+.serviceDetail .practiceExample > p:not(.svEyebrow) { color: #39536f; font-size: clamp(1.05rem,1.4vw,1.2rem); line-height: 1.8; max-width: 50ch; }
+.serviceDetail .servicePractice small { color: #526b87; margin-top: 20px; font-size: .8rem; }
+.serviceDetail .practicePreparation { padding: clamp(24px,3vw,36px); background: rgba(255,255,255,.8); border: 1px solid #dce6ef; border-radius: 10px; }
+.serviceDetail .practicePreparation h3 { color: var(--k-navy); font-family: var(--font-b); font-size: 1.15rem; margin: 0 0 14px; }
+.serviceDetail .practicePreparation p { color: #39536f; margin: 0; }
+.serviceDetail .practicePreparation .hpBtn { margin-top: 24px; font-size: .9rem; padding: 13px 20px; }
+.faqBand { background: radial-gradient(ellipse at 0% 80%, var(--chapter-tint, #eaf0fa), transparent 62%), linear-gradient(120deg, #f2f6fc, #fff 90%); border-bottom: 1px solid #e1e8f2; }
+.serviceDetail .serviceFaq { align-items: start; }
+.serviceDetail .serviceFaq > :first-child { padding: 14px 0; }
+.serviceDetail .serviceFaq h2 { max-width: 13ch; }
+.serviceDetail .serviceFaq details { background: #fff; border: 1px solid #dce5ef; border-radius: 8px; margin-bottom: 12px; padding: 0; box-shadow: 0 4px 18px rgba(8,36,83,.025); overflow: hidden; }
+.serviceDetail .serviceFaq summary { list-style: none; padding: 23px 64px 23px 24px; position: relative; }
+.serviceDetail .serviceFaq summary::-webkit-details-marker { display: none; }
+.serviceDetail .serviceFaq summary::after { content: '+'; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; display: grid; place-items: center; font-size: 1.2rem; font-weight: 400; border-radius: 50%; background: #edf2f9; color: var(--k-navy); }
+.serviceDetail .serviceFaq details[open] { border-color: #a8bbd4; }
+.serviceDetail .serviceFaq details[open] summary { background: #f6f9fd; }
+.serviceDetail .serviceFaq details[open] summary::after { content: '−'; color: #fff; background: var(--k-navy); }
+.serviceDetail .serviceFaq summary:hover { background: #f1f5fb; }
+.serviceDetail .serviceFaq summary:focus-visible { outline: 2px solid var(--k-accent); outline-offset: -4px; border-radius: 8px; }
+.serviceDetail .serviceFaq details p { margin: 0; padding: 20px 24px 24px; }
+.serviceDetail .serviceFaq details a { margin: 0 24px 24px; }
+.relatedBand { background: linear-gradient(115deg, #fff 25%, #f0f5fb 100%); }
+.serviceDetail .relatedBand .svSplit { align-items: start; }
+.serviceDetail .relatedBand .svList { margin-top: 0; gap: 12px; }
+.serviceDetail .relatedBand .svList li { background: #fff; border: 1px solid #dde6f0; border-radius: 8px; overflow: hidden; }
+.serviceDetail .relatedBand .svList a { padding: 20px 24px; border-left: 3px solid transparent; }
+.serviceDetail .relatedBand .svList a:hover, .serviceDetail .relatedBand .svList a:focus-visible { background: var(--chapter-tint); border-left-color: var(--k-accent); color: var(--k-navy); }
+.journeyBand { background: radial-gradient(ellipse at 90% 100%, #dce8f8, transparent 65%), linear-gradient(120deg, #edf3fc, #f7f9fd); border-top: 1px solid #e0e8f4; }
+.serviceDetail .svSteps, .servicesOverview .svSteps { gap: 24px; margin-top: 36px; }
+.serviceDetail .svSteps li, .servicesOverview .svSteps li { background: rgba(255,255,255,.88); border: 1px solid #d9e3f0; border-radius: 8px; padding: 26px; }
+.serviceDetail .svSteps li > span, .servicesOverview .svSteps li > span { color: #a94211; }
+ .serviceCta { background: linear-gradient(115deg, #f5f9fe, var(--chapter-tint)); border-top: 1px solid #dce6ef; color: var(--k-navy); }
+.serviceDetail .serviceCta h2 { color: var(--k-navy); font-size: clamp(2rem,3.5vw,3rem); font-weight: 500; }
+.serviceDetail .serviceCta p { color: #39536f; }
+.serviceDetail .serviceCta .hpBtnGhost { color: var(--k-navy); background: #fff; border-color: #a5b6cc; }
+.serviceDetail .serviceCta .hpBtnGhost:hover { background: #edf3fa; }
+.divisionBand[data-division="technology"] { background: linear-gradient(125deg, #fff 20%, #eaf1fc 100%); }
+.divisionBand[data-division="outsourcing"] { background: linear-gradient(125deg, #eef1fa, #fff 90%); }
+.divisionBand[data-division="hr"] { background: linear-gradient(125deg, #fff 15%, #eaf4f3 100%); }
+.servicesOverview .svPhoto { border-radius: 8px; box-shadow: 0 16px 40px rgba(8,36,83,.08); }
+.servicesOverview .svWhy { gap: 24px; }
+@media (max-width: 700px) {
+  .serviceDetail .svSection { padding: 52px 0; }
+  .serviceDetail .servicePracticeGrid, .serviceDetail .serviceFaq { gap: 28px; }
+  .serviceDetail .serviceFaq details p { padding: 16px 20px 20px; }
+  .serviceDetail .serviceFaq summary { padding: 20px 56px 20px 20px; }
+  .serviceDetail .relatedBand .svList a { padding: 18px; }
+}
+.serviceDetail .svSteps, .servicesOverview .svSteps, .servicesOverview .svWhy { background: transparent; overflow: visible; }
+.serviceDetail .svSteps li > span, .servicesOverview .svSteps li > span { background: #e7eef8; color: var(--k-navy); }
+
+@media (max-width:700px) { .serviceDetail .servicePracticeGrid { grid-template-columns:minmax(0,1fr); gap:28px; } }

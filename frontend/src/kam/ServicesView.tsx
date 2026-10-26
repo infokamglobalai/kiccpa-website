@@ -6,19 +6,19 @@ import styles from "./kam.module.css";
 
 export default function ServicesView() {
   return (
-    <main className={styles.sv}>
+    <main className={`${styles.sv} ${styles.servicesOverview}`}>
       <PhotoHero eyebrow="Services" title="Three Services. One Partner." description="The right expertise to move your business forward. Explore technology, business operations and workforce solutions shaped around your needs." image="/assets/photography/office.jpg" alt="A contemporary office with open workspaces and collaborative areas">
         <div className={styles.pdJumps}>{divisions.map(division => <a key={division.id} href={`#${division.id}`}>{division.title}</a>)}</div>
       </PhotoHero>
 
       {divisions.map((division, index) => (
-        <section key={division.id} id={division.id} className={`${styles.svSection} ${index % 2 === 1 ? styles.svLight : ""}`}>
+        <section key={division.id} id={division.id} className={`${styles.svSection} ${styles.divisionBand}`} data-division={division.id}>
           <div className={`${styles.wrap} ${styles.svSplit}`}>
             {/* The photo and its copy converge from opposite sides, and the
                 direction alternates with the band so the scroll keeps rhythm. */}
             <Reveal variant={index % 2 === 1 ? "right" : "left"} className={styles.svStretch}>
               <figure className={styles.svPhoto}>
-                <img src={division.image} alt={division.alt} width={1280} height={960} loading="lazy" decoding="async" />
+                <img src={`/assets/photography/services-${division.id}.jpg`} alt={division.alt} width={1280} height={960} loading="lazy" decoding="async" />
               </figure>
             </Reveal>
             <Reveal variant={index % 2 === 1 ? "left" : "right"}>
@@ -42,7 +42,7 @@ export default function ServicesView() {
         </section>
       ))}
 
-      <section className={styles.svSection}>
+      <section className={`${styles.svSection} ${styles.capabilityBand}`}>
         <div className={styles.wrap}>
           <Reveal parts>
             <h2>The Right Expertise. One Connected Partner.</h2>
@@ -61,7 +61,7 @@ export default function ServicesView() {
         </div>
       </section>
 
-      <section className={`${styles.svSection} ${styles.svLight}`}>
+      <section className={`${styles.svSection} ${styles.journeyBand}`}>
         <div className={styles.wrap}>
           <Reveal parts>
             <h2>From the requirement to a conversation.</h2>

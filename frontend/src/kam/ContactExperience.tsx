@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { Phone, Mail, ArrowRight, ArrowLeft, RotateCcw, UserRound, BriefcaseBusiness, FileText, Copy, CircleCheck } from "lucide-react";
-import { useMemo, useRef, useState } from "react";
+import { Phone, Mail, UserRound, BriefcaseBusiness, FileText, Copy, CircleCheck } from "lucide-react";
+import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { submitContactAction } from "@/lib/actions";
 import { contacts, engagementModels, serviceOptions, type ServiceId } from "./site";
 import styles from "./kam.module.css";
-import Reveal from "./Reveal";
+import ThemedSelect from "./ThemedSelect";
 
 type Draft = {
   name: string;
@@ -73,10 +73,6 @@ function Icon({ name }: { name: "whatsapp" | "phone" | "mail" }) {
 
 export default function ContactExperience() {
   const params = useSearchParams();
-  const bookRef = useRef<HTMLDivElement>(null);
-  const [bookOpen, setBookOpen] = useState(false);
-  const [mobilePage, setMobilePage] = useState(0);
-  const [turn, setTurn] = useState(0);
   const presetService = params.get("service") as ServiceId | null;
   const presetModel = params.get("model") || "";
   const [draft, setDraft] = useState<Draft>(() => ({
@@ -93,13 +89,6 @@ export default function ContactExperience() {
   const text = useMemo(() => compose(draft), [draft]);
   const serviceLabels = draft.services.map((id) => serviceOptions.find((s) => s.id === id)?.label || id);
   const modelTitle = engagementModels.find((m) => m.id === draft.model)?.title || "Not sure yet";
-
-  function showBookPage(page?: number) {
-    if (page === undefined) setBookOpen(true);
-    else { setMobilePage(page); setTurn(v => v + 1); }
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches || document.documentElement.dataset.motion === "off";
-    bookRef.current?.scrollIntoView({ block: "start", behavior: reduce ? "auto" : "smooth" });
-  }
 
   function update<K extends keyof Draft>(key: K, value: Draft[K]) {
     setDraft((d) => ({ ...d, [key]: value }));
@@ -125,7 +114,6 @@ export default function ContactExperience() {
     }
     setError("");
     setResult("");
-    setTurn(v => v + 1);
     setStep("review");
   }
 
@@ -158,61 +146,8 @@ export default function ContactExperience() {
     }
   }
 
-  return (
-    <section className={styles.ctSection} aria-labelledby="contact-intro">
-      <div className={styles.wrap}>
-        <div className={styles.bookToolbar}><p>Start a new chapter with KICCPA.</p>{bookOpen && <button type="button" onClick={() => setBookOpen(false)}><RotateCcw size={16} aria-hidden="true" /> Close book</button>}</div>
-        <div ref={bookRef} className={`${styles.bookShell} ${bookOpen ? styles.bookIsOpen : ""} ${mobilePage === 1 ? styles.bookProjectPage : styles.bookContactPage}`}>
-          <button type="button" className={styles.bookCover} aria-expanded={bookOpen} aria-controls="contact-book-pages" tabIndex={bookOpen ? -1 : 0} onClick={() => showBookPage()}>
-            <span className={styles.greenCoverFrame} aria-hidden="true" />
-            <span className={styles.pamphletBrand}><img src="/images/kiccpa-logo.png" alt="KICCPA" /><span>Where it meets AI</span></span>
-            <span className={styles.pamphletEditorial}>
-              <span className={styles.bookCoverBrand}>The beginning of a partnership</span>
-              <strong>Built on understanding.<br /><em>Made for what’s next.</em></strong>
-              <span className={styles.pamphletDescription}>Your ambition deserves a thoughtful partner. Let’s start with a conversation.</span>
-              <span className={styles.greenCoverServices}>Technology <i /> Operations <i /> People</span>
-            </span>
-            <span className={styles.greenPhotoWindow}><img className={styles.pamphletPhoto} src="/assets/photography/forest-on-white.png" alt="" aria-hidden="true" /></span>
-            <span className={styles.greenCoverFooter}><span className={styles.bookOpenPrompt}>Open your conversation <ArrowRight size={23} aria-hidden="true" /></span><span className={styles.pamphletFolio}>KICCPA / Your next chapter <span>01 — 03</span></span></span>
-          </button>
-          <div id="contact-book-pages" className={`${styles.ctGrid} ${styles.bookPages}`} inert={!bookOpen} aria-hidden={!bookOpen}>
-          {turn > 0 && bookOpen && <div key={turn} className={styles.turningPaper} aria-hidden="true"><span>KICCPA</span><strong>{step === "review" ? "Your enquiry, considered." : "A little more detail."}</strong></div>}
-        <Reveal className={styles.ctContactLeaf}>
-          <p className={styles.ctEyebrowDark}>Get in touch</p>
-          <h2 id="contact-intro">Let&apos;s connect.</h2>
-          <p className={styles.ctIntro}>Choose the appropriate contact channel for your region or send your requirements using the enquiry form.</p>
-          <div className={styles.ctCards}>
-            <a className={styles.ctCard} href={`https://wa.me/${contacts.whatsapp}`} target="_blank" rel="noreferrer">
-              <span className={styles.ctIcon}><Icon name="whatsapp" /></span>
-              <strong>WhatsApp</strong>
-              <em>+965 9988 9588</em>
-            </a>
-            <article className={styles.ctCard}>
-              <span className={styles.ctIcon}><Icon name="phone" /></span>
-              <strong>Kuwait &amp; GCC</strong>
-              <a href={`tel:${contacts.kuwaitOfficeLine.tel}`}>{contacts.kuwaitOfficeLine.display}</a>
-              <a href={`mailto:${infoEmail}`}>{infoEmail}</a>
-            </article>
-            <article className={styles.ctCard}>
-              <span className={styles.ctIcon}><Icon name="phone" /></span>
-              <strong>Tunisia</strong>
-              <a href={`tel:${tunisia?.tel || "+21623485826"}`}>{tunisia?.phone || "+216 23 485 826"}</a>
-              <a href={`mailto:${africaEmail}`}>{africaEmail}</a>
-            </article>
-            <article className={styles.ctCard}>
-              <span className={styles.ctIcon}><Icon name="phone" /></span>
-              <strong>Kenya</strong>
-              <a href={`tel:${kenya?.tel || "+254750150079"}`}>{kenya?.phone || "+254 750 150079"}</a>
-              <a href={`mailto:${africaEmail}`}>{africaEmail}</a>
-            </article>
-          </div>
-          <button type="button" className={styles.mobilePageNext} onClick={() => showBookPage(1)}>Turn to your enquiry <ArrowRight size={18} aria-hidden="true" /></button>
-          <figure className={styles.ctLeafPhoto}><img src="/assets/photography/team.jpg" alt="Professionals greeting each other with a handshake" loading="lazy" /><figcaption>A conversation today. A new chapter tomorrow.</figcaption></figure>
-        </Reveal>
-
-        <Reveal className={styles.ctFormLeaf}>
-        <div className={styles.ctPanel}>
-          <button type="button" className={styles.mobilePageBack} onClick={() => showBookPage(0)}><ArrowLeft size={16} aria-hidden="true" /> Contact details</button>
+  const enquiryPanel = (
+    <div className={styles.ctPanel} id="lets-talk">
           {sent && result ? (
             <div className={styles.ctSuccess} role="status">
               <h3>Enquiry received</h3>
@@ -224,7 +159,7 @@ export default function ContactExperience() {
 
           {sent ? null : step === "edit" ? (
             <form className={styles.ctForm} onSubmit={review} noValidate>
-              <h3>Tell us about your project.</h3>
+              <h2>Tell us about your project.</h2>
               <p>Every good partnership starts with a conversation. Share your plans, then review your enquiry before sending.</p>
               <div className={styles.ctPair}>
                 <label>
@@ -265,13 +200,7 @@ export default function ContactExperience() {
                 </div>
                 {fieldErrors.services ? <small>{fieldErrors.services}</small> : null}
               </fieldset>
-              <label>
-                Engagement model
-                <select className={styles.paddedSelect} value={draft.model} onChange={(e) => update("model", e.target.value)}>
-                  <option value="">Not sure yet</option>
-                  {engagementModels.map((model) => <option key={model.id} value={model.id}>{model.title}</option>)}
-                </select>
-              </label>
+              <ThemedSelect label="Engagement model" value={draft.model} onChange={(value) => update("model", value)} options={[{ value: "", label: "Not sure yet" }, ...engagementModels.map(model => ({ value: model.id, label: model.title }))]} />
               <label>
                 <span className={styles.ctLabelText}>Project or business requirements <b aria-hidden="true">*</b></span>
                 <textarea value={draft.message} onChange={(e) => update("message", e.target.value)} placeholder="Briefly describe your project, business needs, or the support you are looking for." aria-invalid={Boolean(fieldErrors.message)} required />
@@ -308,7 +237,7 @@ export default function ContactExperience() {
               <p className={styles.reviewNextStep}><Mail size={17} aria-hidden="true" /><span>When you submit, your enquiry is sent to the KICCPA team for review.</span></p>
               <div className={styles.ctActions}>
                 <button type="button" className={styles.hpBtn} disabled={pending} onClick={submit}>{pending ? "Sending…" : "Submit Enquiry"}</button>
-                <button type="button" className={styles.hpBtnLine} onClick={() => { setTurn(v => v + 1); setStep("edit"); }}>Edit details</button>
+                <button type="button" className={styles.hpBtnLine} onClick={() => setStep("edit")}>Edit details</button>
               </div>
               <p className={styles.ctAlt}>
                 <button type="button" onClick={copyText}><Copy size={15} aria-hidden="true" /> Copy enquiry</button>
@@ -317,9 +246,46 @@ export default function ContactExperience() {
             </div>
           )}
         </div>
-        </Reveal>
-      </div>
-      </div>
+  );
+
+  return (
+    <section className={styles.ctSection} aria-labelledby="contact-intro">
+      <div className={`${styles.wrap} ${styles.staticContactCards}`}>
+        <article className={styles.contactInfoCard} aria-labelledby="contact-intro">
+          <p className={styles.ctEyebrowDark}>Get in touch</p>
+          <h2 id="contact-intro">Let&apos;s connect.</h2>
+          <p className={styles.ctIntro}>Choose the appropriate contact channel for your region or send your requirements using the enquiry form.</p>
+          <div className={styles.ctCards}>
+            <a className={styles.ctCard} href={`https://wa.me/${contacts.whatsapp}`} target="_blank" rel="noreferrer">
+              <span className={styles.ctIcon}><Icon name="whatsapp" /></span>
+              <strong>WhatsApp</strong>
+              <em>+965 9988 9588</em>
+            </a>
+            <article className={styles.ctCard}>
+              <span className={styles.ctIcon}><Icon name="phone" /></span>
+              <strong>Kuwait &amp; GCC</strong>
+              <a href={`tel:${contacts.kuwaitOfficeLine.tel}`}>{contacts.kuwaitOfficeLine.display}</a>
+              <a href={`mailto:${infoEmail}`}>{infoEmail}</a>
+            </article>
+            <article className={styles.ctCard}>
+              <span className={styles.ctIcon}><Icon name="phone" /></span>
+              <strong>Tunisia</strong>
+              <a href={`tel:${tunisia?.tel || "+21623485826"}`}>{tunisia?.phone || "+216 23 485 826"}</a>
+              <a href={`mailto:${africaEmail}`}>{africaEmail}</a>
+            </article>
+            <article className={styles.ctCard}>
+              <span className={styles.ctIcon}><Icon name="phone" /></span>
+              <strong>Kenya</strong>
+              <a href={`tel:${kenya?.tel || "+254750150079"}`}>{kenya?.phone || "+254 750 150079"}</a>
+              <a href={`mailto:${africaEmail}`}>{africaEmail}</a>
+            </article>
+          </div>
+          <figure className={styles.ctLeafPhoto}><img src="/assets/photography/contact-handshake.jpg" alt="Two professionals shaking hands beside an office window" loading="lazy" /><figcaption>A conversation today. A new chapter tomorrow.</figcaption></figure>
+        </article>
+        <article className={styles.contactFormCard} aria-label="Project enquiry">
+          <p className={styles.ctEyebrowDark}>Let’s talk</p>
+          {enquiryPanel}
+        </article>
       </div>
     </section>
   );

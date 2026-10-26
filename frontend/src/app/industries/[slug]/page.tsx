@@ -9,8 +9,8 @@ const extra = {
   government: {
     slug: "government",
     title: "Government",
-    image: "/assets/industries/enterprise.jpg",
-    alt: "A formal meeting room.",
+    image: "/assets/services/cloud.jpg",
+    alt: "Layered contemporary infrastructure.",
     text: "Public-sector digital work can be discussed. This page does not claim a delivered government programme, a certification, or a sovereign-cloud product.",
     verified: false,
   },

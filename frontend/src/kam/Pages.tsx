@@ -203,10 +203,7 @@ export function SolutionsPage() {
       <section className={styles.section}>
         <div className={styles.wrap} style={{ display: "grid", gap: 28 }}>
           {products.map((product) => (
-            <article key={product.name} className={styles.split}>
-              <div className={styles.frame} style={{ minHeight: 280 }}>
-                <img src="/assets/products/platform.jpg" alt={`Conceptual interface illustration beside the ${product.name} description. Not a live product screenshot.`} />
-              </div>
+            <article key={product.name} className={styles.plain}>
               <div>
                 <p className={styles.kicker}>{product.status}</p>
                 <h2 className={styles.h2}>{product.name}</h2>
@@ -236,9 +233,6 @@ export function IndustriesPage() {
         <div className={`${styles.wrap} ${styles.cards2}`}>
           {industries.map((industry) => (
             <article key={industry.slug} id={industry.slug} className={styles.plain}>
-              <div className={styles.frame} style={{ minHeight: 220, marginBottom: 16 }}>
-                <img src={industry.image} alt={industry.alt} />
-              </div>
               <p className={styles.kicker}>{industry.verified ? "Represented on this site" : "Open for discussion"}</p>
               <h2>{industry.title}</h2>
               <p>{industry.text}</p>
@@ -285,7 +279,7 @@ export async function CareersPage() {
   const { jobs, database } = await listPublicJobs();
   return (
     <main className={styles.sv}>
-      <PhotoHero eyebrow="Careers" title="Build your next chapter with us." description="Bring your skills, curiosity and ambition. Explore roles published by the KICCPA hiring team, find the right fit and take the next step." image="/assets/photography/team.jpg" alt="Professionals greeting each other at the start of a meeting">
+      <PhotoHero eyebrow="Careers" title="Build your next chapter with us." description="Bring your skills, curiosity and ambition. Explore roles published by the KICCPA hiring team, find the right fit and take the next step." image="/assets/photography/careers-team.jpg" alt="Professionals discussing ideas in a modern office">
         <div className={styles.rowBtns}><a className={styles.hpBtn} href="#open-roles">Explore open roles <span className={styles.arrow}>→</span></a><Link className={styles.hpBtnGhost} href="/about">Get to know KICCPA</Link></div>
       </PhotoHero>
       <section className={styles.svSection} id="open-roles">

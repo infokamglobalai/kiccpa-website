@@ -166,7 +166,7 @@ export default function HomePage() {
 
       <section className={styles.hpClose}>
         <div className={styles.hpCloseMedia} aria-hidden="true">
-          <img src={page.hero.image} alt="" loading="lazy" decoding="async" />
+          <img src="/assets/photography/home-partnership.jpg" alt="" loading="lazy" decoding="async" />
         </div>
         <div className={styles.wrap}>
           <div className={styles.hpCloseInner}>

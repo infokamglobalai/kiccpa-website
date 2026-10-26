@@ -149,7 +149,6 @@ export default function AboutView() {
           <div className={styles.abProducts}>
             {homeProducts.map((product) => (
               <a key={product.name} href={product.href} {...(product.external ? { target: "_blank", rel: "noreferrer" } : {})}>
-                <img src={product.image} alt={product.alt} />
                 <span>
                   <strong>{product.name}</strong>
                   <p>{product.text}</p>

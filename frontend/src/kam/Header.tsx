@@ -145,7 +145,7 @@ export default function Header() {
           ) : (
             <Link key={item.href} href={item.href}>{item.label}</Link>
           ))}
-          <Link href="/business-enquiry">Let&apos;s Talk</Link>
+          <Link href="/business-enquiry" onClick={() => setOpen(false)}>Let&apos;s Talk</Link>
         </div>
       )}
     </header>

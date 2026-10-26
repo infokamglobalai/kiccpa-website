@@ -104,8 +104,8 @@ export const homeProducts = [
     href: "https://learnx.school",
     external: true,
     cta: "Open learnx.school",
-    image: "/images/resources/learnx-sms-catalog-cover.webp",
-    alt: "Cover of the LearnX school management catalogue.",
+    image: "/assets/photography/home-school.jpg",
+    alt: "Students using laptops in a classroom with their teacher.",
   },
   {
     name: "EduAiTutors",
@@ -113,8 +113,8 @@ export const homeProducts = [
     href: "https://www.eduaitutors.com",
     external: true,
     cta: "Open EduAiTutors",
-    image: "/images/eduaitutors-ecosystem.webp",
-    alt: "Visual for the EduAiTutors learning product.",
+    image: "/assets/photography/home-tutoring.jpg",
+    alt: "Students learning together with a laptop and textbooks.",
   },
   {
     name: "EduAiTutors platform",
