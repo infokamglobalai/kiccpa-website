@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { productCatalog, productsPage } from "./product-content";
 import Reveal from "./Reveal";
+import PhotoHero from "./PhotoHero";
 import styles from "./kam.module.css";
 
 export default function ProductsView() {
@@ -8,18 +9,9 @@ export default function ProductsView() {
 
   return (
     <main className={styles.pd}>
-      <section className={styles.pdHero} aria-label="Products">
-        <div className={styles.wrap}>
-          <p className={styles.pdEyebrow}>{page.eyebrow}</p>
-          <h1>{page.title}</h1>
-          <p>{page.lede}</p>
-          <div className={styles.pdJumps}>
-            {productCatalog.map((product) => (
-              <a key={product.id} href={`#${product.id}`}>{product.name}</a>
-            ))}
-          </div>
-        </div>
-      </section>
+      <PhotoHero eyebrow={page.eyebrow} title={page.title} description={page.lede} image="/assets/photography/learning.jpg" alt="Teacher guiding students in a classroom">
+        <div className={styles.pdJumps}>{productCatalog.map(product => <a key={product.id} href={`#${product.id}`}>{product.name}</a>)}</div>
+      </PhotoHero>
 
       <section className={styles.pdSection} aria-label="Choose a product">
         <div className={`${styles.wrap} ${styles.pdWho}`}>
@@ -41,7 +33,8 @@ export default function ProductsView() {
             <Reveal>
               {product.image ? (
                 <figure className={styles.pdMedia}>
-                  <img src={product.image} alt={product.alt} />
+                  <img src={product.image} alt={product.alt} loading="lazy" decoding="async" />
+                  {product.id === "platform" && <figcaption className={styles.platformCaption}>Learning platform illustration</figcaption>}
                 </figure>
               ) : (
                 <div className={styles.pdMark} aria-hidden="true">
@@ -67,7 +60,8 @@ export default function ProductsView() {
         </section>
       ))}
 
-      <section className={styles.pdClose}>
+      <section className={`${styles.pdClose} ${styles.imageClose}`}>
+        <figure className={styles.bannerPhoto}><img src="/assets/photography/study.jpg" alt="An online lesson on a desktop screen beside study notes" loading="lazy" /></figure>
         <div className={styles.wrap}>
           <h2>Not sure which one to open?</h2>
           <p>Schools start with LearnX. Students and parents start with EduAiTutors. If you already have a class, use the learning address.</p>

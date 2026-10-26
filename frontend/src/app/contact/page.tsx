@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import ContactExperience from "@/kam/ContactExperience";
+import PhotoHero from "@/kam/PhotoHero";
 import styles from "@/kam/kam.module.css";
 
 export const metadata: Metadata = {
@@ -12,22 +13,12 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <main className={styles.ct}>
-      <section className={styles.ctHero} aria-label="Contact KICCPA">
-        <div className={styles.ctHeroGrid}>
-          <div className={styles.ctHeroCopy}>
-            <p className={styles.ctEyebrow}>Contact KICCPA</p>
-            <h1>Let&apos;s talk about what you need to build.</h1>
-            <p>Tell us about your business requirements. Our team can review your enquiry and identify a relevant next step.</p>
-          </div>
-          <figure className={styles.ctHeroMedia}>
-            <img src="/assets/hero/home-hero.jpg" alt="Contemporary glass architecture in deep blue light, used beside the contact introduction." />
-          </figure>
-        </div>
-      </section>
+      <PhotoHero eyebrow="Contact KICCPA" title="Let's talk about what you need to build." description="Tell us about your business requirements. Our team can review your enquiry and identify a relevant next step." image="/assets/photography/office.jpg" alt="A bright contemporary office designed for collaboration." />
       <Suspense fallback={<p className={styles.ctLoading}>Loading the form…</p>}>
         <ContactExperience />
       </Suspense>
-      <section className={styles.ctClose}>
+      <section className={`${styles.ctClose} ${styles.imageClose}`}>
+        <figure className={styles.bannerPhoto}><img src="/assets/photography/operations.jpg" alt="Colleagues collaborating in a bright workspace" loading="lazy" /></figure>
         <div className={styles.wrap}>
           <h2>Not sure where to start?</h2>
           <p>Explore our services to identify the right area for your enquiry.</p>

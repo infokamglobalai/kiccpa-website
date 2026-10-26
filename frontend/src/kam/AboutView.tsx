@@ -3,6 +3,7 @@ import { aboutPage } from "./about-content";
 import { homeProducts } from "./home-content";
 import { howWeWork } from "./site";
 import Reveal from "./Reveal";
+import PhotoHero from "./PhotoHero";
 import styles from "./kam.module.css";
 
 function Mark({ name }: { name: string }) {
@@ -24,22 +25,9 @@ export default function AboutView() {
 
   return (
     <main className={styles.ab}>
-      <section className={styles.abHero} aria-label="About KICCPA">
-        <div className={styles.abHeroGrid}>
-          <div className={styles.abHeroCopy}>
-            <p className={styles.abEyebrow}>{page.hero.eyebrow}</p>
-            <h1>{page.hero.title}</h1>
-            <p>{page.hero.text}</p>
-            <div className={styles.rowBtns}>
-              <a className={styles.hpBtn} href={page.hero.primary.href}>{page.hero.primary.label} <span className={styles.arrow}>→</span></a>
-              <Link className={styles.hpBtnGhost} href={page.hero.secondary.href}>{page.hero.secondary.label}</Link>
-            </div>
-          </div>
-          <figure className={styles.abHeroMedia}>
-            <img src={page.hero.image} alt={page.hero.alt} />
-          </figure>
-        </div>
-      </section>
+      <PhotoHero eyebrow={page.hero.eyebrow} title={page.hero.title} description={page.hero.text} image={page.hero.image} alt={page.hero.alt}>
+        <div className={styles.rowBtns}><a className={styles.hpBtn} href={page.hero.primary.href}>{page.hero.primary.label} <span className={styles.arrow}>→</span></a><Link className={styles.hpBtnGhost} href={page.hero.secondary.href}>{page.hero.secondary.label}</Link></div>
+      </PhotoHero>
 
       <section className={styles.abSection} aria-labelledby="leadership">
         <div className={`${styles.wrap} ${styles.abFounder}`}>

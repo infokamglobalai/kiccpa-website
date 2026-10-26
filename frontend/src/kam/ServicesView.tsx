@@ -1,20 +1,15 @@
 import Link from "next/link";
 import Reveal from "./Reveal";
+import PhotoHero from "./PhotoHero";
 import { clientPath, divisions, homeSteps, whyKiccpa } from "./home-content";
 import styles from "./kam.module.css";
 
 export default function ServicesView() {
   return (
     <main className={styles.sv}>
-      <section className={styles.svHero}>
-        <div className={`${styles.wrap} ${styles.svHeroText}`}>
-          <div>
-            <p className={styles.svEyebrow}>Services</p>
-            <h1>Three Services. One Partner.</h1>
-          </div>
-          <p>The right expertise to move your business forward. Choose a division, then the service that matches the requirement.</p>
-        </div>
-      </section>
+      <PhotoHero eyebrow="Services" title="Three Services. One Partner." description="The right expertise to move your business forward. Explore technology, business operations and workforce solutions shaped around your needs." image="/assets/photography/office.jpg" alt="A contemporary office with open workspaces and collaborative areas">
+        <div className={styles.pdJumps}>{divisions.map(division => <a key={division.id} href={`#${division.id}`}>{division.title}</a>)}</div>
+      </PhotoHero>
 
       {divisions.map((division, index) => (
         <section key={division.id} id={division.id} className={`${styles.svSection} ${index % 2 === 1 ? styles.svLight : ""}`}>

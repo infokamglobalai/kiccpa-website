@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CtaBand, Faq, PageHero } from "./Blocks";
 import AboutView from "./AboutView";
+import PhotoHero from "./PhotoHero";
 import OpenRoles from "./OpenRoles";
 import { JobList } from "./JobList";
 import { listPublicJobs } from "@/lib/jobs";
@@ -284,16 +285,12 @@ export async function CareersPage() {
   const { jobs, database } = await listPublicJobs();
   return (
     <main className={styles.sv}>
-      <section className={styles.svHero}>
+      <PhotoHero eyebrow="Careers" title="Build your next chapter with us." description="Bring your skills, curiosity and ambition. Explore roles published by the KICCPA hiring team, find the right fit and take the next step." image="/assets/photography/team.jpg" alt="Professionals greeting each other at the start of a meeting">
+        <div className={styles.rowBtns}><a className={styles.hpBtn} href="#open-roles">Explore open roles <span className={styles.arrow}>→</span></a><Link className={styles.hpBtnGhost} href="/about">Get to know KICCPA</Link></div>
+      </PhotoHero>
+      <section className={styles.svSection} id="open-roles">
         <div className={styles.wrap}>
-          <p className={styles.svEyebrow}>Careers</p>
-          <h1>Build your next chapter with us.</h1>
-          <p>Open roles are published by the KICCPA hiring team. Choose a role to read the brief and send a complete application. A general note is not a vacancy.</p>
-        </div>
-      </section>
-      <section className={styles.svSection}>
-        <div className={styles.wrap}>
-          {!database && <p className={styles.muted}>The hiring database is not connected, so live roles cannot be shown yet.</p>}
+          {!database && <div className={styles.careerState}><p className={styles.svEyebrow}>Opportunities</p><h2>Let’s find your next chapter.</h2><p>Current openings are temporarily unavailable. Please check back or contact our team about career enquiries.</p><Link className={styles.hpBtnLine} href="/contact">Contact our team <span className={styles.arrow}>→</span></Link></div>}
           {database && jobs.length === 0 && (
             <article className={styles.plain}>
               <h2>No open roles right now</h2>

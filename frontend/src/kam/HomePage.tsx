@@ -43,7 +43,7 @@ export default function HomePage() {
       <section className={styles.hpSection} id="services">
         <div className={styles.wrap}>
           <Reveal parts>
-            <div className={styles.hpHead}>
+            <div className={`${styles.hpHead} ${styles.hpServicesHead}`}>
               <p className={styles.hpEyebrow}>{page.services.eyebrow}</p>
               <h2>{page.services.title}</h2>
             </div>

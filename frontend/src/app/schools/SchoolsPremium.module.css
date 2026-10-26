@@ -193,13 +193,13 @@
 }
 
 /* Hide download button in Chrome/Safari */
-video::-internal-media-controls-download-button {
+.actualVideo::-internal-media-controls-download-button {
     display:none;
 }
-video::-webkit-media-controls-enclosure {
+.actualVideo::-webkit-media-controls-enclosure {
     overflow:hidden;
 }
-video::-webkit-media-controls-panel {
+.actualVideo::-webkit-media-controls-panel {
     width: calc(100% + 30px); /* Move the download button out of sight */
 }
 

@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { Phone, Mail, ArrowRight, ArrowLeft, RotateCcw, UserRound, BriefcaseBusiness, FileText, Copy, CircleCheck } from "lucide-react";
+import { useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { submitContactAction } from "@/lib/actions";
 import { contacts, engagementModels, serviceOptions, type ServiceId } from "./site";
@@ -65,18 +66,17 @@ function problems(draft: Draft): Partial<Record<FieldKey, string>> {
 }
 
 function Icon({ name }: { name: "whatsapp" | "phone" | "mail" }) {
-  const common = { viewBox: "0 0 24 24", width: 18, height: 18, fill: "none", stroke: "currentColor", strokeWidth: 1.6, "aria-hidden": true as const };
-  if (name === "whatsapp") {
-    return <svg {...common}><path d="M6 18.5l.8-2.8A7 7 0 1 1 8.6 18L6 18.5z" /><path d="M9 10.2c.2.8.9 1.6 1.7 2 .8.4 1.5.3 2-.2" /></svg>;
-  }
-  if (name === "mail") {
-    return <svg {...common}><rect x="4" y="6" width="16" height="12" rx="1.5" /><path d="M5 7l7 6 7-6" /></svg>;
-  }
-  return <svg {...common}><path d="M8 4h3l1 4-2 1a11 11 0 0 0 5 5l1-2 4 1v3c0 .6-.4 1-1 1A13 13 0 0 1 7 5c0-.6.4-1 1-1z" /></svg>;
+  if (name === "phone") return <Phone size={25} strokeWidth={1.8} aria-hidden="true" />;
+  if (name === "mail") return <Mail size={25} strokeWidth={1.8} aria-hidden="true" />;
+  return <svg viewBox="0 0 24 24" width="27" height="27" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11 11 0 0 0 2.1 17.1L1 23l6-1.6A11 11 0 0 0 20.5 3.5zM12 20.4a9.2 9.2 0 0 1-4.7-1.3l-.3-.2-3.5.9.9-3.4-.2-.3A9.1 9.1 0 1 1 12 20.4zm5.1-6.8c-.3-.1-1.6-.8-1.8-.9s-.4-.1-.6.2-.7.9-.9 1-.3.2-.6.1a7.5 7.5 0 0 1-2.2-1.4 8.3 8.3 0 0 1-1.5-1.9c-.2-.3 0-.4.1-.6l.4-.4.2-.4a.5.5 0 0 0 0-.4c-.1-.1-.6-1.5-.8-2s-.4-.5-.6-.5h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.6 11.6 0 0 0 4.4 3.9c.6.2 1 .4 1.4.5a3.4 3.4 0 0 0 1.6.1 2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .2-1.2c-.1-.2-.3-.2-.6-.3z" /></svg>;
 }
 
 export default function ContactExperience() {
   const params = useSearchParams();
+  const bookRef = useRef<HTMLDivElement>(null);
+  const [bookOpen, setBookOpen] = useState(false);
+  const [mobilePage, setMobilePage] = useState(0);
+  const [turn, setTurn] = useState(0);
   const presetService = params.get("service") as ServiceId | null;
   const presetModel = params.get("model") || "";
   const [draft, setDraft] = useState<Draft>(() => ({
@@ -93,6 +93,13 @@ export default function ContactExperience() {
   const text = useMemo(() => compose(draft), [draft]);
   const serviceLabels = draft.services.map((id) => serviceOptions.find((s) => s.id === id)?.label || id);
   const modelTitle = engagementModels.find((m) => m.id === draft.model)?.title || "Not sure yet";
+
+  function showBookPage(page?: number) {
+    if (page === undefined) setBookOpen(true);
+    else { setMobilePage(page); setTurn(v => v + 1); }
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches || document.documentElement.dataset.motion === "off";
+    bookRef.current?.scrollIntoView({ block: "start", behavior: reduce ? "auto" : "smooth" });
+  }
 
   function update<K extends keyof Draft>(key: K, value: Draft[K]) {
     setDraft((d) => ({ ...d, [key]: value }));
@@ -118,6 +125,7 @@ export default function ContactExperience() {
     }
     setError("");
     setResult("");
+    setTurn(v => v + 1);
     setStep("review");
   }
 
@@ -152,8 +160,24 @@ export default function ContactExperience() {
 
   return (
     <section className={styles.ctSection} aria-labelledby="contact-intro">
-      <div className={`${styles.wrap} ${styles.ctGrid}`}>
-        <Reveal variant="left">
+      <div className={styles.wrap}>
+        <div className={styles.bookToolbar}><p>Start a new chapter with KICCPA.</p>{bookOpen && <button type="button" onClick={() => setBookOpen(false)}><RotateCcw size={16} aria-hidden="true" /> Close book</button>}</div>
+        <div ref={bookRef} className={`${styles.bookShell} ${bookOpen ? styles.bookIsOpen : ""} ${mobilePage === 1 ? styles.bookProjectPage : styles.bookContactPage}`}>
+          <button type="button" className={styles.bookCover} aria-expanded={bookOpen} aria-controls="contact-book-pages" tabIndex={bookOpen ? -1 : 0} onClick={() => showBookPage()}>
+            <span className={styles.greenCoverFrame} aria-hidden="true" />
+            <span className={styles.pamphletBrand}><img src="/images/kiccpa-logo.png" alt="KICCPA" /><span>Where it meets AI</span></span>
+            <span className={styles.pamphletEditorial}>
+              <span className={styles.bookCoverBrand}>The beginning of a partnership</span>
+              <strong>Built on understanding.<br /><em>Made for what’s next.</em></strong>
+              <span className={styles.pamphletDescription}>Your ambition deserves a thoughtful partner. Let’s start with a conversation.</span>
+              <span className={styles.greenCoverServices}>Technology <i /> Operations <i /> People</span>
+            </span>
+            <span className={styles.greenPhotoWindow}><img className={styles.pamphletPhoto} src="/assets/photography/forest-on-white.png" alt="" aria-hidden="true" /></span>
+            <span className={styles.greenCoverFooter}><span className={styles.bookOpenPrompt}>Open your conversation <ArrowRight size={23} aria-hidden="true" /></span><span className={styles.pamphletFolio}>KICCPA / Your next chapter <span>01 — 03</span></span></span>
+          </button>
+          <div id="contact-book-pages" className={`${styles.ctGrid} ${styles.bookPages}`} inert={!bookOpen} aria-hidden={!bookOpen}>
+          {turn > 0 && bookOpen && <div key={turn} className={styles.turningPaper} aria-hidden="true"><span>KICCPA</span><strong>{step === "review" ? "Your enquiry, considered." : "A little more detail."}</strong></div>}
+        <Reveal className={styles.ctContactLeaf}>
           <p className={styles.ctEyebrowDark}>Get in touch</p>
           <h2 id="contact-intro">Let&apos;s connect.</h2>
           <p className={styles.ctIntro}>Choose the appropriate contact channel for your region or send your requirements using the enquiry form.</p>
@@ -182,9 +206,13 @@ export default function ContactExperience() {
               <a href={`mailto:${africaEmail}`}>{africaEmail}</a>
             </article>
           </div>
+          <button type="button" className={styles.mobilePageNext} onClick={() => showBookPage(1)}>Turn to your enquiry <ArrowRight size={18} aria-hidden="true" /></button>
+          <figure className={styles.ctLeafPhoto}><img src="/assets/photography/team.jpg" alt="Professionals greeting each other with a handshake" loading="lazy" /><figcaption>A conversation today. A new chapter tomorrow.</figcaption></figure>
         </Reveal>
 
+        <Reveal className={styles.ctFormLeaf}>
         <div className={styles.ctPanel}>
+          <button type="button" className={styles.mobilePageBack} onClick={() => showBookPage(0)}><ArrowLeft size={16} aria-hidden="true" /> Contact details</button>
           {sent && result ? (
             <div className={styles.ctSuccess} role="status">
               <h3>Enquiry received</h3>
@@ -197,15 +225,15 @@ export default function ContactExperience() {
           {sent ? null : step === "edit" ? (
             <form className={styles.ctForm} onSubmit={review} noValidate>
               <h3>Tell us about your project.</h3>
-              <p>Share a few details so the team can understand your requirements. Review Enquiry shows what will be sent. It does not submit the form.</p>
+              <p>Every good partnership starts with a conversation. Share your plans, then review your enquiry before sending.</p>
               <div className={styles.ctPair}>
                 <label>
-                  Full name <span>*</span>
+                  <span className={styles.ctLabelText}>Full name <b aria-hidden="true">*</b></span>
                   <input value={draft.name} onChange={(e) => update("name", e.target.value)} autoComplete="name" aria-invalid={Boolean(fieldErrors.name)} required />
                   {fieldErrors.name ? <small>{fieldErrors.name}</small> : null}
                 </label>
                 <label>
-                  Business email <span>*</span>
+                  <span className={styles.ctLabelText}>Business email <b aria-hidden="true">*</b></span>
                   <input type="email" value={draft.email} onChange={(e) => update("email", e.target.value)} autoComplete="email" aria-invalid={Boolean(fieldErrors.email)} required />
                   {fieldErrors.email ? <small>{fieldErrors.email}</small> : null}
                 </label>
@@ -216,7 +244,7 @@ export default function ContactExperience() {
                   <input value={draft.company} onChange={(e) => update("company", e.target.value)} autoComplete="organization" />
                 </label>
                 <label>
-                  Phone <em>optional</em>
+                  <span className={styles.ctLabelText}>Phone <em>optional</em></span>
                   <input type="tel" value={draft.phone} onChange={(e) => update("phone", e.target.value)} autoComplete="tel" aria-invalid={Boolean(fieldErrors.phone)} />
                   {fieldErrors.phone ? <small>{fieldErrors.phone}</small> : null}
                 </label>
@@ -226,7 +254,7 @@ export default function ContactExperience() {
                 <input value={draft.country} onChange={(e) => update("country", e.target.value)} autoComplete="country-name" />
               </label>
               <fieldset>
-                <legend>Service of interest <span>*</span></legend>
+                <legend>Service of interest <b aria-hidden="true">*</b></legend>
                 <div className={styles.ctChips}>
                   {serviceOptions.map((option) => (
                     <label key={option.id} className={draft.services.includes(option.id) ? styles.ctChipOn : styles.ctChip}>
@@ -239,13 +267,13 @@ export default function ContactExperience() {
               </fieldset>
               <label>
                 Engagement model
-                <select value={draft.model} onChange={(e) => update("model", e.target.value)}>
+                <select className={styles.paddedSelect} value={draft.model} onChange={(e) => update("model", e.target.value)}>
                   <option value="">Not sure yet</option>
                   {engagementModels.map((model) => <option key={model.id} value={model.id}>{model.title}</option>)}
                 </select>
               </label>
               <label>
-                Project or business requirements <span>*</span>
+                <span className={styles.ctLabelText}>Project or business requirements <b aria-hidden="true">*</b></span>
                 <textarea value={draft.message} onChange={(e) => update("message", e.target.value)} placeholder="Briefly describe your project, business needs, or the support you are looking for." aria-invalid={Boolean(fieldErrors.message)} required />
                 {fieldErrors.message ? <small>{fieldErrors.message}</small> : null}
               </label>
@@ -258,30 +286,40 @@ export default function ContactExperience() {
               <button className={styles.hpBtn} type="submit">Review Enquiry</button>
             </form>
           ) : (
-            <div className={styles.ctReview}>
-              <h3>Review before sending</h3>
-              <p>This has not been submitted. Send enquiry only after the details look right.</p>
-              <dl>
-                <div><dt>Name</dt><dd>{draft.name}</dd></div>
-                <div><dt>Email</dt><dd>{draft.email}</dd></div>
-                <div><dt>Company</dt><dd>{draft.company || "—"}</dd></div>
-                <div><dt>Phone</dt><dd>{draft.phone || "—"}</dd></div>
-                <div><dt>Country or region</dt><dd>{draft.country || "—"}</dd></div>
-                <div><dt>Services</dt><dd>{serviceLabels.join(", ")}</dd></div>
-                <div><dt>Engagement model</dt><dd>{modelTitle}</dd></div>
-                <div><dt>Requirements</dt><dd>{draft.message}</dd></div>
-              </dl>
+            <div className={styles.ctReview} key="review" tabIndex={-1} ref={(node) => node?.focus()}>
+              <div className={styles.reviewHeading}><span className={styles.reviewStatus}><CircleCheck size={15} aria-hidden="true" /> Ready for review</span><h3>Review before sending</h3><p>A quick check of your details and project brief. Nothing has been sent yet.</p></div>
+              <section className={styles.reviewBlock} aria-labelledby="review-contact-title">
+                <h4 id="review-contact-title"><UserRound size={18} aria-hidden="true" /> Your contact details</h4>
+                <dl className={styles.reviewContactGrid}>
+                  <div><dt>Full name</dt><dd>{draft.name}</dd></div>
+                  <div><dt>Business email</dt><dd>{draft.email}</dd></div>
+                  {draft.company && <div><dt>Company</dt><dd>{draft.company}</dd></div>}
+                  {draft.phone && <div><dt>Phone</dt><dd>{draft.phone}</dd></div>}
+                  {draft.country && <div><dt>Country or region</dt><dd>{draft.country}</dd></div>}
+                </dl>
+              </section>
+              <section className={styles.reviewBlock} aria-labelledby="review-project-title">
+                <h4 id="review-project-title"><BriefcaseBusiness size={18} aria-hidden="true" /> Your project</h4>
+                <p className={styles.reviewLabel}>Services of interest</p>
+                <ul className={styles.reviewServiceTags}>{serviceLabels.map(label => <li key={label}>{label}</li>)}</ul>
+                <dl><div><dt>Engagement model</dt><dd>{modelTitle}</dd></div></dl>
+              </section>
+              <section className={`${styles.reviewBlock} ${styles.reviewBrief}`} aria-labelledby="review-brief-title"><h4 id="review-brief-title"><FileText size={18} aria-hidden="true" /> Your brief</h4><p>{draft.message}</p></section>
+              <p className={styles.reviewNextStep}><Mail size={17} aria-hidden="true" /><span>When you submit, your enquiry is sent to the KICCPA team for review.</span></p>
               <div className={styles.ctActions}>
                 <button type="button" className={styles.hpBtn} disabled={pending} onClick={submit}>{pending ? "Sending…" : "Submit Enquiry"}</button>
-                <button type="button" className={styles.hpBtnLine} onClick={() => setStep("edit")}>Edit</button>
+                <button type="button" className={styles.hpBtnLine} onClick={() => { setTurn(v => v + 1); setStep("edit"); }}>Edit details</button>
               </div>
               <p className={styles.ctAlt}>
-                <button type="button" onClick={copyText}>Copy text</button>
-                <a href={`mailto:${infoEmail}?subject=${encodeURIComponent("Enquiry from the KICCPA website")}&body=${encodeURIComponent(`Name: ${draft.name}\nEmail: ${draft.email}\n\n${text}`)}`}>Email instead</a>
+                <button type="button" onClick={copyText}><Copy size={15} aria-hidden="true" /> Copy enquiry</button>
+                <a href={`mailto:${infoEmail}?subject=${encodeURIComponent("Enquiry from the KICCPA website")}&body=${encodeURIComponent(`Name: ${draft.name}\nEmail: ${draft.email}\n\n${text}`)}`}><Mail size={15} aria-hidden="true" /> Email instead</a>
               </p>
             </div>
           )}
         </div>
+        </Reveal>
+      </div>
+      </div>
       </div>
     </section>
   );

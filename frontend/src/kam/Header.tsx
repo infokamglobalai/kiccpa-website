@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { Menu, X, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -90,16 +91,8 @@ export default function Header() {
           {nav.map((item) =>
             item.mega ? (
               <div key={item.href} data-services-root>
-                <button
-                  type="button"
-                  className={`${styles.navBtn} ${servicesOn ? styles.navLinkActive : ""}`}
-                  aria-expanded={mega}
-                  aria-controls="services-menu"
-                  onClick={() => setMega((v) => !v)}
-                  onMouseEnter={() => setMega(true)}
-                >
-                  Services
-                </button>
+                <Link href="/services" className={`${styles.navLink} ${servicesOn ? styles.navLinkActive : ""}`} aria-current={pathname === "/services" ? "page" : undefined} onClick={() => setMega(false)}>Services</Link>
+                <button type="button" className={styles.servicesToggle} aria-label="Browse service categories" aria-expanded={mega} aria-controls="services-menu" onClick={() => setMega(v => !v)}><ChevronDown size={15} aria-hidden="true" /></button>
               </div>
             ) : (
               <Link
@@ -114,8 +107,8 @@ export default function Header() {
           )}
         </nav>
         <Link className={styles.cta} href="/business-enquiry">Let&apos;s Talk</Link>
-        <button type="button" className={`${styles.navBtn} ${styles.burger}`} aria-expanded={open} onClick={() => setOpen((v) => !v)}>
-          {open ? "Close" : "Menu"}
+        <button type="button" className={`${styles.navBtn} ${styles.burger}`} aria-label={open ? "Close navigation menu" : "Open navigation menu"} aria-controls="mobile-navigation" aria-expanded={open} onClick={() => setOpen((v) => !v)}>
+          {open ? <X size={27} aria-hidden="true" /> : <Menu size={27} aria-hidden="true" />}
         </button>
       </div>
       {mega && (
@@ -135,10 +128,10 @@ export default function Header() {
         </div>
       )}
       {open && (
-        <div className={styles.drawer}>
+        <div className={styles.drawer} id="mobile-navigation">
           {nav.map((item) => item.mega ? (
-            <details key={item.href}>
-              <summary>Services</summary>
+            <div key={item.href}><Link href="/services" onClick={() => setOpen(false)}>Services</Link><details>
+              <summary>Service categories</summary>
               <Link href="/services" onClick={() => setOpen(false)}>All services</Link>
               {megaGroups.map((group) => (
                 <div key={group.label}>
@@ -148,7 +141,7 @@ export default function Header() {
                   ))}
                 </div>
               ))}
-            </details>
+            </details></div>
           ) : (
             <Link key={item.href} href={item.href}>{item.label}</Link>
           ))}

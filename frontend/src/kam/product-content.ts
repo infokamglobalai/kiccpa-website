@@ -49,8 +49,8 @@ export const productCatalog = [
     ],
     href: "https://kam.eduaitutors.com",
     cta: "Open kam.eduaitutors.com",
-    image: "",
-    alt: "",
+    image: "/assets/products/platform.jpg",
+    alt: "Illustration of a learning dashboard on desktop and mobile devices.",
   },
 ] as const;
 

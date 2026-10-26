@@ -79,8 +79,8 @@
    --font-inter on the body element — at :root they would be out of scope and
    the whole font stack would collapse to the serif default. */
 body {
-  --font-h: var(--font-manrope), "Manrope", "Segoe UI", system-ui, sans-serif;
-  --font-b: var(--font-inter), "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-h: var(--font-hero-display), "Palatino Linotype", Georgia, serif;
+  --font-b: var(--font-dm-sans), "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
