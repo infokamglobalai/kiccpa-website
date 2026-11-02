@@ -1782,3 +1782,44 @@
 .serviceDetail .svSteps li > span, .servicesOverview .svSteps li > span { background: #e7eef8; color: var(--k-navy); }
 
 @media (max-width:700px) { .serviceDetail .servicePracticeGrid { grid-template-columns:minmax(0,1fr); gap:28px; } }
+
+/* Standalone enquiry page: shared form language, calm and spacious. */
+.talkPage { background: #f5f8fc; }
+.talkIntro { padding: 72px 0 46px; background: linear-gradient(115deg,#fff,#edf3fb); border-bottom: 1px solid #e0e8f2; }
+.talkIntro h1 { font-family: var(--font-h); color: var(--k-navy); font-weight: 500; font-size: clamp(2.5rem,4.8vw,4rem); line-height: 1.13; letter-spacing: -.035em; margin: 0 0 22px; }
+.talkIntro .wrap > p:last-child { max-width: 660px; font-size: 1.05rem; line-height: 1.75; color: #526b87; margin-bottom: 0; }
+.talkSection { padding: 56px 0 80px; }
+.talkLayout { display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.6fr); gap: clamp(32px,5vw,72px); align-items: start; }
+.talkAside { padding-top: 24px; }
+.talkAside h2 { font-family: var(--font-h); font-weight: 500; font-size: clamp(1.8rem,2.7vw,2.4rem); line-height: 1.2; letter-spacing: -.025em; margin: 0 0 18px; }
+.talkAside > p:not(.svEyebrow), .talkAside li p, .talkDirect p { color: #526b87; font-size: .94rem; line-height: 1.75; }
+.talkAside ol { list-style: none; padding: 0; margin: 32px 0; display: grid; gap: 26px; }
+.talkAside li { display: flex; align-items: start; gap: 16px; }
+.talkAside li > span { display: grid; place-items: center; flex: 0 0 36px; height: 36px; background: #e6eef9; color: var(--k-navy); border-radius: 50%; font-size: .75rem; font-weight: 700; }
+.talkAside li strong { display: block; font-size: .94rem; margin-bottom: 5px; }
+.talkAside li p { margin: 0; }
+.talkDirect { border-top: 1px solid #dce5f0; padding-top: 26px; }
+.talkDirect p { margin: 6px 0 14px; }
+.talkDirect a { font-size: .9rem; font-weight: 700; display: inline-flex; gap: 22px; align-items: center; }
+.talkDirect a span { color: #bd4a12; }
+.talkFormCard { padding: clamp(24px,3vw,42px); background: #fff; border: 1px solid #dce5ef; border-radius: 10px; box-shadow: 0 12px 36px rgba(8,36,83,.035); min-width: 0; }
+.talkFormCard > h2 { font-family: var(--font-h); font-weight: 500; font-size: clamp(1.8rem,2.7vw,2.3rem); line-height: 1.2; letter-spacing: -.03em; margin: 0 0 14px; }
+.talkFormLede { color: #526b87; font-size: .92rem; line-height: 1.7; margin: 0 0 30px; }
+.talkFormLede span { color: #b64918; }
+.talkForm { gap: 26px; }
+.talkForm .talkFieldset { display: grid; gap: 20px; padding: 0; border: 0; margin: 0; min-width: 0; }
+.talkForm .talkFieldset legend { font-family: var(--font-b); font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; color: #526b87; font-weight: 700; width: 100%; padding: 0 0 12px; border-bottom: 1px solid #e3eaf3; margin-bottom: 20px; }
+.talkForm .ctPair { gap: 18px; }
+.talkForm input:not([type="checkbox"]):not([type="hidden"]), .talkForm textarea { border: 1px solid #e3e9f1; background: #f3f6fa; border-radius: 6px; font-weight: 400; }
+.talkForm textarea { min-height: 156px; line-height: 1.65; }
+.talkForm .ctConsent label { font-weight: 400; font-size: .85rem; line-height: 1.65; }
+.talkForm .ctConsent input { min-height: 0; width: 18px; height: 18px; margin: 3px 0 0; padding: 0; }
+.talkForm .ctConsent a { font-size: .82rem; }
+.talkSubmit { display: flex; align-items: center; gap: 22px; }
+.talkSubmit .hpBtn { flex-shrink: 0; font-size: .95rem; gap: 30px; }
+.talkSubmit p { color: #526b87; font-size: .78rem; line-height: 1.65; margin: 0; }
+@media(max-width:1000px) { .talkLayout { grid-template-columns: minmax(0,1fr); } .talkAside { padding: 0; } .talkAside ol { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; } .talkDirect { display: none; } }
+@media(max-width:600px) { .talkIntro { padding: 46px 0 32px; } .talkSection { padding: 32px 0 52px; } .talkAside ol { grid-template-columns: 1fr; gap: 20px; margin-bottom: 0; } .talkForm .ctPair { grid-template-columns: minmax(0,1fr); } .talkSubmit { flex-direction: column; align-items: stretch; gap: 14px; } .talkSubmit .hpBtn { justify-content: space-between; } }
+.talkSubmit .hpBtn { width: auto; min-width: 180px; }
+.talkSubmit p { flex: 1; min-width: 0; }
+@media(max-width:600px) { .talkSubmit .hpBtn { width: 100%; } }
